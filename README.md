@@ -1,3 +1,9 @@
+## Open Source license
+
+Copyright (c) 2014 Studio 24 Ltd
+
+Licensed under the MIT License, see LICENSE.md
+
 ## Requirements
 
 * [Node.js](http://nodejs.org/)
