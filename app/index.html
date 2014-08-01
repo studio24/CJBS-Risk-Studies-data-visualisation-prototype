@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Judge Business School - Data Visualisation</title>
+
+    <!-- Web design & development by Studio 24 - www.studio24.net -->
+
+    <!-- META -->
+    <meta name="author" content="Studio 24">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow">
+    <meta name="description" value="[DESCRIPTION]">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/main.css?v=1.0">
+
+    <!-- see http://www.paulirish.com/2009/avoiding-the-fouc-v3/ -->
+    <script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+
+    <!-- JS which need to be initially loaded -->
+    <script src="assets/js/vendor/angular/angular.min.js"></script>
+    <script src="assets/js/vendor/angular-route/angular-route.min.js"></script>
+</head>
+
+<body ng-app="DataVisualisationApp" ng-controller="MainCtrl">
+    <div id="full-wrapper">
+        <nav id="side-navigation">
+            <span>Views</span>
+            <a href="#/sybil-logic-bomb/network" class="{{getSelectedNav('network')}}">
+                <img src="assets/img/network-icon.png">Network
+            </a>
+            <a href="#/sybil-logic-bomb/map" class="{{getSelectedNav('map')}}">
+                <img src="assets/img/map-icon.png">World Map
+            </a>
+            <a href="#/sybil-logic-bomb/charts" class="{{getSelectedNav('charts')}}">
+                <img src="assets/img/charts-icon.png">
+                Charts
+            </a>
+        </nav>
+
+        <section id="main-content">
+            <h1><a href="/#"><img src="assets/img/logo.png" alt="University of Cambridge | Judge Business School | Centre for Risk Studies"></a></h1>
+
+            <hr />
+
+            <div ng-view></div>
+        </section>
+    </div>
+
+    <!-- JS which can be loaded after page load -->
+    <script src="assets/js/vendor/oboe/dist/oboe-browser.min.js"></script>
+    <script src="assets/js/lib.min.js"></script>
+    <script src="assets/js/app.min.js"></script>
+    <script src="assets/js/controllers.min.js"></script>
+</body>
+
+</html>
