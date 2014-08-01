@@ -1,0 +1,10 @@
+{
+    "name": "JBSDataVisualisation",
+    "dependencies": {
+        "angular": "~1.2.x",
+        "angular-route": "~1.2.x",
+        "d3": "3.4.11",
+        "topojson": "1.6.15",
+        "oboe": "~1.15.x"
+    }
+}

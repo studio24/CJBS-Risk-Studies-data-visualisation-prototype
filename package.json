@@ -1,0 +1,20 @@
+{
+    "name": "JBSDataVisualisation",
+    "author": "Studio 24",
+    "version": "0.0.1",
+    "copyright": "Studio 24",
+    "repository": "REPO_URL",
+    "devDependencies": {
+        "grunt": "latest",
+        "grunt-contrib-jshint": "^0.10.0",
+        "grunt-contrib-sass": "~0.5.0",
+        "grunt-contrib-watch": "~0.5.3",
+        "grunt-contrib-uglify": "~0.5.0",
+        "grunt-notify": "^0.3.0",
+        "grunt-sync": "0.0.7",
+        "matchdep": "~0.3.0"
+    },
+    "peerDependencies": {
+        "grunt-cli": "~0.1.13"
+    }
+}
