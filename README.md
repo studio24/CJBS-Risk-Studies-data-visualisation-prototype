@@ -6,9 +6,14 @@ Licensed under the MIT License, see LICENSE.md
 
 ## Requirements
 
+* [SASS] (http://sass-lang.com/)
 * [Node.js](http://nodejs.org/)
 * [Bower](http://bower.io/)
 * [Grunt](http://gruntjs.com/)
+
+## SASS Installation
+
+The SASS installation guide can be found here: http://sass-lang.com/install
 
 ## Installing packages
 
