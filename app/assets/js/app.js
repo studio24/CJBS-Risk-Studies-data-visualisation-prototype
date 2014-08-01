@@ -1,9 +1,9 @@
 /**
  * Sub module declaration
  */
-angular.module('DataVisualisationNetwork', ['DataService']);
-angular.module('DataVisualisationMap', ['DataService']);
-angular.module('DataVisualisationCharts', ['DataService']);
+angular.module('DataVisualisationNetwork', []);
+angular.module('DataVisualisationMap', []);
+angular.module('DataVisualisationCharts', []);
 
 /**
  * Main App declaration
@@ -73,11 +73,7 @@ app.controller('MainCtrl', function($scope) {
     $scope.currentVariant = 0;
 
     // Create a blank data object
-    $scope.currentData = {
-        'network' : {},
-        'map' : {},
-        'charts' : {}
-    };
+    $scope.currentData = JBS.Config.emptyDataObject();
 
     // Start with a blank loadedDataType
     $scope.loadedDataType = {
@@ -106,28 +102,40 @@ app.controller('MainCtrl', function($scope) {
         }
 
         // Empty the current data
-        $scope.currentData = {
-            'network' : {},
-            'map' : {},
-            'charts' : {}
-        };
+        $scope.currentData = config.emptyDataObject();
 
         // Create the JSON URL
         var jsonUrl = config.serverUrl + scenario + '/stage-' + stage + '.json';
 
         // Load the data using oboe
-        oboe(jsonUrl)
-            .node({
-                'modules.graphs.graph1.data.graphdump.nodes[*]' : function(dataSoFar) {
-
-                },
-                'modules.graphs.graph1.data.graphdump.links[*]' : function(dataSoFar) {
-
-                }
-            })
-            .done(function() {
+        var oboeStream = oboe(jsonUrl, 'GET', {}, '', true, false)
+            .done(function(data) {
                 console.log('Completed download of data file');
+                console.log($scope.currentData);
+                $scope.$apply();
             });
+
+        oboeStream.node('$!.*', function(dataSoFar) {
+            $scope.currentData.scenario.title = dataSoFar.title;
+            $scope.currentData.scenario.subtitle = dataSoFar.subtitle;
+            $scope.currentData.scenario.narrativedescription = dataSoFar.narrativedescription;
+            $scope.currentData.scenario.narrativeheading = dataSoFar.narrativeheading;
+            $scope.currentData.scenario.narrativesubheading = dataSoFar.narrativesubheading;
+            $scope.currentData.scenario.iconurl = dataSoFar.iconurl;
+            $scope.currentData.scenario.variants = dataSoFar.variants;
+            $scope.currentData.scenario.stages = dataSoFar.stages;
+            $scope.$apply();
+        });
+
+        // Network nodes
+        oboeStream.node(config.jsonPaths.forceDirected.nodes, function(dataSoFar) {
+            $scope.currentData.network.nodes.push(dataSoFar);
+        });
+        // Network paths
+        oboeStream.node(config.jsonPaths.forceDirected.links, function(dataSoFar) {
+            $scope.currentData.network.links.push(dataSoFar);
+
+        });
 
         // Set the new loadedDataType
         $scope.loadedDataType = {
@@ -153,3 +161,36 @@ app.controller('MainCtrl', function($scope) {
         }
     };
 });
+
+/**
+ * Base controller which is invoked by the other scope controllers. This contains global
+ * elements, such as getting Scenario data
+ *
+ * @param $scope
+ * @constructor
+ */
+var BaseCtrl = function($scope) {
+    $parent = $scope.$parent;
+
+    /**
+     * Get the scenario title
+     *
+     * @returns {string}
+     */
+    $scope.getTitle = function() {
+        return $parent.currentData.scenario.title;
+    };
+
+    $scope.getDescription = function() {
+        return $parent.currentData.scenario.description;
+    };
+
+    /**
+     * Get the scenario icon
+     *
+     * @returns {string}
+     */
+    $scope.getIcon = function() {
+        return $parent.currentData.scenario.iconurl;
+    };
+};

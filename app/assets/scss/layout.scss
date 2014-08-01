@@ -26,6 +26,7 @@ nav#side-navigation {
     color: $highlight-colour;
     display: block;
     margin-bottom: 15px;
+    font-size: 14px;
   }
   a {
     display: block;
@@ -56,5 +57,17 @@ section#main-content {
     color: #000;
     border-color: #000;
     border-bottom: none;
+  }
+
+  header {
+    img {
+      float: left;
+    }
+    h1 {
+      color: $primary-colour;
+    }
+    h3 {
+      color: $primary-colour;
+    }
   }
 }
