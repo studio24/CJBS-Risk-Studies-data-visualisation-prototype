@@ -1,0 +1,25 @@
+// Fonts
+$main-font-stack: Arial, Verdana, sans-serif;
+
+// Colours
+$primary-colour: #eeeeee;
+$highlight-colour: #f26262;
+$background: #333333;
+$highlight-background: #de3838;
+$dark-background: #1d1c1c;
+
+// Responsive
+$mobile-small: 240;
+$mobile-large: 320;
+$tablet-small: 480;
+$tablet-large: 768;
+$screen-small: 1024;
+$screen-large: 1280;
+
+// Mixins
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
