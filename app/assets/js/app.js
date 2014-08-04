@@ -1,3 +1,6 @@
+// Add the config object to the window
+window.config = JBS.Config;
+
 /**
  * Sub module declaration
  */
@@ -66,7 +69,7 @@ angular.module('DataVisualisationCharts').config(function($routeProvider) {
 /**
  * Main wrapping controller
  */
-app.controller('MainCtrl', function($scope) {
+app.controller('MainCtrl', function($scope, $http) {
     // Initialise the application variables
     $scope.currentSection = '';
     $scope.currentStage = 0;
@@ -107,35 +110,27 @@ app.controller('MainCtrl', function($scope) {
         // Create the JSON URL
         var jsonUrl = config.serverUrl + scenario + '/stage-' + stage + '.json';
 
-        // Load the data using oboe
-        var oboeStream = oboe(jsonUrl, 'GET', {}, '', true, false)
-            .done(function(data) {
-                console.log('Completed download of data file');
+        // Load the JSON data in
+        $http({ url: jsonUrl, method: 'GET' })
+            .success(function(data) {
+                console.log('Data Downloaded');
+
+                // Scenario Data
+                $scope.currentData.scenario.title = data.title;
+                $scope.currentData.scenario.subtitle = data.subtitle;
+                $scope.currentData.scenario.narrativedescription = data.narrativedescription;
+                $scope.currentData.scenario.narrativeheading = data.narrativeheading;
+                $scope.currentData.scenario.narrativesubheading = data.narrativesubheading;
+                $scope.currentData.scenario.iconurl = data.iconurl;
+                $scope.currentData.scenario.variants = data.variants;
+                $scope.currentData.scenario.stages = data.stages;
+
+                // Network
+                $scope.currentData.network.nodes = data.modules.graphs.graph1.data.graphdump.nodes;
+                $scope.currentData.network.links = data.modules.graphs.graph1.data.graphdump.links;
+
                 console.log($scope.currentData);
-                $scope.$apply();
             });
-
-        oboeStream.node('$!.*', function(dataSoFar) {
-            $scope.currentData.scenario.title = dataSoFar.title;
-            $scope.currentData.scenario.subtitle = dataSoFar.subtitle;
-            $scope.currentData.scenario.narrativedescription = dataSoFar.narrativedescription;
-            $scope.currentData.scenario.narrativeheading = dataSoFar.narrativeheading;
-            $scope.currentData.scenario.narrativesubheading = dataSoFar.narrativesubheading;
-            $scope.currentData.scenario.iconurl = dataSoFar.iconurl;
-            $scope.currentData.scenario.variants = dataSoFar.variants;
-            $scope.currentData.scenario.stages = dataSoFar.stages;
-            $scope.$apply();
-        });
-
-        // Network nodes
-        oboeStream.node(config.jsonPaths.forceDirected.nodes, function(dataSoFar) {
-            $scope.currentData.network.nodes.push(dataSoFar);
-        });
-        // Network paths
-        oboeStream.node(config.jsonPaths.forceDirected.links, function(dataSoFar) {
-            $scope.currentData.network.links.push(dataSoFar);
-
-        });
 
         // Set the new loadedDataType
         $scope.loadedDataType = {
@@ -181,8 +176,13 @@ var BaseCtrl = function($scope) {
         return $parent.currentData.scenario.title;
     };
 
-    $scope.getDescription = function() {
-        return $parent.currentData.scenario.description;
+    /**
+     * Get the scenario subtitle
+     *
+     * @returns {string}
+     */
+    $scope.getSubtitle = function() {
+        return $parent.currentData.scenario.subtitle;
     };
 
     /**
@@ -192,5 +192,23 @@ var BaseCtrl = function($scope) {
      */
     $scope.getIcon = function() {
         return $parent.currentData.scenario.iconurl;
+    };
+
+    /**
+     * Get the scenario variants
+     *
+     * @returns {object}
+     */
+    $scope.getVariants = function() {
+        return $parent.currentData.scenario.variants;
+    };
+
+    /**
+     * Get the scenario stages
+     *
+     * @returns {object}
+     */
+    $scope.getStages = function() {
+        return $parent.currentData.scenario.stages;
     };
 };

@@ -6,6 +6,11 @@ var JBS = JBS || {};
  */
 JBS.Config = function() {
     var serverUrl = 'http://jbs-data.dev/';
+
+    /**
+     * The paths to find the elements in the JSON files. See:
+     * http://oboejs.com/api
+     */
     var jsonPaths = {
         'forceDirected' : {
             'nodes' : 'modules.graphs.graph1.data.graphdump.nodes[*]',
@@ -13,6 +18,10 @@ JBS.Config = function() {
         }
     };
 
+    /**
+     * This is an empty data object, which is used to reset the data for all of the charts
+     * and scenario data. It also gives an obvious structure for how the data should look
+     */
     var emptyDataObject = function() {
         return {
             'scenario' : {

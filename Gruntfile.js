@@ -114,7 +114,7 @@ module.exports = function(grunt) {
                 // Set to true for full production environment
                 mangle: false,
                 // Set to true if you want to debug the JS
-                beautify: false
+                beautify: true
             },
             files: {
                 src: ['<%= project.js %>/**/*', '!<%= project.js %>/vendor/**'],

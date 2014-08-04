@@ -26,18 +26,18 @@
     <script src="assets/js/vendor/angular-route/angular-route.min.js"></script>
 </head>
 
-<body ng-app="DataVisualisationApp" ng-controller="MainCtrl">
+<body ng-app="DataVisualisationApp" ng-controller="MainCtrl" class="no-js">
     <div id="full-wrapper">
         <nav id="side-navigation">
             <span>Views</span>
             <a href="#/sybil-logic-bomb/network" class="{{getSelectedNav('network')}}">
-                <img src="assets/img/network-icon.png">Network
+                <img src="assets/img/network.svg">Network
             </a>
             <a href="#/sybil-logic-bomb/map" class="{{getSelectedNav('map')}}">
-                <img src="assets/img/map-icon.png">World Map
+                <img src="assets/img/map.svg">World Map
             </a>
             <a href="#/sybil-logic-bomb/charts" class="{{getSelectedNav('charts')}}">
-                <img src="assets/img/charts-icon.png">
+                <img src="assets/img/chart.svg">
                 Charts
             </a>
         </nav>
