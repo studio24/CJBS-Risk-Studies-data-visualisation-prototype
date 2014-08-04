@@ -2,21 +2,19 @@
 window.config = JBS.Config;
 
 /**
- * Sub module declaration
- */
-angular.module('DataVisualisationNetwork', []);
-angular.module('DataVisualisationMap', []);
-angular.module('DataVisualisationCharts', []);
-
-/**
  * Main App declaration
  */
 var app = angular.module('DataVisualisationApp', [
-    'ngRoute',
     'DataVisualisationNetwork',
-    'DataVisualisationMap',
-    'DataVisualisationCharts'
+    'ngRoute'
 ]);
+
+/**
+ * Sub module declaration
+ */
+angular.module('DataVisualisationNetwork', ['DataVisualisationApp', 'ngRoute']);
+angular.module('DataVisualisationMap', ['DataVisualisationApp', 'ngRoute']);
+angular.module('DataVisualisationCharts', ['DataVisualisationApp', 'ngRoute']);
 
 /**
  * Routing
@@ -166,6 +164,35 @@ app.controller('MainCtrl', function($scope, $http) {
  */
 var BaseCtrl = function($scope) {
     $parent = $scope.$parent;
+
+    /**
+     * Returns an object with the current type of loaded application data
+     *
+     * @returns {{scenario: string, stage: number, variant: number}|*|$scope.loadedDataType}
+     */
+    $scope.getLoadedDataType = function() {
+        return $parent.loadedDataType;
+    };
+
+    /**
+     * Load the stage
+     *
+     * @param stage
+     */
+    $scope.loadStage = function(stage) {
+        var current = $parent.loadedDataType;
+        $parent.loadData(current.scenario, current.variant, stage);
+    };
+
+    /**
+     * Load the variant
+     *
+     * @param variant
+     */
+    $scope.loadVariant = function(variant) {
+        var current = $parent.loadedDataType;
+        $parent.loadData(current.scenario, variant, current.stage);
+    };
 
     /**
      * Get the scenario title

@@ -19,7 +19,8 @@ module.exports = function(grunt) {
             css: '<%= project.assets %>/css',
             scss: '<%= project.assets %>/scss',
             js: '<%= project.assets %>/js',
-            img: '<%= project.assets %>/img'
+            img: '<%= project.assets %>/img',
+            fonts: '<%= project.assets %>/fonts'
         },
 
         // Settings for the distribution paths
@@ -28,7 +29,8 @@ module.exports = function(grunt) {
             css: '<%= dist.assets %>/css',
             scss: '<%= dist.assets %>/scss',
             js: '<%= dist.assets %>/js',
-            img: '<%= dist.assets %>/img'
+            img: '<%= dist.assets %>/img',
+            fonts: '<%= dist.assets %>/fonts'
         },
 
         /**
@@ -164,6 +166,17 @@ module.exports = function(grunt) {
                     filter: 'isFile'
                 }],
                 verbose: true
+            },
+            fonts: {
+                files: [{
+                    flatten: false,
+                    expand: true,
+                    src: '**/*',
+                    dest: '<%= dist.fonts %>/',
+                    cwd: '<%= project.fonts %>/',
+                    filter: 'isFile'
+                }],
+                verbose: true
             }
         },
 
@@ -207,6 +220,13 @@ module.exports = function(grunt) {
                 options: {
                     livereload: 35729
                 }
+            },
+            fonts: {
+                files: '<%= project.fonts %>/**/*',
+                tasks: ['sync:fonts'],
+                options: {
+                    livereload: 35729
+                }
             }
         }
     });
@@ -231,6 +251,7 @@ module.exports = function(grunt) {
         'sync:vendor',
         'sync:html',
         'sync:img',
+        'sync:fonts',
         'sass:dist',
         'uglify',
         'notify:build'

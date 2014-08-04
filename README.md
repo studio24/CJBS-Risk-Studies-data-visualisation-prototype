@@ -36,11 +36,3 @@ Grunt is used to compile and minify JS, build SASS into CSS and concatanate and 
 
     # This is the shorthand for "grunt watch", which will watch all files and run compilation tasks when certain files change
     grunt watch
-
-## Important
-
-I have modified oboe.js so that it can work in a Web Worker. Please keep this library within the repository and do not update the version with Bower.
-
-The line I have added is: (this goes before any library code)
-
-    var window = window || {};

@@ -1,1 +1,10 @@
-Variant Controls
+<div id="variant-controls" class="control">
+    <div class="title">
+        <span>Variant Controls</span>
+    </div>
+    <div class="input">
+        <ul>
+            <li ng-repeat="variant in getVariants()"><a ng-href="#" ng-class="{'active': getLoadedDataType().variant == ($index + 1)}"> {{variant.title}}</a></li>
+        </ul>
+    </div>
+</div>
