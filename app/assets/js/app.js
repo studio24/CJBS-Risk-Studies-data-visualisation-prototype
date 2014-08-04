@@ -135,8 +135,11 @@ app.controller('MainCtrl', function($scope, $http) {
                 // data.modules.maps.mapX.center
 
                 // Charts
-                // data.modules.charts.X.options.title
-                // data.modules.charts.X.options.series
+                // data.modules.charts.X.data.rows[X].c.[0]
+                // data.modules.charts.X.data.rows[X].c.[X]
+                $scope.currentData.charts.options.type = data.modules.charts.linechart1.type;
+                $scope.currentData.charts.options.title = data.modules.charts.linechart1.options.title;
+                $scope.currentData.charts.options.series = data.modules.charts.linechart1.options.series;
 
                 // Country data
                 // data.layers.X.nodeattributes.columnList => data.layers.X.nodeattributes.data
