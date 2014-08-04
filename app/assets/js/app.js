@@ -112,6 +112,7 @@ app.controller('MainCtrl', function($scope, $http) {
         $http({ url: jsonUrl, method: 'GET' })
             .success(function(data) {
                 console.log('Data Downloaded');
+                console.log(data);
 
                 // Scenario Data
                 $scope.currentData.scenario.title = data.title;
@@ -126,6 +127,19 @@ app.controller('MainCtrl', function($scope, $http) {
                 // Network
                 $scope.currentData.network.nodes = data.modules.graphs.graph1.data.graphdump.nodes;
                 $scope.currentData.network.links = data.modules.graphs.graph1.data.graphdump.links;
+
+                // Map
+                // data.modules.maps.mapX.primarylayers
+                // data.modules.maps.mapX.styleddefinition
+                // data.modules.maps.mapX.wmslayers
+                // data.modules.maps.mapX.center
+
+                // Charts
+                // data.modules.charts.X.options.title
+                // data.modules.charts.X.options.series
+
+                // Country data
+                // data.layers.X.nodeattributes.columnList => data.layers.X.nodeattributes.data
 
                 console.log($scope.currentData);
             });

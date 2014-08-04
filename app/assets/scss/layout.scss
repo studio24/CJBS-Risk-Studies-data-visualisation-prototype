@@ -129,4 +129,17 @@ section#data-area {
   width: 98%;
   padding: 10px 1%;
   min-height: 300px;
+  .chart {
+    width: 70%;
+    float: left;
+  }
+  .data-list {
+    width: 28%;
+    float: right;
+  }
+  h3 {
+    color: $primary-colour;
+    font-size: 16px;
+    margin: 10px 0;
+  }
 }
