@@ -1,0 +1,12 @@
+{
+  "name": "JBSDataVisualisationServer",
+  "author": "Studio 24",
+  "version": "0.0.1",
+  "copyright": "Studio 24",
+  "repository": "REPO_URL",
+  "dependencies": {
+    "d3": "^3.4.11",
+    "jsdom": "^0.11.1",
+    "express": "~4.8.0"
+  }
+}

@@ -58,7 +58,7 @@ S24.Charts = function()
 
         // Null the invoke queue
         invokeQueue = [];
-    }
+    };
 
     /**
      * Add a function to the queue, with parameters
@@ -73,7 +73,7 @@ S24.Charts = function()
         return function() {
             fn.apply(this, params);
         };
-    }
+    };
 
     /**
      * Set the default values of an array if certain keys are
@@ -109,7 +109,7 @@ S24.Charts = function()
 
         // Return the new object
         return arr;
-    }
+    };
 
     /**
      * Create a standard vertical bar chart
@@ -289,7 +289,7 @@ S24.Charts = function()
                     .attr('transform', 'rotate(-90)');
             }
         });
-    }
+    };
 
     /**
      * Horizontal Bar Chart
@@ -398,7 +398,7 @@ S24.Charts = function()
                 }
             }
         });
-    }
+    };
 
     /**
      * Create a Pie Chart
@@ -721,7 +721,7 @@ S24.Charts = function()
                 }
             }
         });
-    }
+    };
 
     /**
      * Create a pie chart with a layer for each element of data
@@ -996,7 +996,7 @@ S24.Charts = function()
                 }
             }
         });
-    }
+    };
 
     /**
      * Create a global map
@@ -1373,7 +1373,7 @@ S24.Charts = function()
             });
 
         });
-    }
+    };
 
     /**
      * Create a counter that will start at the starting number and count up towards
@@ -1457,94 +1457,190 @@ S24.Charts = function()
                     this.textContent = preText + number + postText;
                 };
             });
-    }
+    };
 
     //@todo: Make work
     var createForceDirectedGraph = function(container, jsonUrl, options)
     {
         var config = {
             container: container
+        };
+
+        var dataset;
+
+        // Check if we have a URL or data object
+        if (typeof(jsonUrl) == 'string') {
+            // Get the JSON
+            d3.json(jsonUrl, function(error, datasetFromJson) {
+                if (error) return console.warn(error);
+                else {
+                    dataset = datasetFromJson;
+                }
+            });
+        } else {
+            dataset = jsonUrl;
         }
+        var width = 960,
+            height = 500;
 
-        // Get the JSON
-        d3.json(jsonUrl, function(error, dataset) {
-            if (error) return console.warn(error);
-            else {
-                var width = 960,
-                    height = 500;
+        // Setup the required variables
+        var links = [];
+        var nodes = dataset.nodes.slice();
+        var bilinks = [];
 
-                // Setup the required variables
-                var links = [];
-                var nodes = dataset.nodes.slice();
-                var bilinks = [];
-
-                // Compute the distinct nodes from the links.
-                links.forEach(function(link) {
-                    link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
-                    link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
-                });
-
-                var force = d3.layout.force()
-                    .linkDistance(10)
-                    .linkStrength(2)
-                    .size([width, height]);
-
-                var svg = d3.select(config.container).append('svg')
-                    .attr('width', width)
-                    .attr('height', height);
-
-                svg.append("rect")
-                    .attr("width", "100%")
-                    .attr("height", "100%")
-                    .attr('fill', '#023d45');
-
-                // Loop through the dataset and construct the nodes and links
-                dataset.links.forEach(function(link) {
-                    var s = nodes[link.source],
-                        t = nodes[link.target],
-                        i = {};
-
-                    nodes.push(i);
-                    links.push({source: s, target: i}, {source: i, target: t});
-                    bilinks.push([s, i, t]);
-                });
-
-                // Start the force directed graph
-                force.nodes(nodes)
-                    .links(links)
-                    .start();
-
-                // Create the links
-                var link = svg.selectAll('.link')
-                    .data(bilinks)
-                    .enter().append('path')
-                    .attr('class', 'link');
-
-                // Create the blank node
-                var node = svg.selectAll('.node')
-                    .data(dataset.nodes)
-                    .enter().append('g')
-                    .attr('class', 'node')
-                    .call(force.drag);
-
-                // Add the circle to the node
-                node.append('circle')
-                    .attr('r', function (d) { return 3 * d.size; });
-
-                // Move around the link and nodes on each tick
-                force.on('tick', function() {
-                    link.attr('d', function(d) {
-                        return "M" + d[0].x + "," + d[0].y
-                            + " S" + d[1].x + "," + d[1].y
-                            + " " + d[2].x + "," + d[2].y;
-                    });
-                    node.attr('transform', function(d) {
-                        return 'translate(' + d.x + ',' + d.y + ')';
-                    });
-                });
-            }
+        // Compute the distinct nodes from the links.
+        links.forEach(function(link) {
+            link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+            link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
         });
-    }
+
+        var force = d3.layout.force()
+            .linkDistance(10)
+            .linkStrength(2)
+            .size([width, height]);
+
+        var svg = d3.select(config.container).append('svg')
+            .attr('height', '100%')
+            .attr('width', '100%');
+
+        svg.append("rect")
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .attr('fill', '#023d45');
+
+        // Loop through the dataset and construct the nodes and links
+        dataset.links.forEach(function(link) {
+            var s = nodes[link.source],
+                t = nodes[link.target],
+                i = {};
+
+            nodes.push(i);
+            links.push({source: s, target: i}, {source: i, target: t});
+            bilinks.push([s, i, t]);
+        });
+
+        // Start the force directed graph
+        force.nodes(nodes)
+            .links(links)
+            .start();
+
+        // Create the links
+        var link = svg.selectAll('.link')
+            .data(bilinks)
+            .enter().append('path')
+            .attr('class', 'link')
+            .attr('opacity', '0.2');
+
+        // Create the blank node
+        var node = svg.selectAll('.node')
+            .data(dataset.nodes)
+            .enter().append('g')
+            .attr('class', 'node')
+            .call(force.drag);
+
+        // Add the circle to the node
+        node.append('circle')
+            .attr('r', function (d) { return 3 * d.size; });
+
+        // Move around the link and nodes on each tick
+        force.on('tick', function() {
+            link.attr('d', function(d) {
+                return "M" + d[0].x + "," + d[0].y
+                    + " S" + d[1].x + "," + d[1].y
+                    + " " + d[2].x + "," + d[2].y;
+            });
+            node.attr('transform', function(d) {
+                return 'translate(' + d.x + ',' + d.y + ')';
+            });
+        });
+    };
+
+    var createForceDirectedGraphCanvas = function(container, jsonUrl, options)
+    {
+        var config = {
+            container: container
+        };
+
+        var dataset;
+
+        // Check if we have a URL or data object
+        if (typeof(jsonUrl) == 'string') {
+            // Get the JSON
+            d3.json(jsonUrl, function(error, datasetFromJson) {
+                if (error) return console.warn(error);
+                else {
+                    dataset = datasetFromJson;
+                }
+            });
+        } else {
+            dataset = jsonUrl;
+        }
+        var width = 960,
+            height = 500;
+
+        // Setup the required variables
+        var links = [];
+        var nodes = dataset.nodes.slice();
+        var bilinks = [];
+
+        // Compute the distinct nodes from the links.
+        links.forEach(function(link) {
+            link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+            link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+        });
+
+        var force = d3.layout.force()
+            .linkDistance(10)
+            .linkStrength(2)
+            .size([width, height]);
+
+        var canvas = d3.select(config.container).append('canvas')
+            .attr('height', '700px')
+            .attr('width', '900px');
+
+        var context = canvas.node().getContext('2d');
+
+        // Loop through the dataset and construct the nodes and links
+        dataset.links.forEach(function(link) {
+            var s = nodes[link.source],
+                t = nodes[link.target],
+                i = {};
+
+            nodes.push(i);
+            links.push({source: s, target: i}, {source: i, target: t});
+            bilinks.push([s, i, t]);
+        });
+
+        // Start the force directed graph
+        force.nodes(nodes)
+            .links(links)
+            .start();
+
+        // Move around the link and nodes on each tick
+        force.on('tick', function() {
+            context.clearRect(0, 0, width, height);
+
+            // Draw links
+            context.strokeStyle = "#fff";
+            context.beginPath();
+            bilinks.forEach(function(d) {
+                console.log(d);
+                context.moveTo(d.x, d.y);
+                context.lineTo(d.px, d.py);
+            });
+            context.stroke();
+
+            // draw nodes
+            context.fillStyle = "steelblue";
+            context.beginPath();
+            nodes.forEach(function(d) {
+                console.log(d);
+                context.moveTo(d.x, d.y);
+                context.arc(d.x, d.y, d.size, 0, d.size * Math.PI);
+            });
+            context.fill();
+        });
+    };
 
     /**
      * Format a number to include commas between every 3 digits
@@ -1554,7 +1650,7 @@ S24.Charts = function()
     var numberWithCommas = function(x)
     {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
+    };
 
     /**
      * Get the max value for an object in the format:
@@ -1580,7 +1676,7 @@ S24.Charts = function()
         }
 
         return maxValue;
-    }
+    };
 
     /**
      * Get the total value for an object in the format:
@@ -1602,7 +1698,7 @@ S24.Charts = function()
         }
 
         return totalValue;
-    }
+    };
 
     /**
      * Arc tween function from d3 docs. I have modified it
@@ -1623,7 +1719,7 @@ S24.Charts = function()
                 return arc(d);
             };
         });
-    }
+    };
 
     /**
      * Wrap text elements onto multiple lines based on the width
@@ -1660,7 +1756,7 @@ S24.Charts = function()
                 }
             }
         });
-    }
+    };
 
     /**
      * Set the location of the colour scheme to another file and populate
@@ -1678,7 +1774,7 @@ S24.Charts = function()
                 colours = json;
             }
         });
-    }
+    };
 
     /**
      * Shade colour method to darken a colour
@@ -1693,7 +1789,7 @@ S24.Charts = function()
     {
         var num = parseInt(color.slice(1),16), amt = Math.round(2.55 * percent), R = (num >> 16) + amt, G = (num >> 8 & 0x00FF) + amt, B = (num & 0x0000FF) + amt;
         return "#" + (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + (G<255?G<1?0:G:255)*0x100 + (B<255?B<1?0:B:255)).toString(16).slice(1);
-    }
+    };
 
     /**
      * An object containing all publicly accessible variables and functions.
@@ -1702,10 +1798,8 @@ S24.Charts = function()
      * init: someInitFunction
      *
      * would be called with S24.Charts.init()
-     *
-     * @var
      */
-    var public = {
+    return {
         init: init,
         createBarChart: createBarChart,
         createHorizontalBarChart: createHorizontalBarChart,
@@ -1714,8 +1808,7 @@ S24.Charts = function()
         createMap: createMap,
         createCounter: createCounter,
         createForceDirectedGraph: createForceDirectedGraph,
+        createForceDirectedGraphCanvas: createForceDirectedGraphCanvas,
         setColourScheme: setColourScheme
-    }
-
-    return public;
+    };
 }();

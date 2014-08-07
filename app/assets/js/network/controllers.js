@@ -10,5 +10,9 @@ angular.module('DataVisualisationNetwork').controller('NetworkMainCtrl', functio
     var variant = 1;
     var stage = 1;
 
-    $scope.$parent.loadData(scenario, variant, stage);
+    $scope.$parent.loadData(scenario, variant, stage, function() {
+//        S24.Charts.createForceDirectedGraphCanvas('.svg', $scope.getData().network, {
+//
+//        });
+    });
 });

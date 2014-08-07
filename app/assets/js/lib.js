@@ -41,7 +41,6 @@ JBS.Config = function() {
 
     return {
         serverUrl: serverUrl,
-        jsonPaths: jsonPaths,
         emptyDataObject: emptyDataObject
     };
 }();

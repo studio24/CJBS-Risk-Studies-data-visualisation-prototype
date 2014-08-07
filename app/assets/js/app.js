@@ -92,7 +92,7 @@ app.controller('MainCtrl', function($scope, $http) {
      * @param stage
      * @returns {boolean}
      */
-    $scope.loadData = function(scenario, variant, stage) {
+    $scope.loadData = function(scenario, variant, stage, callback) {
         // Setup some easy to access variables
         var config = JBS.Config;
         var previousLoaded = $scope.loadedDataType;
@@ -112,7 +112,6 @@ app.controller('MainCtrl', function($scope, $http) {
         $http({ url: jsonUrl, method: 'GET' })
             .success(function(data) {
                 console.log('Data Downloaded');
-                console.log(data);
 
                 // Scenario Data
                 $scope.currentData.scenario.title = data.title;
@@ -127,6 +126,7 @@ app.controller('MainCtrl', function($scope, $http) {
                 // Network
                 $scope.currentData.network.nodes = data.modules.graphs.graph1.data.graphdump.nodes;
                 $scope.currentData.network.links = data.modules.graphs.graph1.data.graphdump.links;
+//                $scope.currentData.network.links = [];
 
                 // Map
                 // data.modules.maps.mapX.primarylayers
@@ -144,7 +144,9 @@ app.controller('MainCtrl', function($scope, $http) {
                 // Country data
                 // data.layers.X.nodeattributes.columnList => data.layers.X.nodeattributes.data
 
-                console.log($scope.currentData);
+                if (typeof(callback) !== 'undefined') {
+                    callback();
+                }
             });
 
         // Set the new loadedDataType
@@ -209,6 +211,15 @@ var BaseCtrl = function($scope) {
     $scope.loadVariant = function(variant) {
         var current = $parent.loadedDataType;
         $parent.loadData(current.scenario, variant, current.stage);
+    };
+
+    /**
+     * Gets the complete data object
+     *
+     * @returns {*|$scope.currentData}
+     */
+    $scope.getData = function() {
+        return $parent.currentData;
     };
 
     /**
