@@ -1,9 +1,10 @@
 {
-    "name": "JBSDataVisualisation",
-    "dependencies": {
-        "angular": "~1.2.x",
-        "angular-route": "~1.2.x",
-        "d3": "3.4.11",
-        "topojson": "1.6.15"
-    }
+  "name": "JBSDataVisualisation",
+  "dependencies": {
+    "angular": "~1.2.x",
+    "angular-route": "~1.2.x",
+    "d3": "3.4.11",
+    "topojson": "1.6.15",
+    "leaflet-0.7.2": "http://leaflet-cdn.s3.amazonaws.com/build/leaflet-0.7.2.zip"
+  }
 }
