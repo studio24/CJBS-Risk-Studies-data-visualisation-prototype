@@ -4,10 +4,7 @@ window.config = JBS.Config;
 /**
  * Main App declaration
  */
-var app = angular.module('DataVisualisationApp', [
-    'DataVisualisationNetwork',
-    'ngRoute'
-]);
+var app = angular.module('DataVisualisationApp', ['DataVisualisationNetwork', 'DataVisualisationMap', 'DataVisualisationCharts','ngRoute']);
 
 /**
  * Sub module declaration
@@ -30,16 +27,12 @@ app.config(function($routeProvider) {
 /**
  * Network Routing
  */
-angular.module('DataVisualisationNetwork').config(function($routeProvider, $provide) {
+angular.module('DataVisualisationNetwork').config(function($routeProvider) {
     $routeProvider
         .when('/:scenario/network', {
             templateUrl : 'templates/network.html',
             controller : 'NetworkMainCtrl'
         });
-
-    $provide.factory('DataService', function() {
-        var dataService;
-    });
 });
 
 /**
@@ -48,7 +41,7 @@ angular.module('DataVisualisationNetwork').config(function($routeProvider, $prov
 angular.module('DataVisualisationMap').config(function($routeProvider) {
     $routeProvider
         .when('/:scenario/map', {
-            templateUrl : 'templates/network.html',
+            templateUrl : 'templates/map.html',
             controller : 'MapMainCtrl'
         });
 });
@@ -59,7 +52,7 @@ angular.module('DataVisualisationMap').config(function($routeProvider) {
 angular.module('DataVisualisationCharts').config(function($routeProvider) {
     $routeProvider
         .when('/:scenario/charts', {
-            templateUrl : 'templates/network.html',
+            templateUrl : 'templates/charts.html',
             controller : 'ChartsMainCtrl'
         });
 });
@@ -90,6 +83,7 @@ app.controller('MainCtrl', function($scope, $http) {
      * @param scenario
      * @param variant
      * @param stage
+     * @param callback
      * @returns {boolean}
      */
     $scope.loadData = function(scenario, variant, stage, callback) {
@@ -111,7 +105,7 @@ app.controller('MainCtrl', function($scope, $http) {
         // Load the JSON data in
         $http({ url: jsonUrl, method: 'GET' })
             .success(function(data) {
-                console.log('Data Downloaded');
+                console.log(data);
 
                 // Scenario Data
                 $scope.currentData.scenario.title = data.title;

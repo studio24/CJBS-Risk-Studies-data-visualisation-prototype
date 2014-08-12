@@ -119,10 +119,11 @@ module.exports = function(grunt) {
                 beautify: true
             },
             files: {
-                src: ['<%= project.js %>/**/*', '!<%= project.js %>/vendor/**'],
+                src: ['**/*', '!vendor/**'],
+                cwd: '<%= project.js %>/',
                 dest: '<%= dist.js %>/',
                 expand: true,
-                flatten: true,
+                flatten: false,
                 ext: '.min.js',
                 filter: 'isFile'
             }

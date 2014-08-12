@@ -130,6 +130,7 @@ section#data-area {
   padding: 10px 1%;
   min-height: 300px;
   overflow: hidden;
+  margin-bottom: 20px;
   .chart {
     width: 70%;
     float: left;
@@ -158,5 +159,6 @@ section#data-area {
 }
 
 #map {
-  height: 200px;
+  width: 100%;
+  height: 600px;
 }
