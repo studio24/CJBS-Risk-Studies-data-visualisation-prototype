@@ -94,7 +94,7 @@ app.controller('MainCtrl', function($scope, $http) {
         // Check whether we are trying to reload the same data
         if (previousLoaded.scenario == scenario && previousLoaded.variant == variant && previousLoaded.stage == stage) {
             if (typeof(callback) !== 'undefined') {
-                callback();
+                callback($scope.currentData);
             }
             return false;
         }
@@ -126,9 +126,11 @@ app.controller('MainCtrl', function($scope, $http) {
 //                $scope.currentData.network.links = [];
 
                 // Map
-                $scope.currentData.map.backgroundLayer = data.modules.maps.map1.backgroundLayers[0];
-                $scope.currentData.map.primaryLayers = data.modules.maps.map1.primaryLayers;
-                // data.modules.maps.mapX.primarylayers
+                $scope.currentData.map.backgroundLayer = data.modules.maps.map1.backgroundlayers[data.modules.maps.map1.defaultbackgroundlayer];
+                $scope.currentData.map.primaryLayers = data.modules.maps.map1.primarylayers;
+                $scope.currentData.map.wmsLayer = data.modules.maps.map1.wmslayers[1];
+                $scope.currentData.map.nodeStyles = data.modules.maps.map1.styledefinition.nodestyles;
+                $scope.currentData.map.linkStyles = data.modules.maps.map1.styledefinition.linkstyles;
                 // data.modules.maps.mapX.styleddefinition
                 // data.modules.maps.mapX.wmslayers
                 // data.modules.maps.mapX.center
@@ -144,7 +146,7 @@ app.controller('MainCtrl', function($scope, $http) {
                 // data.layers.X.nodeattributes.columnList => data.layers.X.nodeattributes.data
 
                 if (typeof(callback) !== 'undefined') {
-                    callback();
+                    callback($scope.currentData);
                 }
             });
 

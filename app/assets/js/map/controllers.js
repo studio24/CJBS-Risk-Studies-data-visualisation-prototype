@@ -7,13 +7,57 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
     var variant = 1;
     var stage = 1;
 
-    $scope.$parent.loadData(scenario, variant, stage, function() {
-        var layer = L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg', {
-            attribution: 'Tiles by <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+    $scope.$parent.loadData(scenario, variant, stage, function($data) {
+        var mapData = $data.map;
+
+        // Setup the main tile/background layer
+        var layer = L.tileLayer(mapData.backgroundLayer.url, {
+            attribution: mapData.backgroundLayer.attribution,
             maxZoom: 12,
-            minZoom: 2
+            minZoom: 2,
+            noWrap: true,
+            continuousWorld: false
         });
 
-        $scope.map = L.map('map', { layers: layer }).setView([51.505, -0.09], 2);
+        // Create the leaflet map
+        $scope.map = L.map('map', { layers: layer }).setView([0, 0], 2);
+
+        // Setup the WMS layer
+        L.tileLayer.wms(mapData.wmsLayer.url, mapData.wmsLayer).addTo($scope.map);
+
+        // Setup the cluster layer
+        var clusterLayer = L.markerClusterGroup({
+            showCoverageOnHover: true,
+            removeOutsideVisibleBounds: true
+        });
+        var geoJsonLayer = L.geoJson();
+
+        // Loop through all layer data from the JSON file
+        for (var primaryLayer in mapData.primaryLayers) {
+            if (mapData.primaryLayers.hasOwnProperty(primaryLayer)) {
+                // Loop through each feature in the layer
+                mapData.primaryLayers[primaryLayer].geojson.features.forEach(function(feature) {
+                    var newProperties;
+
+                    // Check if the feature is a node, or a link
+                    if (typeof(feature.properties.nodestyle) != 'undefined') {
+                        newProperties = mapData.nodeStyles[feature.properties.nodestyle];
+                    } else {
+                        newProperties = mapData.linkStyles[feature.properties.linkstyle];
+                    }
+
+                    // Override the opacity for now, to set the opacity to higher than 0
+                    if (typeof(newProperties) != 'undefined') {
+                        newProperties.opacity = 0.2;
+                    }
+
+                    // Add the feature to the map
+                    L.geoJson(feature, {style: newProperties}).addTo($scope.map);
+                });
+            }
+        }
+
+        //clusterLayer.addLayer(geoJsonLayer);
+        $scope.map.addLayer(geoJsonLayer);
     });
 });

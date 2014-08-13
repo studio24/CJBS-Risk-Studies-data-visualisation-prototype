@@ -5,6 +5,7 @@
     "angular-route": "~1.2.x",
     "d3": "3.4.11",
     "topojson": "1.6.15",
-    "leaflet-0.7.2": "http://leaflet-cdn.s3.amazonaws.com/build/leaflet-0.7.2.zip"
+    "leaflet-0.7.2": "http://leaflet-cdn.s3.amazonaws.com/build/leaflet-0.7.2.zip",
+    "leaflet.markercluster": "~0.4.0"
   }
 }
