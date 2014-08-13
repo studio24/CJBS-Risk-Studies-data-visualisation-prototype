@@ -93,6 +93,9 @@ app.controller('MainCtrl', function($scope, $http) {
 
         // Check whether we are trying to reload the same data
         if (previousLoaded.scenario == scenario && previousLoaded.variant == variant && previousLoaded.stage == stage) {
+            if (typeof(callback) !== 'undefined') {
+                callback();
+            }
             return false;
         }
 
@@ -123,6 +126,8 @@ app.controller('MainCtrl', function($scope, $http) {
 //                $scope.currentData.network.links = [];
 
                 // Map
+                $scope.currentData.map.backgroundLayer = data.modules.maps.map1.backgroundLayers[0];
+                $scope.currentData.map.primaryLayers = data.modules.maps.map1.primaryLayers;
                 // data.modules.maps.mapX.primarylayers
                 // data.modules.maps.mapX.styleddefinition
                 // data.modules.maps.mapX.wmslayers

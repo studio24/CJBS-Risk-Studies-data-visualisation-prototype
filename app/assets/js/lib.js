@@ -27,7 +27,9 @@ JBS.Config = function() {
                 'nodes' : [],
                 'links' : []
             },
-            'map' : {},
+            'map' : {
+
+            },
             'charts' : {
                 options: {
                     title: '',

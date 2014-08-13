@@ -1508,15 +1508,21 @@ S24.Charts = function()
             .attr("height", "100%")
             .attr('fill', '#023d45');
 
+        var limit = 500;
+
         // Loop through the dataset and construct the nodes and links
         dataset.links.forEach(function(link) {
             var s = nodes[link.source],
                 t = nodes[link.target],
                 i = {};
 
-            nodes.push(i);
-            links.push({source: s, target: i}, {source: i, target: t});
-            bilinks.push([s, i, t]);
+            limit--;
+
+            if (limit > 0) {
+                nodes.push(i);
+                links.push({source: s, target: i}, {source: i, target: t});
+                bilinks.push([s, i, t]);
+            }
         });
 
         // Start the force directed graph
