@@ -14,9 +14,7 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
         var layer = L.tileLayer(mapData.backgroundLayer.url, {
             attribution: mapData.backgroundLayer.attribution,
             maxZoom: 12,
-            minZoom: 2,
-            noWrap: true,
-            continuousWorld: false
+            minZoom: 2
         });
 
         // Create the leaflet map
