@@ -43,11 +43,7 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                     if (typeof(feature.properties.nodestyle) != 'undefined') {
                         newProperties = mapData.nodeStyles[feature.properties.nodestyle];
                     } else {
-                        newProperties = mapData.linkStyles[feature.properties.linkstyle];
-                    }
-
-                    // Override the opacity for now, to set the opacity to higher than 0
-                    if (typeof(newProperties) != 'undefined') {
+                        newProperties = mapData.linkStyles[feature.properties.linkstyle] || {};
                         newProperties.opacity = 0.2;
                     }
 
