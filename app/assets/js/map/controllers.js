@@ -28,7 +28,8 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
             showCoverageOnHover: true,
             removeOutsideVisibleBounds: true
         });
-        var geoJsonLayer = L.geoJson();
+        var geoJsonLayerLinks = L.geoJson();
+        var geoJsonLayerNodes = L.geoJson();
 
         // Loop through all layer data from the JSON file
         for (var primaryLayer in mapData.primaryLayers) {
@@ -39,19 +40,35 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
 
                     // Check if the feature is a node, or a link
                     if (typeof(feature.properties.nodestyle) != 'undefined') {
-                        newProperties = mapData.nodeStyles[feature.properties.nodestyle];
+                        newProperties = mapData.nodeStyles[feature.properties.nodestyle] || {};
+                        console.log(newProperties);
+                        newProperties.opacity = 1;
+                        newProperties.fillOpacity = 1;
+                        newProperties.stroke = 0;
+
+                        // Add the feature to the map
+                        L.geoJson(feature, {
+                            style: newProperties,
+                            pointToLayer: function(feature, latlng) {
+                                return new L.CircleMarker(latlng, {radius: 10, fillOpacity: 0.85});
+                            }
+                        }).addTo(geoJsonLayerNodes);
                     } else {
                         newProperties = mapData.linkStyles[feature.properties.linkstyle] || {};
                         newProperties.opacity = 0.2;
-                    }
+                        newProperties.weight = 1;
 
-                    // Add the feature to the map
-                    L.geoJson(feature, {style: newProperties}).addTo($scope.map);
+                        // Add the feature to the map
+                        L.geoJson(feature, {
+                            style: newProperties
+                        }).addTo(geoJsonLayerLinks);
+                    }
                 });
             }
         }
 
         //clusterLayer.addLayer(geoJsonLayer);
-        $scope.map.addLayer(geoJsonLayer);
+        $scope.map.addLayer(geoJsonLayerLinks);
+        $scope.map.addLayer(geoJsonLayerNodes);
     });
 });
