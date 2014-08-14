@@ -1465,7 +1465,7 @@ S24.Charts = function()
     {
         options = setDefaults(options, {
             width: '100%',
-            height: '100%'
+            height: '600'
         });
 
         var config = {
@@ -1487,6 +1487,9 @@ S24.Charts = function()
             dataset = jsonUrl;
         }
 
+        var width = d3.select(container)[0][0].clientWidth,
+            height = options.height;
+
         // Setup the required variables
         var links = [];
         var nodes = dataset.nodes.slice();
@@ -1494,7 +1497,7 @@ S24.Charts = function()
 
         // Compute the distinct nodes from the links.
         links.forEach(function(link) {
-            link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+            link.source = nodes[link.source] || (node   s[link.source] = {name: link.source});
             link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
         });
 
@@ -1503,11 +1506,25 @@ S24.Charts = function()
             .linkStrength(2)
             .size([width, height]);
 
+        var svgContainer;
+
+        var zoomed = function() {
+            svgContainer.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        };
+
+        var zoom = d3.behavior.zoom()
+            .center([width / 2, height / 2])
+            .scaleExtent([1, 10])
+            .on("zoom", zoomed);
+
         var svg = d3.select(config.container).append('svg')
             .attr('height', options.height)
-            .attr('width', options.width);
+            .attr('width', options.width)
+            .call(zoom);
 
-        svg.append("rect")
+        // Create containers
+        svgContainer = svg.append('g');
+        svgContainer.append("rect")
             .attr("width", "100%")
             .attr("height", "100%")
             .attr('fill', '#023d45');
@@ -1537,7 +1554,7 @@ S24.Charts = function()
             .start();
 
         // Create the links
-        var link = svg.selectAll('.link')
+        var link = svgContainer.selectAll('.link')
             .data(bilinks)
             .enter().append('path')
             .attr('class', 'link')
@@ -1546,7 +1563,7 @@ S24.Charts = function()
             });
 
         // Create the blank node
-        var node = svg.selectAll('.node')
+        var node = svgContainer.selectAll('.node')
             .data(dataset.nodes)
             .enter().append('g')
             .attr('class', 'node')
@@ -1569,6 +1586,12 @@ S24.Charts = function()
         });
     };
 
+    /**
+     *
+     * @param container
+     * @param jsonUrl
+     * @param options
+     */
     var createLineChart = function(container, jsonUrl, options)
     {
         options = setDefaults(options, {
