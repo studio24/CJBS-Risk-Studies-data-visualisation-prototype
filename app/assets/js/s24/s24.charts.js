@@ -1465,7 +1465,7 @@ S24.Charts = function()
     {
         options = setDefaults(options, {
             width: '100%',
-            height: '600'
+            height: '800'
         });
 
         var config = {
@@ -1497,7 +1497,7 @@ S24.Charts = function()
 
         // Compute the distinct nodes from the links.
         links.forEach(function(link) {
-            link.source = nodes[link.source] || (node   s[link.source] = {name: link.source});
+            link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
             link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
         });
 
@@ -1523,13 +1523,11 @@ S24.Charts = function()
             .call(zoom);
 
         // Create containers
-        svgContainer = svg.append('g');
-        svgContainer.append("rect")
+        svg.append("rect")
             .attr("width", "100%")
             .attr("height", "100%")
             .attr('fill', '#023d45');
-
-        var limit = 500;
+        svgContainer = svg.append('g');
 
         // Loop through the dataset and construct the nodes and links
         dataset.links.forEach(function(link) {
@@ -1537,15 +1535,11 @@ S24.Charts = function()
                 t = nodes[link.target],
                 i = {};
 
-            limit--;
-
-            if (limit > 0) {
-                nodes.push(i);
-                links.push({source: s, target: i}, {source: i, target: t});
-                bilinks.push([s, i, t, {
-                    opacity: 0.01 * (link.weight / 50)
-                }]);
-            }
+            nodes.push(i);
+            links.push({source: s, target: i}, {source: i, target: t});
+            bilinks.push([s, i, t, {
+                opacity: 0.01 * (link.weight / 50)
+            }]);
         });
 
         // Start the force directed graph
@@ -1566,8 +1560,7 @@ S24.Charts = function()
         var node = svgContainer.selectAll('.node')
             .data(dataset.nodes)
             .enter().append('g')
-            .attr('class', 'node')
-            .call(force.drag);
+            .attr('class', 'node');
 
         // Add the circle to the node
         node.append('circle')
