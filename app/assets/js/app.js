@@ -143,6 +143,37 @@ app.controller('MainCtrl', function($scope, $http) {
 
                 // Country data
                 // data.layers.X.nodeattributes.columnList => data.layers.X.nodeattributes.data
+                var companyData = data.layers[Object.keys(data.layers)[0]].nodeattributes.data, c;
+
+                $scope.currentData.companies = [];
+
+                // Loop through all companies to get the data
+                for (var company in companyData) {
+                    if (companyData.hasOwnProperty(company)) {
+                        // Refer to country as "c" for ease
+                        c = companyData[company].fields;
+
+                        if (typeof(c) != 'undefined') {
+                            // Push a new country object into the countries array
+                            $scope.currentData.companies.push({
+                                "guid" : c[0].v,
+                                "name" : c[1].v,
+                                "description" : c[2].v,
+                                "locationwkt" : c[3].v,
+                                "country": c[4],
+                                "place" : c[5].v,
+                                "url" : c[6].v,
+                                "image1" : c[7].v,
+                                "gics_industry_group" : c[8].v,
+                                "current_market_cap" : c[9].v,
+                                "revenue" : c[10].v
+                            });
+                        }
+                    }
+                }
+
+                console.log($scope.currentData.companies);
+
 
                 if (typeof(callback) !== 'undefined') {
                     callback($scope.currentData);

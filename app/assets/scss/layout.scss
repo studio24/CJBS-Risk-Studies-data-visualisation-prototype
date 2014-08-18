@@ -4,6 +4,7 @@ body {
   background-color: $background;
   background-image: url('../img/bg.png');
   min-height: 100%;
+  height: 100%;
 }
 
 #full-wrapper {
@@ -13,7 +14,7 @@ body {
 }
 
 nav#side-navigation {
-  width: 50%;
+  width: 8%;
   max-width: 120px;
   height: 100%;
   position: fixed;
@@ -51,6 +52,8 @@ nav#side-navigation {
 section#controls {
   clear: both;
   padding: 20px 0;
+  height: 15%;
+  overflow: hidden;
   .control {
     margin-bottom: 10px;
     overflow: hidden;
@@ -95,6 +98,16 @@ section#controls {
 section#main-content {
   margin: 20px  0 0 10%;
   width: 74%;
+  position: absolute;
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  h1#logo {
+    height: 6%;
+  }
+  > div.ng-scope {
+    height: 94%;
+  }
   hr {
     margin: 10px 0;
     clear: both;
@@ -105,6 +118,7 @@ section#main-content {
 
   header {
     padding: 10px 0;
+    height: 7%;
     img {
       float: left;
       border: 1px solid #1e1e1e;
@@ -131,6 +145,7 @@ section#data-area {
   min-height: 300px;
   overflow: hidden;
   margin-bottom: 20px;
+  height: 65%;
   .chart {
     width: 70%;
     float: left;
@@ -148,7 +163,7 @@ section#data-area {
 
 .svg {
   width: 100%;
-  height: 800px !important;
+  height: 100%;
   .node {
     fill: #fff;
   }

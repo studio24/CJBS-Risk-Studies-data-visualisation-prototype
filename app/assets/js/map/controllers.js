@@ -9,13 +9,12 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
 
     // Chart drawing logic goes in here
     $scope.loadCharts = function($data) {
+        // D3
         d3.selectAll('#map').remove();
         d3.select('.chart').append('div')
             .attr('id', 'map');
 
         var mapData = $data.map;
-
-        console.log(mapData);
 
         // Setup the main tile/background layer
         var layer = L.tileLayer(mapData.backgroundLayer.url, {

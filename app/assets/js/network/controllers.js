@@ -14,7 +14,8 @@ angular.module('DataVisualisationNetwork').controller('NetworkMainCtrl', functio
     $scope.loadCharts = function($data) {
         d3.select('svg').remove();
         S24.Charts.createForceDirectedGraph('.svg', $data.network, {
-
+            width: '100%',
+            height: 800
         });
     };
 

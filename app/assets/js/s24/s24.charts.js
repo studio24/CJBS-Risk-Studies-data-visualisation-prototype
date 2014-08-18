@@ -1518,10 +1518,10 @@ S24.Charts = function()
             .call(zoom);
 
         // Create containers
-        svg.append("rect")
-            .attr("width", "100%")
-            .attr("height", "100%")
-            .attr('fill', '#023d45');
+//        svg.append("rect")
+//            .attr("width", "100%")
+//            .attr("height", "100%")
+//            .attr('fill', '#023d45');
         svgContainer = svg.append('g');
 
         // Loop through the dataset and construct the nodes and links
@@ -1602,7 +1602,7 @@ S24.Charts = function()
     {
         options = setDefaults(options, {
             width: '100%',
-            height: '800'
+            height: '100%'
         });
 
         var dataset;
@@ -1624,7 +1624,7 @@ S24.Charts = function()
             .attr('height', options.height)
             .attr('width', options.width);
 
-        console.log(dataset);
+
     };
 
     /**
