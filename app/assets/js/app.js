@@ -123,7 +123,8 @@ app.controller('MainCtrl', function($scope, $http) {
                 // Network
                 $scope.currentData.network.nodes = data.modules.graphs.graph1.data.graphdump.nodes;
                 $scope.currentData.network.links = data.modules.graphs.graph1.data.graphdump.links;
-//                $scope.currentData.network.links = [];
+                $scope.currentData.network.nodeStyles = data.modules.graphs.graph1.styledefinition.nodestyles;
+                $scope.currentData.network.linkStyles = data.modules.graphs.graph1.styledefinition.linkstyles;
 
                 // Map
                 $scope.currentData.map.backgroundLayer = data.modules.maps.map1.backgroundlayers[data.modules.maps.map1.defaultbackgroundlayer];
@@ -131,9 +132,6 @@ app.controller('MainCtrl', function($scope, $http) {
                 $scope.currentData.map.wmsLayer = data.modules.maps.map1.wmslayers[1];
                 $scope.currentData.map.nodeStyles = data.modules.maps.map1.styledefinition.nodestyles;
                 $scope.currentData.map.linkStyles = data.modules.maps.map1.styledefinition.linkstyles;
-                // data.modules.maps.mapX.styleddefinition
-                // data.modules.maps.mapX.wmslayers
-                // data.modules.maps.mapX.center
 
                 // Charts
                 // data.modules.charts.X.data.rows[X].c.[0]
@@ -141,6 +139,7 @@ app.controller('MainCtrl', function($scope, $http) {
                 $scope.currentData.charts.options.type = data.modules.charts.linechart1.type;
                 $scope.currentData.charts.options.title = data.modules.charts.linechart1.options.title;
                 $scope.currentData.charts.options.series = data.modules.charts.linechart1.options.series;
+                $scope.currentData.charts.data = data.modules.charts.linechart1.data;
 
                 // Country data
                 // data.layers.X.nodeattributes.columnList => data.layers.X.nodeattributes.data
@@ -201,7 +200,9 @@ var BaseCtrl = function($scope) {
      */
     $scope.loadStage = function(stage) {
         var current = $parent.loadedDataType;
-        $parent.loadData(current.scenario, current.variant, stage);
+        $parent.loadData(current.scenario, current.variant, stage, function($data) {
+            $scope.loadCharts($data);
+        });
     };
 
     /**

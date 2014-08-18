@@ -36,7 +36,7 @@ JBS.Config = function() {
                     type: '',
                     series: {}
                 },
-                columns: []
+                data: {}
             }
         };
     };

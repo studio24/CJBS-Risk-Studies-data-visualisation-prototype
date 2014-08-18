@@ -7,7 +7,15 @@ angular.module('DataVisualisationCharts').controller('ChartsMainCtrl', function(
     var variant = 1;
     var stage = 1;
 
-    $scope.$parent.loadData(scenario, variant, stage, function($data) {
+    // Chart drawing logic goes here
+    $scope.loadCharts = function($data) {
+        S24.Charts.createLineChart('.svg', $data.charts.data, {
 
+        });
+    };
+
+    // Initial data load
+    $scope.$parent.loadData(scenario, variant, stage, function($data) {
+        $scope.loadCharts($data);
     });
 });

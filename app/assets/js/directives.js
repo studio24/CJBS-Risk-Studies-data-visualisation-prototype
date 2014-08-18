@@ -17,3 +17,12 @@ app.directive('variant', function() {
         scope: true
     };
 });
+
+app.directive('companies', function() {
+    return {
+        restrict: 'AE',
+        replace: true,
+        templateUrl: 'templates/directives/companies.html',
+        scope: true
+    };
+});

@@ -1495,12 +1495,7 @@ S24.Charts = function()
         var nodes = dataset.nodes.slice();
         var bilinks = [];
 
-        // Compute the distinct nodes from the links.
-        links.forEach(function(link) {
-            link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
-            link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
-        });
-
+        // Setup force simulation
         var force = d3.layout.force()
             .linkDistance(10)
             .linkStrength(2)
@@ -1538,8 +1533,14 @@ S24.Charts = function()
             nodes.push(i);
             links.push({source: s, target: i}, {source: i, target: t});
             bilinks.push([s, i, t, {
-                opacity: 0.01 * (link.weight / 50)
+                opacity: 0.01 * (link.weight / 50),
+                style: dataset.linkStyles[link.linkstyle]
             }]);
+        });
+
+        // Loop through nodes and get their style definition
+        nodes.forEach(function(node) {
+            node.style = dataset.nodeStyles[node.nodestyle];
         });
 
         // Start the force directed graph
@@ -1552,6 +1553,13 @@ S24.Charts = function()
             .data(bilinks)
             .enter().append('path')
             .attr('class', 'link')
+            .attr('stroke', function(d) {
+                if (typeof(d[3].style) != 'undefined') {
+                    return d[3].style.color;
+                } else {
+                    return '#ffffff';
+                }
+            })
             .attr('opacity', function(d) {
                 return d[3].opacity;
             });
@@ -1564,13 +1572,18 @@ S24.Charts = function()
 
         // Add the circle to the node
         node.append('circle')
+            .attr('fill', function(d) {
+                if (typeof(d.style) != 'undefined') {
+                    return d.style.fillColor;
+                }
+            })
             .attr('r', function (d) { return 3 * d.size; });
 
         // Move around the link and nodes on each tick
         force.on('tick', function() {
             link.attr('d', function(d) {
                 return "M" + d[0].x + "," + d[0].y
-                    + " S" + d[1].x + "," + d[1].y
+                    + " S" + (d[1].x) + "," + (d[1].y)
                     + " " + d[2].x + "," + d[2].y;
             });
             node.attr('transform', function(d) {
@@ -1588,13 +1601,11 @@ S24.Charts = function()
     var createLineChart = function(container, jsonUrl, options)
     {
         options = setDefaults(options, {
-            width: 960,
-            height: 500
+            width: '100%',
+            height: '800'
         });
 
-        var config = {
-            container: container
-        };
+        var dataset;
 
         // Check if we have a URL or data object
         if (typeof(jsonUrl) == 'string') {
@@ -1608,6 +1619,12 @@ S24.Charts = function()
         } else {
             dataset = jsonUrl;
         }
+
+        var svg = d3.select(container).append('svg')
+            .attr('height', options.height)
+            .attr('width', options.width);
+
+        console.log(dataset);
     };
 
     /**
