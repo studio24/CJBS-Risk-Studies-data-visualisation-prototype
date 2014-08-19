@@ -1508,7 +1508,6 @@ S24.Charts = function()
         };
 
         var zoom = d3.behavior.zoom()
-            .center([width / 2, height / 2])
             .scaleExtent([1, 10])
             .on("zoom", zoomed);
 
@@ -1577,7 +1576,19 @@ S24.Charts = function()
                     return d.style.fillColor;
                 }
             })
-            .attr('r', function (d) { return 3 * d.size; });
+            .attr('r', function (d) { return 3 * d.size; })
+            .on('click', function(d) {
+                var guid = d.guid;
+                var element = d3.select('#' + guid);
+
+                if (element.classed('closed')) {
+                    element.classed('closed', false);
+                    element.classed('open', true);
+                } else {
+                    element.classed('closed', true);
+                    element.classed('open', false);
+                }
+            });
 
         // Move around the link and nodes on each tick
         force.on('tick', function() {

@@ -223,6 +223,27 @@ section#data-area {
     }
     .content {
       display: none;
+      padding: 10px 0 0 0;
+      table {
+        width: 100%;
+        tr:nth-child(even) {
+          background: #3c3939;
+        }
+        td {
+          padding: 10px 5px 10px 10px;
+          color: #eeeeee;
+          font-size: 13px;
+          &:first-child {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+    &.open {
+      background: #363333;
+      .content {
+        display: block;
+      }
     }
   }
 }

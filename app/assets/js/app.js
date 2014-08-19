@@ -166,7 +166,8 @@ app.controller('MainCtrl', function($scope, $http) {
                                 "image1" : c[7].v,
                                 "gics_industry_group" : c[8].v,
                                 "current_market_cap" : c[9].v,
-                                "revenue" : c[10].v
+                                "revenue" : c[10].v,
+                                "class" : "closed"
                             });
                         }
                     }
@@ -307,13 +308,48 @@ var BaseCtrl = function($scope) {
      * @returns {Array}
      */
     $scope.getCompanies = function() {
+        // Change the input to uppercase to match the data
         var formInput = $scope.formInput.company.toUpperCase();
         if (formInput !== '') {
+            // Return a filtered array with the values which match the indexOf
             return $parent.currentData.companies.filter(function(item) {
                 return item.name.indexOf(formInput) > -1;
             });
         } else {
+            // Or, return all of the data
             return $parent.currentData.companies;
+        }
+    };
+
+    /**
+     * Toggle the open/closed class from the companies array
+     *
+     * @param index
+     */
+    $scope.toggleCompany = function(index) {
+        // Check which class the company already has on it
+        if ($parent.currentData.companies[index].class == 'closed') {
+            $parent.currentData.companies[index].class = 'open';
+        } else {
+            $parent.currentData.companies[index].class = 'closed';
+        }
+    };
+
+    /**
+     * Check which company has the GUID that has been entered and then run
+     * $scope.toggleCompany on the index of that company
+     *
+     * @param id
+     */
+    $scope.toggleCompanyById = function(id) {
+        // Loop around all companies
+        for (var i = 0; i < $parent.currentData.companies.length; i++) {
+            var company = $parent.currentData.companies[i];
+            // Check the guid against the given id
+            if (company.guid == id) {
+                // Run $scope.toggleCompany
+                $scope.toggleCompany(i);
+            }
         }
     };
 };

@@ -52,7 +52,15 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                         L.geoJson(feature, {
                             style: newProperties,
                             pointToLayer: function(feature, latlng) {
-                                return new L.CircleMarker(latlng, {radius: feature.properties.size * 3, fillOpacity: 0.85});
+                                var marker = new L.CircleMarker(latlng, {radius: feature.properties.size * 3, fillOpacity: 0.85});
+                                marker.on('click', function() {
+                                    var guid = this.feature.id;
+                                    $scope.$apply(function() {
+                                        $scope.toggleCompanyById(guid);
+                                    });
+                                });
+
+                                return marker;
                             }
                         }).addTo(geoJsonLayerNodes);
                     } else {
