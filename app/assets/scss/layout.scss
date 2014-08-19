@@ -152,6 +152,7 @@ section#data-area {
   }
   .data-list {
     width: 28%;
+    height: 100%;
     float: right;
   }
   h3 {
@@ -163,7 +164,10 @@ section#data-area {
 
 .svg {
   width: 100%;
-  height: 100%;
+  height: 80%;
+  svg {
+    height: 100% !important;
+  }
   .node {
     fill: #fff;
   }
@@ -176,4 +180,49 @@ section#data-area {
 #map {
   width: 100%;
   height: 600px;
+}
+
+.companies {
+  height: 90%;
+
+
+  input.company-search {
+    width: 91%;
+    height: 7%;
+    margin: 5% 2%;
+    padding: 0 2%;
+    background: #1f1e1e;
+    color: #f26262;
+    border: 1px solid #f26262;
+    font-size: 17px;
+  }
+
+  .scrollable {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 90%;
+  }
+
+  .company {
+    background: #292828;
+    border-bottom: 2px solid #343434;
+    width: 100%;
+    .title {
+      padding: 10px 0 10px 10px;
+      a {
+        text-decoration: none;
+        color: #fff;
+        span {
+          margin-right: 10px;
+        }
+        h4 {
+          display: inline;
+          font-size: 13px;
+        }
+      }
+    }
+    .content {
+      display: none;
+    }
+  }
 }

@@ -172,9 +172,6 @@ app.controller('MainCtrl', function($scope, $http) {
                     }
                 }
 
-                console.log($scope.currentData.companies);
-
-
                 if (typeof(callback) !== 'undefined') {
                     callback($scope.currentData);
                 }
@@ -214,6 +211,10 @@ app.controller('MainCtrl', function($scope, $http) {
  */
 var BaseCtrl = function($scope) {
     $parent = $scope.$parent;
+
+    $scope.formInput = {
+        "company" : ""
+    };
 
     /**
      * Returns an object with the current type of loaded application data
@@ -298,5 +299,21 @@ var BaseCtrl = function($scope) {
      */
     $scope.getStages = function() {
         return $parent.currentData.scenario.stages;
+    };
+
+    /**
+     * Get an array of all companies
+     *
+     * @returns {Array}
+     */
+    $scope.getCompanies = function() {
+        var formInput = $scope.formInput.company.toUpperCase();
+        if (formInput !== '') {
+            return $parent.currentData.companies.filter(function(item) {
+                return item.name.indexOf(formInput) > -1;
+            });
+        } else {
+            return $parent.currentData.companies;
+        }
     };
 };

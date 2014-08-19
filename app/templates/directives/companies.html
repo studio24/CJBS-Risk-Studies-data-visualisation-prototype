@@ -1,3 +1,15 @@
 <div class="companies">
-    Test
+
+    <input type="text" ng-model="formInput.company" class="company-search">
+
+    <div class="scrollable">
+        <div class="company" ng-repeat="company in getCompanies()">
+            <div class="title">
+                <a href="" ng-click=""><span>+</span> <h4>{{company.name}}</h4></a>
+            </div>
+            <div class="content">
+
+            </div>
+        </div>
+    </div>
 </div>
