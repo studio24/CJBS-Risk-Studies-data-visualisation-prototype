@@ -26,3 +26,12 @@ app.directive('companies', function() {
         scope: true
     };
 });
+
+app.directive('cassandra', function() {
+    return {
+        restrict: 'AE',
+        replace: true,
+        templateUrl: 'templates/directives/cassandra.html',
+        scope: true
+    };
+});

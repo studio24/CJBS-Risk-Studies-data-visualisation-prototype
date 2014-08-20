@@ -111,6 +111,9 @@ app.controller('MainCtrl', function($scope, $http) {
         // Load the JSON data in
         $http({ url: jsonUrl, method: 'GET' })
             .success(function(data) {
+                // Log data
+                console.log(data);
+
                 // Scenario Data
                 $scope.currentData.scenario.title = data.title;
                 $scope.currentData.scenario.subtitle = data.subtitle;
@@ -142,8 +145,13 @@ app.controller('MainCtrl', function($scope, $http) {
                 $scope.currentData.charts.options.series = data.modules.charts.linechart1.options.series;
                 $scope.currentData.charts.data = data.modules.charts.linechart1.data;
 
+                // Cassandra
+                $scope.currentData.cassandra = {};
+                $scope.currentData.cassandra.heading = data.narrativeheading;
+                $scope.currentData.cassandra.subheading = data.narrativesubheading;
+                $scope.currentData.cassandra.description = data.narrativedescription;
+
                 // Country data
-                // data.layers.X.nodeattributes.columnList => data.layers.X.nodeattributes.data
                 var companyData = data.layers[Object.keys(data.layers)[0]].nodeattributes.data, c;
 
                 $scope.currentData.companies = [];
@@ -301,6 +309,15 @@ var BaseCtrl = function($scope) {
      */
     $scope.getStages = function() {
         return $parent.currentData.scenario.stages;
+    };
+
+    /**
+     * Get the cassandra data
+     *
+     * @returns {{}|*|$scope.currentData.cassandra}
+     */
+    $scope.getCassandra = function() {
+        return $parent.currentData.cassandra;
     };
 
     /**

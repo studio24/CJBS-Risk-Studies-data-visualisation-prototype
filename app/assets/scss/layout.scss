@@ -62,20 +62,23 @@ section#controls {
     height: 40%;
     .title {
       background: $dark-background;
-      padding: 1.5% 2%;
+      padding: 0 2%;
       float: left;
       width: 10%;
       height: 100%;
       font-family: 'MuseoSansRegular';
       font-size: 80%;
       span {
+        display:inline-block;
+        vertical-align:middle;
+        line-height: 350%;
         color: $highlight-colour;
       }
     }
     .input {
       float: right;
       width: 82%;
-      padding: 1.2% 2%;
+      padding: 1% 2%;
       height: 100%;
       background: rgba(0, 0, 0, 0.1);
       ul {
@@ -101,8 +104,8 @@ section#controls {
 }
 
 section#main-content {
-  margin: 1% 0 0 10%;
-  width: 74%;
+  margin: 1% 0 0 8%;
+  width: 91%;
   position: absolute;
   height: 98%;
   min-height: 98%;
@@ -150,11 +153,12 @@ section#main-content {
 
 section#data-area {
   background: #292828;
-  width: 98%;
+  width: 75%;
   padding: 10px 1%;
   min-height: 300px;
   overflow: hidden;
   height: 65%;
+  float: left;
   .chart {
     width: 70%;
     float: left;
@@ -197,8 +201,8 @@ section#data-area {
 
   input.company-search {
     width: 91%;
-    height: 7%;
-    margin: 5% 2%;
+    height: 10%;
+    margin: 3% 2%;
     padding: 0 2%;
     background: #1f1e1e;
     color: #f26262;
@@ -253,6 +257,42 @@ section#data-area {
       .content {
         display: block;
       }
+    }
+  }
+}
+
+section#narrative {
+  margin-left: 1%;
+  width: 22%;
+  float: left;
+  .title {
+    background: #2d2c2c;
+    width: 100%;
+    h3 {
+      color: #eee;
+      font-size: 90%;
+      padding: 4%;
+      display: block;
+    }
+  }
+  article.cassandra {
+    width: 92%;
+    background: #de3838;
+    padding: 4%;
+    h2 {
+      color: #fff;
+      font-size: 125%;
+      margin: 2% 0;
+    }
+    h3 {
+      color: #fff;
+      font-size: 90%;
+      margin: 4% 0;
+    }
+    p {
+      color: #fff;
+      font-size: 75%;
+      line-height: 1.6;
     }
   }
 }
