@@ -5,7 +5,7 @@ var JBS = JBS || {};
  * application. Namespaced in here to prevent conflicts
  */
 JBS.Config = function() {
-    var serverUrl = 'http://jbs-data.dev/';
+    var serverUrl = 'http://dev.studio24.net/data-visualisation-data/';
 
     /**
      * This is an empty data object, which is used to reset the data for all of the charts
@@ -37,7 +37,8 @@ JBS.Config = function() {
                     series: {}
                 },
                 data: {}
-            }
+            },
+            'companies' : []
         };
     };
 

@@ -25,6 +25,7 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
 
         // Create the leaflet map
         $scope.map = L.map('map', { layers: layer }).setView([0, 0], 2);
+        $scope.map.doubleClickZoom.disable();
 
         if (typeof(mapData.wmsLayer) != 'undefined') {
             // Setup the WMS layer

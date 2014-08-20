@@ -21,6 +21,9 @@ app.config(function($routeProvider) {
         .when('/', {
             templateUrl : 'templates/home.html',
             controller : 'MainCtrl'
+        })
+        .when('/:scenario/', {
+            redirectTo: '/'
         });
 });
 
@@ -108,8 +111,6 @@ app.controller('MainCtrl', function($scope, $http) {
         // Load the JSON data in
         $http({ url: jsonUrl, method: 'GET' })
             .success(function(data) {
-                console.log(data);
-
                 // Scenario Data
                 $scope.currentData.scenario.title = data.title;
                 $scope.currentData.scenario.subtitle = data.subtitle;
@@ -347,6 +348,10 @@ var BaseCtrl = function($scope) {
             var company = $parent.currentData.companies[i];
             // Check the guid against the given id
             if (company.guid == id) {
+                // Scroll to selected company
+                var element = document.getElementById(company.guid);
+                element.scrollIntoView(true);
+
                 // Run $scope.toggleCompany
                 $scope.toggleCompany(i);
             }

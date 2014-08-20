@@ -1581,6 +1581,10 @@ S24.Charts = function()
                 var guid = d.guid;
                 var element = d3.select('#' + guid);
 
+                // Scroll down the list
+                var e = document.getElementById(guid);
+                e.scrollIntoView(true);
+
                 if (element.classed('closed')) {
                     element.classed('closed', false);
                     element.classed('open', true);

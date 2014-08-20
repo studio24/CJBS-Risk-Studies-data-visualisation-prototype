@@ -2,7 +2,7 @@
 
     <input type="text" ng-model="formInput.company" class="company-search" placeholder="Enter a company name...">
 
-    <div class="scrollable">
+    <div class="scrollable" id="company-scrollable">
         <div class="company {{company.class}}" ng-repeat="company in getCompanies()" id="{{company.guid}}">
             <div class="title">
                 <a href="" ng-click="toggleCompany($index)">
