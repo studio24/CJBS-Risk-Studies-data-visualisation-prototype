@@ -367,7 +367,9 @@ var BaseCtrl = function($scope) {
             if (company.guid == id) {
                 // Scroll to selected company
                 var element = document.getElementById(company.guid);
-                element.scrollIntoView(true);
+                var scrollable = document.getElementById('company-scrollable');
+                scrollable.scrollTop = element.offsetTop;
+
 
                 // Run $scope.toggleCompany
                 $scope.toggleCompany(i);

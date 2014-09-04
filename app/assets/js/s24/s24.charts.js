@@ -1583,7 +1583,9 @@ S24.Charts = function()
 
                 // Scroll down the list
                 var e = document.getElementById(guid);
-                e.scrollIntoView(true);
+                var scrollable = document.getElementById('company-scrollable');
+                scrollable.scrollTop = e.offsetTop;
+
 
                 if (element.classed('closed')) {
                     element.classed('closed', false);
