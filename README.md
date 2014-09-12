@@ -11,11 +11,25 @@ Licensed under the MIT License, see LICENSE.md
 * [Bower](http://bower.io/)
 * [Grunt](http://gruntjs.com/)
 
-## SASS Installation
+## Build instructions
+
+### Grunt
+
+Grunt is used to compile and minify JS, build SASS into CSS and concatanate and minify CSS.
+
+    # This will compile all files, and should be run before starting any work, or before any deployment
+    grunt build
+
+    # This is the shorthand for "grunt watch", which will watch all files and run compilation tasks when certain files change
+    grunt watch
+
+## Installation
+
+### SASS
 
 The SASS installation guide can be found here: http://sass-lang.com/install
 
-## Installing packages
+### JavaScript packages
 
 The starter kit uses [Bower](http://bower.io/) to load JavaScript dependencies. To install dependencies run:
 
@@ -27,12 +41,11 @@ This kit also uses [Grunt](http://gruntjs.com/) to automate tasks. To install Gr
 
 This will create a new "node_modules" folder in the source directory.
 
-## Grunt
+## Deployment
 
-Grunt is used to compile and minify JS, build SASS into CSS and concatanate and minify CSS.
+### Publishing to staging
 
-    # This will compile all files, and should be run before starting any work, or before any deployment
-    grunt build
+Publish dist files to staging site via rsync:
 
-    # This is the shorthand for "grunt watch", which will watch all files and run compilation tasks when certain files change
-    grunt watch
+    # cd to project root folder
+    rsync -e "ssh" -ptrv dist/ studio24@scaramanga.studio24.net:/var/www/studio24/dev.studio24.net/live/web/data-visualisation
