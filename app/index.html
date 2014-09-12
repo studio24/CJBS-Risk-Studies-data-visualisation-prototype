@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Judge Business School - Data Visualisation</title>
+    <title>{{getTitle()}} - Judge Business School</title>
 
     <!-- Web design & development by Studio 24 - www.studio24.net -->
 
@@ -31,7 +31,6 @@
 <body ng-app="DataVisualisationApp" ng-controller="MainCtrl">
     <div id="full-wrapper">
         <nav id="side-navigation">
-            <span>Views</span>
             <a href="#/sybil-logic-bomb/network" class="{{getSelectedNav('network')}}">
                 <img src="assets/img/network.svg">Network
             </a>
