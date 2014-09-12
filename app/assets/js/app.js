@@ -93,6 +93,7 @@ app.controller('MainCtrl', function($scope, $http) {
         // Setup some easy to access variables
         var config = JBS.Config;
         var previousLoaded = $scope.loadedDataType;
+        var networkId = 20;
 
         // Check whether we are trying to reload the same data
         if (previousLoaded.scenario == scenario && previousLoaded.variant == variant && previousLoaded.stage == stage) {
@@ -105,8 +106,12 @@ app.controller('MainCtrl', function($scope, $http) {
         // Empty the current data
         $scope.currentData = config.emptyDataObject();
 
+        // URL Format: http://dev.cambridgeriskframework.com/ijsrequest/n/v/s
+        // where: n = network id (always 20, for the Sybil Cyber Scenario), v = variant id, s = stage id
+
         // Create the JSON URL
         var jsonUrl = config.serverUrl + scenario + '/stage-' + stage + '.json';
+        //var jsonUrl = config.serverUrl + networkId + '/' + variant + '/' + stage; // New format (testing)
 
         // Load the JSON data in
         $http({ url: jsonUrl, method: 'GET' })

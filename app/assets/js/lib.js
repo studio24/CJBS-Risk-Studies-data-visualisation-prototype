@@ -6,6 +6,7 @@ var JBS = JBS || {};
  */
 JBS.Config = function() {
     var serverUrl = 'http://dev.studio24.net/data-visualisation-data/';
+    //var serverUrl = 'http://dev.cambridgeriskframework.com/ijsrequest/'; // New format (testing)
 
     /**
      * This is an empty data object, which is used to reset the data for all of the charts
