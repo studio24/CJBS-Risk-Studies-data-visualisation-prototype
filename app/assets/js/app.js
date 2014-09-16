@@ -110,8 +110,8 @@ app.controller('MainCtrl', function($scope, $http) {
         // where: n = network id (always 20, for the Sybil Cyber Scenario), v = variant id, s = stage id
 
         // Create the JSON URL
-        var jsonUrl = config.serverUrl + scenario + '/stage-' + stage + '.json';
-        //var jsonUrl = config.serverUrl + networkId + '/' + variant + '/' + stage; // New format (testing)
+        //var jsonUrl = config.serverUrl + scenario + '/stage-' + stage + '.json';
+        var jsonUrl = config.serverUrl + networkId + '/' + variant + '/' + stage; // New format (testing)
 
         // Load the JSON data in
         $http({ url: jsonUrl, method: 'GET' })
@@ -145,10 +145,10 @@ app.controller('MainCtrl', function($scope, $http) {
                 // Charts
                 // data.modules.charts.X.data.rows[X].c.[0]
                 // data.modules.charts.X.data.rows[X].c.[X]
-                $scope.currentData.charts.options.type = data.modules.charts.linechart1.type;
-                $scope.currentData.charts.options.title = data.modules.charts.linechart1.options.title;
-                $scope.currentData.charts.options.series = data.modules.charts.linechart1.options.series;
-                $scope.currentData.charts.data = data.modules.charts.linechart1.data;
+//                $scope.currentData.charts.options.type = data.modules.charts.linechart1.type;
+//                $scope.currentData.charts.options.title = data.modules.charts.linechart1.options.title;
+//                $scope.currentData.charts.options.series = data.modules.charts.linechart1.options.series;
+//                $scope.currentData.charts.data = data.modules.charts.linechart1.data;
 
                 // Cassandra
                 $scope.currentData.cassandra = {};
@@ -177,10 +177,10 @@ app.controller('MainCtrl', function($scope, $http) {
                                 "country": c[4],
                                 "place" : c[5].v,
                                 "url" : c[6].v,
-                                "image1" : c[7].v,
-                                "gics_industry_group" : c[8].v,
-                                "current_market_cap" : c[9].v,
-                                "revenue" : c[10].v,
+//                                "image1" : c[7].v,
+//                                "gics_industry_group" : c[8].v,
+//                                "current_market_cap" : c[9].v,
+//                                "revenue" : c[10].v,
                                 "class" : "closed"
                             });
                         }
@@ -215,6 +215,16 @@ app.controller('MainCtrl', function($scope, $http) {
             return '';
         }
     };
+
+    /**
+     * Get the title for the HTML <title> element. Uses $scope rather than $parent
+     *
+     * @returns {string}
+     */
+    $scope.getPageTitle = function() {
+        return $scope.currentData.scenario.title;
+    };
+
 });
 
 /**
@@ -259,7 +269,9 @@ var BaseCtrl = function($scope) {
      */
     $scope.loadVariant = function(variant) {
         var current = $parent.loadedDataType;
-        $parent.loadData(current.scenario, variant, current.stage);
+        $parent.loadData(current.scenario, variant, current.stage, function($data) {
+            $scope.loadCharts($data);
+        });
     };
 
     /**

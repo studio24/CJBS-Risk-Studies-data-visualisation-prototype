@@ -1508,7 +1508,7 @@ S24.Charts = function()
         };
 
         var zoom = d3.behavior.zoom()
-            .scaleExtent([1, 10])
+            .scaleExtent([0.5, 8])
             .on("zoom", zoomed);
 
         var svg = d3.select(config.container).append('svg')
@@ -1574,6 +1574,8 @@ S24.Charts = function()
             .attr('fill', function(d) {
                 if (typeof(d.style) != 'undefined') {
                     return d.style.fillColor;
+                } else {
+                    return '#ffffff';
                 }
             })
             .attr('r', function (d) { return 3 * d.size; })

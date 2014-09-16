@@ -5,7 +5,7 @@
     <div class="scrollable" id="company-scrollable">
         <div class="company {{company.class}}" ng-repeat="company in getCompanies()" id="{{company.guid}}">
             <div class="title">
-                <a href="" ng-click="toggleCompany($index)">
+                <a href="" ng-click="toggleCompanyById(company.guid)">
                     <span ng-if="company.class == 'closed'">+</span>
                     <span ng-if="company.class == 'open'">-</span>
                     <h4>{{company.name}}</h4></a>
