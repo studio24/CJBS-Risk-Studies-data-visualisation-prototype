@@ -136,7 +136,13 @@ app.controller('MainCtrl', function($scope, $http) {
                 $scope.currentData.network.linkStyles = data.modules.graphs.graph1.styledefinition.linkstyles;
 
                 // Map
-                $scope.currentData.map.backgroundLayer = data.modules.maps.map1.backgroundlayers[data.modules.maps.map1.defaultbackgroundlayer];
+                $scope.currentData.map.defaultBackgroundLayer = data.modules.maps.map1.defaultbackgroundlayer;
+                $scope.currentData.map.backgroundLayers = [];
+                for (var backgroundLayer in data.modules.maps.map1.backgroundlayers) {
+                    if (data.modules.maps.map1.backgroundlayers.hasOwnProperty(backgroundLayer)) {
+                        $scope.currentData.map.backgroundLayers.push(data.modules.maps.map1.backgroundlayers[backgroundLayer]);
+                    }
+                }
                 $scope.currentData.map.primaryLayers = data.modules.maps.map1.primarylayers;
                 $scope.currentData.map.wmsLayer = data.modules.maps.map1.wmslayers[1];
                 $scope.currentData.map.nodeStyles = data.modules.maps.map1.styledefinition.nodestyles;

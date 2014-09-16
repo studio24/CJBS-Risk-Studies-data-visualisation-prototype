@@ -17,15 +17,32 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
         var mapData = $data.map;
 
         // Setup the main tile/background layer
-        var layer = L.tileLayer(mapData.backgroundLayer.url, {
-            attribution: mapData.backgroundLayer.attribution,
-            maxZoom: 12,
-            minZoom: 2
-        });
+//        var layer = L.tileLayer(mapData.backgroundLayer.url, {
+//            attribution: mapData.backgroundLayer.attribution,
+//            maxZoom: 12,
+//            minZoom: 2
+//        });
+
+        var layers = [];
+        for (var bgLayer in mapData.backgroundLayers) {
+            if (mapData.backgroundLayers.hasOwnProperty(bgLayer)) {
+                layers.push(L.tileLayer(mapData.backgroundLayers[bgLayer].url, {
+                    attribution: mapData.backgroundLayers[bgLayer].attribution,
+                    maxZoom: 12,
+                    minZoom: 2
+                }));
+            }
+        }
 
         // Create the leaflet map
-        $scope.map = L.map('map', { layers: layer }).setView([0, 0], 2);
+        $scope.map = L.map('map', { layers: layers }).setView([0, 0], 2);
         $scope.map.doubleClickZoom.disable();
+
+        // Add layer controls
+        L.control.layers(layers).addTo($scope.map);
+
+        // Bring the default layer to the front
+        layers[mapData.defaultBackgroundLayer - 1].bringToFront();
 
         if (typeof(mapData.wmsLayer) != 'undefined') {
             // Setup the WMS layer
