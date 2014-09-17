@@ -38,16 +38,21 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
         $scope.map = L.map('map', { layers: layers }).setView([0, 0], 2);
         $scope.map.doubleClickZoom.disable();
 
-        // Add layer controls
-        L.control.layers(layers).addTo($scope.map);
+        if (typeof(mapData.wmsLayer) != 'undefined') {
+            // Setup the WMS layer
+            var overlayLayers = {
+                '' : L.tileLayer.wms(mapData.wmsLayer.url, mapData.wmsLayer)
+            };
+
+            // Add layer controls
+            L.control.layers(layers, overlayLayers).addTo($scope.map);
+        } else {
+            // Add layer controls
+            L.control.layers(layers).addTo($scope.map);
+        }
 
         // Bring the default layer to the front
         layers[mapData.defaultBackgroundLayer - 1].bringToFront();
-
-        if (typeof(mapData.wmsLayer) != 'undefined') {
-            // Setup the WMS layer
-            L.tileLayer.wms(mapData.wmsLayer.url, mapData.wmsLayer).addTo($scope.map);
-        }
 
         var geoJsonLayerLinks = L.geoJson();
         var geoJsonLayerNodes = L.geoJson();
