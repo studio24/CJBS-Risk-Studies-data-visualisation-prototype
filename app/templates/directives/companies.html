@@ -3,9 +3,9 @@
     <input type="text" ng-model="formInput.company" class="company-search" placeholder="Search...">
 
     <div class="scrollable" id="company-scrollable">
-        <div class="company {{company.class}}" ng-repeat="company in getCompanies()" id="{{company.guid}}">
+        <div class="company {{company.class}}" ng-repeat="company in getCompanies()" id="{{company.hiddenProperties.guid}}">
             <div class="title">
-                <a href="" ng-click="toggleCompanyById(company.guid)">
+                <a href="" ng-click="toggleCompanyById(company.hiddenProperties.guid)">
                     <span ng-if="company.class == 'closed'">+</span>
                     <span ng-if="company.class == 'open'">-</span>
                     <h4>{{company.name}}</h4></a>
@@ -13,21 +13,9 @@
             <div class="content">
                 {{company.image1}}
                 <table class="company-data">
-                    <tr>
-                        <td>Country</td>
-                        <td>{{company.country.v}}</td>
-                    </tr>
-                    <tr>
-                        <td>GICS Industry Group</td>
-                        <td>{{company.gics_industry_group}}</td>
-                    </tr>
-                    <tr>
-                        <td>Revenue, $M</td>
-                        <td>{{company.revenue}}</td>
-                    </tr>
-                    <tr>
-                        <td>Market Capitalization, $M</td>
-                        <td>{{company.current_market_cap}}</td>
+                    <tr ng-repeat="property in company.properties">
+                        <td>{{property.name}}</td>
+                        <td>{{property.value}}</td>
                     </tr>
                 </table>
             </div>

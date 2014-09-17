@@ -75,8 +75,8 @@ app.controller('MainCtrl', function($scope, $http) {
     // Start with a blank loadedDataType
     $scope.loadedDataType = {
         scenario: '',
-        stage: 0,
-        variant: 0
+        stage: -1,
+        variant: -1
     };
 
     /**
@@ -179,10 +179,16 @@ app.controller('MainCtrl', function($scope, $http) {
 
                 // Get data list fields
                 var columnList = [];
-                var dataColumnList = data.layers[Object.keys(data.layers)[0]].edgeattributes.columnlist;
+                var dataColumnList = data.layers[Object.keys(data.layers)[0]].nodeattributes.columnlist;
                 for (var prop in dataColumnList) {
-                    if (dataColumnList[prop].show) {
-                        columnList.push({"id": prop, "title": dataColumnList[prop].title, "description": dataColumnList[prop].description});
+                    if (dataColumnList.hasOwnProperty(prop)) {
+                        // Check if we are showing the column
+                        columnList.push({
+                            "id": prop,
+                            "title": dataColumnList[prop].title,
+                            "description": dataColumnList[prop].description,
+                            "show": dataColumnList[prop].show
+                        });
                     }
                 }
 
@@ -194,22 +200,41 @@ app.controller('MainCtrl', function($scope, $http) {
                         // Refer to country as "c" for ease
                         c = companyData[company].fields;
 
+                        // Check if data is not undefined
                         if (typeof(c) != 'undefined') {
+                            var companyObject = {
+                                'name': '',
+                                'properties': [],
+                                'hiddenProperties' : {}
+                            };
+
+                            // Loop through all columns and set the property based on the column name
+                            var propId = 0;
+                            var hPropId = 0;
+                            for (var i = 0; i < columnList.length; i++) {
+                                var column = columnList[i];
+                                // Check if the column needs to be shown
+                                if (column.show === true) {
+                                    if (column.id != 'name') {
+                                        // Assign properties to a properties array
+                                        companyObject.properties[propId] = {};
+                                        companyObject.properties[propId].name = column.title;
+                                        companyObject.properties[propId].value = c[i].v;
+                                        propId++;
+                                    } else {
+                                        // Assign the name directly to the object
+                                        companyObject.name = c[i].v;
+                                    }
+                                } else {
+                                    companyObject.hiddenProperties[column.id] = c[i].v;
+                                }
+                            }
+
+                            // Add the closed class to the companyObject
+                            companyObject.class = 'closed';
+
                             // Push a new country object into the countries array
-                            $scope.currentData.companies.push({
-                                "guid" : c[0].v,
-                                "name" : c[1].v,
-                                "description" : c[2].v,
-                                "locationwkt" : c[3].v,
-                                "country": c[4],
-                                "place" : c[5].v,
-                                "url" : c[6].v,
-//                                "image1" : c[7].v,
-//                                "gics_industry_group" : c[8].v,
-//                                "current_market_cap" : c[9].v,
-//                                "revenue" : c[10].v,
-                                "class" : "closed"
-                            });
+                            $scope.currentData.companies.push(companyObject);
                         }
                     }
                 }
@@ -408,12 +433,11 @@ var BaseCtrl = function($scope) {
         for (var i = 0; i < $parent.currentData.companies.length; i++) {
             var company = $parent.currentData.companies[i];
             // Check the guid against the given id
-            if (company.guid == id) {
+            if (company.hiddenProperties.guid == id) {
                 // Scroll to selected company
-                var element = document.getElementById(company.guid);
+                var element = document.getElementById(company.hiddenProperties.guid);
                 var scrollable = document.getElementById('company-scrollable');
                 scrollable.scrollTop = element.offsetTop;
-
 
                 // Run $scope.toggleCompany
                 $scope.toggleCompany(i);
