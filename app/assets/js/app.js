@@ -130,23 +130,27 @@ app.controller('MainCtrl', function($scope, $http) {
                 $scope.currentData.scenario.stages = data.stages;
 
                 // Network
-                $scope.currentData.network.nodes = data.modules.graphs.graph1.data.graphdump.nodes;
-                $scope.currentData.network.links = data.modules.graphs.graph1.data.graphdump.links;
-                $scope.currentData.network.nodeStyles = data.modules.graphs.graph1.styledefinition.nodestyles;
-                $scope.currentData.network.linkStyles = data.modules.graphs.graph1.styledefinition.linkstyles;
+                if (typeof data.modules.graphs != 'undefined' && typeof data.modules.graphs.graph1 != 'undefined') {
+                    $scope.currentData.network.nodes = data.modules.graphs.graph1.data.graphdump.nodes;
+                    $scope.currentData.network.links = data.modules.graphs.graph1.data.graphdump.links;
+                    $scope.currentData.network.nodeStyles = data.modules.graphs.graph1.styledefinition.nodestyles;
+                    $scope.currentData.network.linkStyles = data.modules.graphs.graph1.styledefinition.linkstyles;
+                }
 
                 // Map
-                $scope.currentData.map.defaultBackgroundLayer = data.modules.maps.map1.defaultbackgroundlayer;
-                $scope.currentData.map.backgroundLayers = [];
-                for (var backgroundLayer in data.modules.maps.map1.backgroundlayers) {
-                    if (data.modules.maps.map1.backgroundlayers.hasOwnProperty(backgroundLayer)) {
-                        $scope.currentData.map.backgroundLayers.push(data.modules.maps.map1.backgroundlayers[backgroundLayer]);
+                if (typeof data.modules.maps != 'undefined' && typeof data.modules.maps.map1 != 'undefined') {
+                    $scope.currentData.map.defaultBackgroundLayer = data.modules.maps.map1.defaultbackgroundlayer;
+                    $scope.currentData.map.backgroundLayers = [];
+                    for (var backgroundLayer in data.modules.maps.map1.backgroundlayers) {
+                        if (data.modules.maps.map1.backgroundlayers.hasOwnProperty(backgroundLayer)) {
+                            $scope.currentData.map.backgroundLayers.push(data.modules.maps.map1.backgroundlayers[backgroundLayer]);
+                        }
                     }
+                    $scope.currentData.map.primaryLayers = data.modules.maps.map1.primarylayers;
+                    $scope.currentData.map.wmsLayer = data.modules.maps.map1.wmslayers[1];
+                    $scope.currentData.map.nodeStyles = data.modules.maps.map1.styledefinition.nodestyles;
+                    $scope.currentData.map.linkStyles = data.modules.maps.map1.styledefinition.linkstyles;
                 }
-                $scope.currentData.map.primaryLayers = data.modules.maps.map1.primarylayers;
-                $scope.currentData.map.wmsLayer = data.modules.maps.map1.wmslayers[1];
-                $scope.currentData.map.nodeStyles = data.modules.maps.map1.styledefinition.nodestyles;
-                $scope.currentData.map.linkStyles = data.modules.maps.map1.styledefinition.linkstyles;
 
                 // Charts
                 // data.modules.charts.X.data.rows[X].c.[0]
@@ -155,6 +159,17 @@ app.controller('MainCtrl', function($scope, $http) {
 //                $scope.currentData.charts.options.title = data.modules.charts.linechart1.options.title;
 //                $scope.currentData.charts.options.series = data.modules.charts.linechart1.options.series;
 //                $scope.currentData.charts.data = data.modules.charts.linechart1.data;
+
+                // Charts
+                if (typeof data.modules.charts != 'undefined') {
+                    // Line chart
+                    if (typeof data.modules.charts.linechart1 != 'undefined') {
+                        $scope.currentData.charts.options.type = data.modules.charts.linechart1.type;
+                        $scope.currentData.charts.options.title = data.modules.charts.linechart1.options.title;
+                        $scope.currentData.charts.options.series = data.modules.charts.linechart1.options.series;
+                        $scope.currentData.charts.data = data.modules.charts.linechart1.data;
+                    }
+                }
 
                 // Cassandra
                 $scope.currentData.cassandra = {};
