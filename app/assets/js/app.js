@@ -162,8 +162,17 @@ app.controller('MainCtrl', function($scope, $http) {
                 $scope.currentData.cassandra.subheading = data.narrativesubheading;
                 $scope.currentData.cassandra.description = data.narrativedescription;
 
-                // Country data
+                // Comapny data (data list)
                 var companyData = data.layers[Object.keys(data.layers)[0]].nodeattributes.data, c;
+
+                // Get data list fields
+                var columnList = [];
+                var dataColumnList = data.layers[Object.keys(data.layers)[0]].edgeattributes.columnlist;
+                for (var prop in dataColumnList) {
+                    if (dataColumnList[prop].show) {
+                        columnList.push({"id": prop, "title": dataColumnList[prop].title, "description": dataColumnList[prop].description});
+                    }
+                }
 
                 $scope.currentData.companies = [];
 
