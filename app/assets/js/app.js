@@ -111,8 +111,8 @@ app.controller('MainCtrl', function($scope, $http) {
 
         // Create the JSON URL
         //var jsonUrl = config.serverUrl + scenario + '/stage-' + stage + '.json';
-        var jsonUrl = config.serverUrl + networkId + '/' + variant + '/' + stage; // New format (testing)
-
+        var jsonUrl = config.serverUrl + networkId + '/' + 0 + '/' + stage; // New format (testing)
+        console.log('getting data from: ' + jsonUrl);
         // Load the JSON data in
         $http({ url: jsonUrl, method: 'GET' })
             .success(function(data) {
@@ -174,73 +174,77 @@ app.controller('MainCtrl', function($scope, $http) {
                     $scope.currentData.cassandra.description = data.narrativedescription;
                 }
 
-                // Comapny data (data list)
-                var companyData = data.layers[Object.keys(data.layers)[0]].nodeattributes.data, c;
+                // Data list
+                if (Object.keys(data.layers).length > 0) {
+                    // Comapny data (data list)
+                    var companyData = data.layers[Object.keys(data.layers)[0]].nodeattributes.data,
+                        c,
+                        columnList = [],
+                        dataColumnList = data.layers[Object.keys(data.layers)[0]].nodeattributes.columnlist;
 
-                // Get data list fields
-                var columnList = [];
-                var dataColumnList = data.layers[Object.keys(data.layers)[0]].nodeattributes.columnlist;
-                for (var prop in dataColumnList) {
-                    if (dataColumnList.hasOwnProperty(prop)) {
-                        // Check if we are showing the column
-                        columnList.push({
-                            "id": prop,
-                            "title": dataColumnList[prop].title,
-                            "description": dataColumnList[prop].description,
-                            "show": dataColumnList[prop].show
-                        });
-                    }
-                }
-
-                $scope.currentData.companies = [];
-
-                // Loop through all companies to get the data
-                for (var company in companyData) {
-                    if (companyData.hasOwnProperty(company)) {
-                        // Refer to country as "c" for ease
-                        c = companyData[company].fields;
-
-                        // Check if data is not undefined
-                        if (typeof(c) != 'undefined') {
-                            var companyObject = {
-                                'name': '',
-                                'properties': [],
-                                'hiddenProperties' : {}
-                            };
-
-                            // Loop through all columns and set the property based on the column name
-                            var propId = 0;
-                            var hPropId = 0;
-                            for (var i = 0; i < columnList.length; i++) {
-                                var column = columnList[i];
-                                // Check if the column needs to be shown
-                                if (column.show === true) {
-                                    if (column.id != 'name') {
-                                        // Assign properties to a properties array
-                                        companyObject.properties[propId] = {};
-                                        companyObject.properties[propId].name = column.title;
-                                        companyObject.properties[propId].value = c[i].v;
-                                        propId++;
-                                    } else {
-                                        // Assign the name directly to the object
-                                        companyObject.name = c[i].v;
-                                    }
-                                } else {
-                                    companyObject.hiddenProperties[column.id] = c[i].v;
-                                }
-                            }
-
-                            // Add the closed class to the companyObject
-                            companyObject.class = 'closed';
-
-                            // Push a new country object into the countries array
-                            $scope.currentData.companies.push(companyObject);
+                    for (var prop in dataColumnList) {
+                        if (dataColumnList.hasOwnProperty(prop)) {
+                            // Check if we are showing the column
+                            columnList.push({
+                                "id": prop,
+                                "title": dataColumnList[prop].title,
+                                "description": dataColumnList[prop].description,
+                                "show": dataColumnList[prop].show
+                            });
                         }
                     }
-                }
 
-                if (typeof(callback) !== 'undefined') {
-                    callback($scope.currentData);
+                    $scope.currentData.companies = [];
+
+                    // Loop through all companies to get the data
+                    for (var company in companyData) {
+                        if (companyData.hasOwnProperty(company)) {
+                            // Refer to country as "c" for ease
+                            c = companyData[company].fields;
+
+                            // Check if data is not undefined
+                            if (typeof(c) != 'undefined') {
+                                var companyObject = {
+                                    'name': '',
+                                    'properties': [],
+                                    'hiddenProperties' : {}
+                                };
+
+                                // Loop through all columns and set the property based on the column name
+                                var propId = 0;
+                                var hPropId = 0;
+                                for (var i = 0; i < columnList.length; i++) {
+                                    var column = columnList[i];
+                                    // Check if the column needs to be shown
+                                    if (column.show === true) {
+                                        if (column.id != 'name') {
+                                            // Assign properties to a properties array
+                                            companyObject.properties[propId] = {};
+                                            companyObject.properties[propId].name = column.title;
+                                            companyObject.properties[propId].value = c[i].v;
+                                            propId++;
+                                        } else {
+                                            // Assign the name directly to the object
+                                            companyObject.name = c[i].v;
+                                        }
+                                    } else {
+                                        companyObject.hiddenProperties[column.id] = c[i].v;
+                                    }
+                                }
+
+                                // Add the closed class to the companyObject
+                                companyObject.class = 'closed';
+
+                                // Push a new country object into the countries array
+                                $scope.currentData.companies.push(companyObject);
+                            }
+                        }
+                    }
+
+                    if (typeof(callback) !== 'undefined') {
+                        callback($scope.currentData);
+                    }
+
                 }
             });
 
