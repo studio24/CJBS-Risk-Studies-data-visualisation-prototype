@@ -216,6 +216,7 @@ app.controller('MainCtrl', function($scope, $http) {
                                 for (var i = 0; i < columnList.length; i++) {
                                     var column = columnList[i];
                                     // Check if the column needs to be shown
+                                    console.log(column);
                                     if (column.show === true) {
                                         if (column.id != 'name') {
                                             // Assign properties to a properties array
@@ -230,7 +231,12 @@ app.controller('MainCtrl', function($scope, $http) {
                                     } else {
                                         companyObject.hiddenProperties[column.id] = c[i].v;
                                     }
+
+                                    if (column.id == 'guid') {
+                                        companyObject.hiddenProperties.guid = c[i].v;
+                                    }
                                 }
+                                console.log(companyObject);
 
                                 // Add the closed class to the companyObject
                                 companyObject.class = 'closed';
@@ -436,6 +442,7 @@ var BaseCtrl = function($scope) {
         // Loop around all companies
         for (var i = 0; i < $parent.currentData.companies.length; i++) {
             var company = $parent.currentData.companies[i];
+
             // Check the guid against the given id
             if (company.hiddenProperties.guid == id) {
                 // Scroll to selected company
