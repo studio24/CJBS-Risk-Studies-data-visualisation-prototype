@@ -296,3 +296,23 @@ section#narrative {
     }
   }
 }
+
+footer {
+  height: 4%;
+  border-top: 1px solid #000;
+  margin: 1% 1% 1% 0;
+  color: #999;
+  font-size: 70%;
+  text-align: right;
+}
+
+footer span {
+  color: #000;
+}
+
+#lockheed-logo {
+  position: relative;
+  top: 8px;
+  margin-left: 6px;
+  height: 40px;
+}
