@@ -7,7 +7,7 @@ angular.module('DataVisualisationNetwork').controller('NetworkMainCtrl', functio
     $scope.$parent.currentSection = 'network';
 
     var scenario = $routeParams.scenario;
-    var variant = 1;
+    var variant = 0;
     var stage = 1;
 
     // Chart drawing logic goes here
