@@ -5,8 +5,11 @@ var JBS = JBS || {};
  * application. Namespaced in here to prevent conflicts
  */
 JBS.Config = function() {
-//    var serverUrl = 'http://dev.studio24.net/data-visualisation-data/';
-    var serverUrl = 'http://dev.cambridgeriskframework.com/ijsrequest/'; // New format (testing)
+    // Local testing
+    // var serverUrl = 'http://dev.studio24.net/data-visualisation-data/';
+
+    // Live URL
+    var serverUrl = 'http://dev.cambridgeriskframework.com/ijsrequest/';
 
     /**
      * This is an empty data object, which is used to reset the data for all of the charts
