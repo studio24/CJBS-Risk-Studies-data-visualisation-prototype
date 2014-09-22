@@ -110,9 +110,9 @@ app.controller('MainCtrl', function($scope, $http) {
         // where: n = network id (always 20, for the Sybil Cyber Scenario), v = variant id, s = stage id
 
         // Create the JSON URL
-        //var jsonUrl = config.serverUrl + scenario + '/stage-' + stage + '.json';
-        var jsonUrl = config.serverUrl + networkId + '/' + 0 + '/' + stage; // New format (testing)
+        var jsonUrl = config.serverUrl + networkId + '/' + variant + '/' + stage; // New format (testing)
         console.log('getting data from: ' + jsonUrl);
+
         // Load the JSON data in
         $http({ url: jsonUrl, method: 'GET' })
             .success(function(data) {
