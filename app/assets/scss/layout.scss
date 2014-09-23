@@ -265,6 +265,7 @@ section#narrative {
   margin-left: 1%;
   width: 22%;
   float: left;
+
   .title {
     background: #2d2c2c;
     width: 100%;
@@ -275,6 +276,7 @@ section#narrative {
       display: block;
     }
   }
+
   article.cassandra {
     width: 92%;
     background: #de3838;
@@ -294,6 +296,10 @@ section#narrative {
       font-size: 75%;
       line-height: 1.6;
     }
+  }
+
+  article.panelhtml {
+    display: none;
   }
 }
 
@@ -316,3 +322,4 @@ footer span {
   margin-left: 6px;
   height: 40px;
 }
+

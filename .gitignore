@@ -19,3 +19,4 @@ nbproject
 .sass-cache
 dist
 node_modules
+app/assets/js/vendor/*

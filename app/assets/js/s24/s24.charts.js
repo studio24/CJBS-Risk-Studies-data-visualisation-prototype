@@ -1581,10 +1581,10 @@ S24.Charts = function()
             .attr('r', function (d) { return 3 * d.size; })
             .on('click', function(d) {
                 var guid = d.guid;
-                var element = d3.select('#' + guid);
+                var element = d3.select('#guid' + guid);
 
                 // Scroll down the list
-                var e = document.getElementById(guid);
+                var e = document.getElementById('guid' + guid);
                 var scrollable = document.getElementById('company-scrollable');
                 scrollable.scrollTop = e.offsetTop;
 

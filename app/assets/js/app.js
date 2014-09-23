@@ -235,7 +235,7 @@ app.controller('MainCtrl', function($scope, $http) {
                                     }
 
                                     if (column.id == 'guid') {
-                                        companyObject.hiddenProperties.guid = c[i].v;
+                                        companyObject.hiddenProperties.guid = 'guid' + c[i].v;
                                     }
                                 }
 
@@ -247,6 +247,7 @@ app.controller('MainCtrl', function($scope, $http) {
                             }
                         }
                     }
+                    //console.log($scope.currentData.companies);
 
                     if (typeof(callback) !== 'undefined') {
                         callback($scope.currentData);
