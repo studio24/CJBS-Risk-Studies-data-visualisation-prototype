@@ -4,7 +4,7 @@ window.config = JBS.Config;
 /**
  * Main App declaration
  */
-var app = angular.module('DataVisualisationApp', ['DataVisualisationNetwork', 'DataVisualisationMap', 'DataVisualisationCharts','ngRoute']);
+var app = angular.module('DataVisualisationApp', ['DataVisualisationNetwork', 'DataVisualisationMap', 'DataVisualisationCharts','ngRoute','ngSanitize']);
 
 /**
  * Sub module declaration
@@ -93,6 +93,8 @@ app.controller('MainCtrl', function($scope, $http) {
         // Setup some easy to access variables
         var config = JBS.Config;
         var previousLoaded = $scope.loadedDataType;
+
+        // Please note networkId is currently hardcoded, we need to allow this to be modified to support other scenarios
         var networkId = 20;
 
         // Check whether we are trying to reload the same data
@@ -172,6 +174,7 @@ app.controller('MainCtrl', function($scope, $http) {
                     $scope.currentData.cassandra.heading = data.narrativeheading;
                     $scope.currentData.cassandra.subheading = data.narrativesubheading;
                     $scope.currentData.cassandra.description = data.narrativedescription;
+                    $scope.currentData.cassandra.panelhtml = data.narrativepanelhtml;
                 }
 
                 // Data list
@@ -216,7 +219,6 @@ app.controller('MainCtrl', function($scope, $http) {
                                 for (var i = 0; i < columnList.length; i++) {
                                     var column = columnList[i];
                                     // Check if the column needs to be shown
-                                    console.log(column);
                                     if (column.show === true) {
                                         if (column.id != 'name') {
                                             // Assign properties to a properties array
@@ -236,7 +238,6 @@ app.controller('MainCtrl', function($scope, $http) {
                                         companyObject.hiddenProperties.guid = c[i].v;
                                     }
                                 }
-                                console.log(companyObject);
 
                                 // Add the closed class to the companyObject
                                 companyObject.class = 'closed';

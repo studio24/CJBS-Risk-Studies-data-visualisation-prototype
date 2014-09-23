@@ -2,6 +2,6 @@
     <article class="cassandra">
         <h2>{{getCassandra().heading}}</h2>
         <h3>{{getCassandra().subheading}}</h3>
-        <p>{{getCassandra().description}}</p>
+        <p ng-bind-html="getCassandra().description"></p>
     </article>
 </section>
