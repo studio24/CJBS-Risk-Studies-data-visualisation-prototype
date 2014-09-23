@@ -68,10 +68,7 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
             // Add layer controls
             L.control.layers(baseLayers).addTo($scope.map);
         }
-
-        // Bring the default layer to the front
-        //layers[mapData.defaultBackgroundLayer - 1].bringToFront();
-
+        
         var geoJsonLayerLinks = L.geoJson();
         var geoJsonLayerNodes = L.geoJson();
 
