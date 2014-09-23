@@ -20,13 +20,15 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
         for (var property in mapData.backgroundLayers) {
             if (mapData.backgroundLayers.hasOwnProperty(property)) {
 
+                var backgroundLayer = mapData.backgroundLayers[property];
+
                 // Set options
                 var options = {
                     maxZoom: 12,
                     minZoom: 2
                 });
                 if (backgroundLayer.maxzoom != undefined) {
-                    options.maxZoom = ackgroundLayer.maxzoom;
+                    options.maxZoom = backgroundLayer.maxzoom;
                 }
                 if (backgroundLayer.minzoom != undefined) {
                     options.minZoom = backgroundLayer.minzoom;
@@ -35,8 +37,8 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                     options.attribution = backgroundLayer.attribution;
                 }
 
-                var newTile = L.tileLayer(mapData.backgroundLayers[property].url, options);
-                baseLayers[mapData.backgroundLayers[property].title] = newTile;
+                var newTile = L.tileLayer(backgroundLayer.url, options);
+                baseLayers[backgroundLayer.title] = newTile;
 
                 // Set first layer as default
                 // @todo Needs work, since property is reset to zero-indexed key when iterating over object in JS
