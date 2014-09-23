@@ -4,7 +4,7 @@ angular.module('DataVisualisationCharts').controller('ChartsMainCtrl', function(
     $scope.$parent.currentSection = 'charts';
 
     var scenario = $routeParams.scenario;
-    var variant = 1;
+    var variant = 0;
     var stage = 1;
 
     // Chart drawing logic goes here

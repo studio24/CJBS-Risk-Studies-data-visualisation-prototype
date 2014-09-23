@@ -137,6 +137,14 @@ app.controller('MainCtrl', function($scope, $http) {
                     $scope.currentData.network.links = data.modules.graphs.graph1.data.graphdump.links;
                     $scope.currentData.network.nodeStyles = data.modules.graphs.graph1.styledefinition.nodestyles;
                     $scope.currentData.network.linkStyles = data.modules.graphs.graph1.styledefinition.linkstyles;
+
+                    // Process guid to ensure it starts with a-z
+                    $scope.currentData.network.nodes.forEach(function(value){
+                        value.guid = 'guid' + value.guid;
+                    });
+                    $scope.currentData.network.links.forEach(function(value){
+                        value.source.guid = 'guid' + value.source.guid;
+                    });
                 }
 
                 // Map
@@ -235,6 +243,7 @@ app.controller('MainCtrl', function($scope, $http) {
                                     }
 
                                     if (column.id == 'guid') {
+                                        // Ensure guid starts with a-z
                                         companyObject.hiddenProperties.guid = 'guid' + c[i].v;
                                     }
                                 }
