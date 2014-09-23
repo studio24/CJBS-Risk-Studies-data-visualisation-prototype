@@ -1,0 +1,1 @@
+Folder for Bower installed JavaScript packages
