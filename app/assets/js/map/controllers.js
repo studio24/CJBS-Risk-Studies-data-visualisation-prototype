@@ -16,21 +16,42 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
 
         var mapData = $data.map;
 
-        var layers = {};
-        for (var bgLayer in mapData.backgroundLayers) {
-            if (mapData.backgroundLayers.hasOwnProperty(bgLayer)) {
-                var newTile = L.tileLayer(mapData.backgroundLayers[bgLayer].url, {
-                    attribution: mapData.backgroundLayers[bgLayer].attribution,
+        var baseLayers = {};
+        for (var property in mapData.backgroundLayers) {
+            if (mapData.backgroundLayers.hasOwnProperty(property)) {
+
+                // Set options
+                var options = {
                     maxZoom: 12,
                     minZoom: 2
                 });
+                if (backgroundLayer.maxzoom != undefined) {
+                    options.maxZoom = ackgroundLayer.maxzoom;
+                }
+                if (backgroundLayer.minzoom != undefined) {
+                    options.minZoom = backgroundLayer.minzoom;
+                }
+                if (backgroundLayer.attribution != undefined) {
+                    options.attribution = backgroundLayer.attribution;
+                }
 
-                layers[mapData.backgroundLayers[bgLayer].title] = newTile;
+                var newTile = L.tileLayer(mapData.backgroundLayers[property].url, options);
+                baseLayers[mapData.backgroundLayers[property].title] = newTile;
+
+                // Set first layer as default
+                // @todo Needs work, since property is reset to zero-indexed key when iterating over object in JS
+                if (property == 0) {
+                    var defaultMap = newTile;
+                }
             }
         }
 
         // Create the leaflet map
-        $scope.map = L.map('map').setView([0, 0], 2);
+        $scope.map = L.map('map', {
+            layers: [defaultMap]
+        }).setView(mapData.center, mapData.zoom);
+
+        // Disable zoom on double-click
         $scope.map.doubleClickZoom.disable();
 
         if (typeof(mapData.wmsLayer) != 'undefined') {
@@ -40,10 +61,10 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
             };
 
             // Add layer controls
-            L.control.layers(layers, overlayLayers).addTo($scope.map);
+            L.control.layers(baseLayers, overlayLayers).addTo($scope.map);
         } else {
             // Add layer controls
-            L.control.layers(layers).addTo($scope.map);
+            L.control.layers(baseLayers).addTo($scope.map);
         }
 
         // Bring the default layer to the front

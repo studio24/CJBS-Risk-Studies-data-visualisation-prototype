@@ -163,6 +163,8 @@ app.controller('MainCtrl', function($scope, $http) {
                     $scope.currentData.map.wmsLayer = data.modules.maps.map1.wmslayers[1];
                     $scope.currentData.map.nodeStyles = data.modules.maps.map1.styledefinition.nodestyles;
                     $scope.currentData.map.linkStyles = data.modules.maps.map1.styledefinition.linkstyles;
+                    $scope.currentData.map.zoom = data.modules.maps.map1.zoom;
+                    $scope.currentData.map.center = data.modules.maps.map1.center;
                 }
 
                 // Charts
