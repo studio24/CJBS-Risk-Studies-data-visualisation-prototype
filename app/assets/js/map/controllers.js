@@ -16,6 +16,7 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
 
         var mapData = $data.map;
 
+        // Base background layers
         var baseLayers = {};
         for (var property in mapData.backgroundLayers) {
             if (mapData.backgroundLayers.hasOwnProperty(property)) {
@@ -26,7 +27,7 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                 var options = {
                     maxZoom: 12,
                     minZoom: 2
-                });
+                };
                 if (backgroundLayer.maxzoom != undefined) {
                     options.maxZoom = backgroundLayer.maxzoom;
                 }
@@ -56,19 +57,41 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
         // Disable zoom on double-click
         $scope.map.doubleClickZoom.disable();
 
-        if (typeof(mapData.wmsLayer) != 'undefined') {
-            // Setup the WMS layer
-            var overlayLayers = {
-                'WMS Layer' : L.tileLayer.wms(mapData.wmsLayer.url, mapData.wmsLayer)
-            };
+        // WMS overlay layers
+        if (typeof(mapData.wmsLayers) != 'undefined') {
+
+            var overlayLayers = {};
+
+            for (var property in mapData.wmsLayers) {
+                if (mapData.wmsLayers.hasOwnProperty(property)) {
+
+                    var wmsLayer = mapData.wmsLayers[property];
+
+                    // Set options
+                    var options = {};
+                    if (wmsLayer.maxzoom != undefined) {
+                        options.maxZoom = wmsLayer.maxzoom;
+                    }
+                    if (wmsLayer.minzoom != undefined) {
+                        options.minZoom = wmsLayer.minzoom;
+                    }
+                    if (wmsLayer.attribution != undefined) {
+                        options.attribution = wmsLayer.attribution;
+                    }
+
+                    // Setup the WMS layer
+                    overlayLayers[wmsLayer.title] = L.tileLayer.wms(wmsLayer.url, options);
+                }
+            }
 
             // Add layer controls
             L.control.layers(baseLayers, overlayLayers).addTo($scope.map);
+
         } else {
             // Add layer controls
             L.control.layers(baseLayers).addTo($scope.map);
         }
-        
+
         var geoJsonLayerLinks = L.geoJson();
         var geoJsonLayerNodes = L.geoJson();
 
