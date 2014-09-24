@@ -58,9 +58,8 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
         $scope.map.doubleClickZoom.disable();
 
         // WMS overlay layers
+        var overlayLayers = {};
         if (typeof(mapData.wmsLayers) != 'undefined') {
-
-            var overlayLayers = {};
 
             for (var property in mapData.wmsLayers) {
                 if (mapData.wmsLayers.hasOwnProperty(property)) {
@@ -83,13 +82,6 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                     overlayLayers[wmsLayer.title] = L.tileLayer.wms(wmsLayer.url, options);
                 }
             }
-
-            // Add layer controls
-            L.control.layers(baseLayers, overlayLayers).addTo($scope.map);
-
-        } else {
-            // Add layer controls
-            L.control.layers(baseLayers).addTo($scope.map);
         }
 
         var geoJsonLayerLinks = L.geoJson();
@@ -98,8 +90,11 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
         // Loop through all layer data from the JSON file
         for (var primaryLayer in mapData.primaryLayers) {
             if (mapData.primaryLayers.hasOwnProperty(primaryLayer)) {
+
+                var primaryLayer = mapData.primaryLayers[primaryLayer];
+
                 // Loop through each feature in the layer
-                mapData.primaryLayers[primaryLayer].geojson.features.forEach(function(feature) {
+                primaryLayer.geojson.features.forEach(function(feature) {
                     var newProperties;
 
                     // Check if the feature is a node, or a link
@@ -124,6 +119,7 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                                 return marker;
                             }
                         }).addTo(geoJsonLayerNodes);
+
                     } else {
                         newProperties = mapData.linkStyles[feature.properties.linkstyle] || {};
                         newProperties.opacity = 0.2;
@@ -135,12 +131,16 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                         }).addTo(geoJsonLayerLinks);
                     }
                 });
+
+                var nodesLayer = L.layerGroup([geoJsonLayerLinks, geoJsonLayerNodes]).addTo($scope.map);
+
+                // Add layer controls
+                overlayLayers[primaryLayer.title] = nodesLayer;
             }
         }
 
-        //clusterLayer.addLayer(geoJsonLayer);
-        $scope.map.addLayer(geoJsonLayerLinks);
-        $scope.map.addLayer(geoJsonLayerNodes);
+        // Add layer controls
+        L.control.layers(baseLayers, overlayLayers).addTo($scope.map);
     };
 
 
