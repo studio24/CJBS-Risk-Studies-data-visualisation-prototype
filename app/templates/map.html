@@ -10,8 +10,11 @@
 </section>
 
 <section id="data-area">
-    <div class="chart">
+    <div class="chart" ng-if="displayMap()">
         <div id="map"></div>
+    </div>
+    <div class="not-available" ng-if="displayMap() == false">
+        Sorry, map is not available in this data view
     </div>
     <div class="data-list">
         <companies></companies>

@@ -113,7 +113,7 @@ app.controller('MainCtrl', function($scope, $http) {
 
         // Create the JSON URL
         var jsonUrl = config.serverUrl + networkId + '/' + variant + '/' + stage; // New format (testing)
-        console.log('getting data from: ' + jsonUrl);
+        console.log('Getting data from: ' + jsonUrl);
 
         // Load the JSON data in
         $http({ url: jsonUrl, method: 'GET' })
@@ -128,11 +128,18 @@ app.controller('MainCtrl', function($scope, $http) {
                 $scope.currentData.scenario.narrativeheading = data.narrativeheading;
                 $scope.currentData.scenario.narrativesubheading = data.narrativesubheading;
                 $scope.currentData.scenario.iconurl = data.iconurl;
-                $scope.currentData.scenario.variants = data.variants;
                 $scope.currentData.scenario.stages = data.stages;
+
+                if (Object.keys(data.variants).length > 0) {
+                    $scope.currentData.displayVariants = true;
+                    $scope.currentData.scenario.variants = data.variants;
+                } else {
+                    $scope.currentData.displayVariants = false;
+                }
 
                 // Network
                 if (typeof data.modules.graphs != 'undefined' && typeof data.modules.graphs.graph1 != 'undefined') {
+                    $scope.currentData.displayNetwork = true;
                     $scope.currentData.network.nodes = data.modules.graphs.graph1.data.graphdump.nodes;
                     $scope.currentData.network.links = data.modules.graphs.graph1.data.graphdump.links;
                     $scope.currentData.network.nodeStyles = data.modules.graphs.graph1.styledefinition.nodestyles;
@@ -145,10 +152,13 @@ app.controller('MainCtrl', function($scope, $http) {
                     $scope.currentData.network.links.forEach(function(value){
                         value.source.guid = 'guid' + value.source.guid;
                     });
+                } else {
+                    $scope.currentData.displayNetwork = true;
                 }
 
                 // Map
                 if (typeof data.modules.maps != 'undefined' && typeof data.modules.maps.map1 != 'undefined') {
+                    $scope.currentData.displayMap = true;
                     $scope.currentData.map.defaultBackgroundLayer = data.modules.maps.map1.defaultbackgroundlayer;
                     $scope.currentData.map.backgroundLayers = [];
 
@@ -165,10 +175,14 @@ app.controller('MainCtrl', function($scope, $http) {
                     $scope.currentData.map.linkStyles = data.modules.maps.map1.styledefinition.linkstyles;
                     $scope.currentData.map.zoom = data.modules.maps.map1.zoom;
                     $scope.currentData.map.center = data.modules.maps.map1.center;
+                } else {
+                    $scope.currentData.displayMap = true;
                 }
 
                 // Charts
                 if (typeof data.modules.charts != 'undefined') {
+                    $scope.currentData.displayChart = true;
+
                     // Line chart
                     if (typeof data.modules.charts.linechart1 != 'undefined') {
                         $scope.currentData.charts.options.type = data.modules.charts.linechart1.type;
@@ -176,19 +190,26 @@ app.controller('MainCtrl', function($scope, $http) {
                         $scope.currentData.charts.options.series = data.modules.charts.linechart1.options.series;
                         $scope.currentData.charts.data = data.modules.charts.linechart1.data;
                     }
+                } else {
+                    $scope.currentData.displayChart = false;
                 }
 
                 // Cassandra
                 if (typeof data.narrativeheading != 'undefined' && typeof data.narrativedescription != 'undefined') {
+                    $scope.currentData.displayNarrative = true;
                     $scope.currentData.cassandra = {};
                     $scope.currentData.cassandra.heading = data.narrativeheading;
                     $scope.currentData.cassandra.subheading = data.narrativesubheading;
                     $scope.currentData.cassandra.description = data.narrativedescription;
                     $scope.currentData.cassandra.panelhtml = data.narrativepanelhtml;
+                } else {
+                    $scope.currentData.displayNarrative = false;
                 }
 
                 // Data list
                 if (Object.keys(data.layers).length > 0) {
+                    $scope.currentData.displayDatalist = true;
+
                     // Comapny data (data list)
                     var companyData = data.layers[Object.keys(data.layers)[0]].nodeattributes.data,
                         c,
@@ -258,12 +279,13 @@ app.controller('MainCtrl', function($scope, $http) {
                             }
                         }
                     }
-                    //console.log($scope.currentData.companies);
 
                     if (typeof(callback) !== 'undefined') {
                         callback($scope.currentData);
                     }
 
+                } else {
+                    $scope.currentData.displayDatalist = false;
                 }
             });
 
@@ -273,6 +295,8 @@ app.controller('MainCtrl', function($scope, $http) {
             stage: stage,
             variant: variant
         };
+
+        console.log($scope.currentData);
 
         return true;
     };
@@ -411,6 +435,61 @@ var BaseCtrl = function($scope) {
     $scope.getCassandra = function() {
         return $parent.currentData.cassandra;
     };
+
+    /**
+     * Should we display the narrative?
+     *
+     * @returns {boolean}
+     */
+    $scope.displayNarrative = function() {
+        return $parent.currentData.displayNarrative;
+    };
+
+    /**
+     * Should we display the data list (companies list)?
+     *
+     * @returns {boolean}
+     */
+    $scope.displayDatalist = function() {
+        return $parent.currentData.displayDatalist;
+    };
+
+    /**
+     * Should we display the variants?
+     *
+     * @returns {boolean}
+     */
+    $scope.displayVariants = function() {
+        return $parent.currentData.displayVariants;
+    };
+
+    /**
+     * Should we display the narrative?
+     *
+     * @returns {boolean}
+     */
+    $scope.displayNetwork = function() {
+        return $parent.currentData.displayNetwork;
+    };
+
+    /**
+     * Should we display the narrative?
+     *
+     * @returns {boolean}
+     */
+    $scope.displayMap = function() {
+        return $parent.currentData.displayMap;
+    };
+
+    /**
+     * Should we display the narrative?
+     *
+     * @returns {boolean}
+     */
+    $scope.displayChart = function() {
+        return $parent.currentData.displayChart;
+    };
+
 
     /**
      * Get an array of all companies

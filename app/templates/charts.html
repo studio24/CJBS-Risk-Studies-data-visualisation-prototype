@@ -10,8 +10,11 @@
 </section>
 
 <section id="data-area">
-    <div class="chart">
+    <div class="chart" ng-if="displayChart()">
         <div class="svg line-graph"></div>
+    </div>
+    <div class="not-available" ng-if="displayChart() == false">
+        Sorry, chart is not available in this data view
     </div>
     <div class="data-list">
 
