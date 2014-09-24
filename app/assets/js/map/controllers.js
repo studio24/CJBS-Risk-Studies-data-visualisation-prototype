@@ -67,7 +67,9 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                     var wmsLayer = mapData.wmsLayers[property];
 
                     // Set options
-                    var options = {};
+                    var options = {
+                        'layers': wmsLayer.layers
+                    };
                     if (wmsLayer.maxzoom != undefined) {
                         options.maxZoom = wmsLayer.maxzoom;
                     }
@@ -76,6 +78,15 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                     }
                     if (wmsLayer.attribution != undefined) {
                         options.attribution = wmsLayer.attribution;
+                    }
+                    if (wmsLayer.format != undefined) {
+                        options.format = wmsLayer.format;
+                    }
+                    if (wmsLayer.opacity != undefined) {
+                        options.opacity = wmsLayer.opacity;
+                    }
+                    if (wmsLayer.transparent != undefined) {
+                        options.transparent = wmsLayer.transparent;
                     }
 
                     // Setup the WMS layer
