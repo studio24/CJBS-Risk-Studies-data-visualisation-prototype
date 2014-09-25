@@ -332,7 +332,7 @@ app.controller('MainCtrl', function($scope, $http) {
      * @returns {boolean}
      */
     $scope.displayNetwork = function() {
-        return $parent.currentData.displayNetwork;
+        return $scope.currentData.displayNetwork;
     };
 
     /**
@@ -341,7 +341,7 @@ app.controller('MainCtrl', function($scope, $http) {
      * @returns {boolean}
      */
     $scope.displayMap = function() {
-        return $parent.currentData.displayMap;
+        return $scope.currentData.displayMap;
     };
 
     /**
@@ -350,7 +350,7 @@ app.controller('MainCtrl', function($scope, $http) {
      * @returns {boolean}
      */
     $scope.displayChart = function() {
-        return $parent.currentData.displayChart;
+        return $scope.currentData.displayChart;
     };
 
 
