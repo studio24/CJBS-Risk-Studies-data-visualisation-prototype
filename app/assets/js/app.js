@@ -64,6 +64,7 @@ angular.module('DataVisualisationCharts').config(function($routeProvider) {
  * Main wrapping controller
  */
 app.controller('MainCtrl', function($scope, $http) {
+
     // Initialise the application variables
     $scope.currentSection = '';
     $scope.currentStage = 0;
@@ -324,6 +325,35 @@ app.controller('MainCtrl', function($scope, $http) {
         return $scope.currentData.scenario.title;
     };
 
+
+    /**
+     * Should we display the network chart?
+     *
+     * @returns {boolean}
+     */
+    $scope.displayNetwork = function() {
+        return $parent.currentData.displayNetwork;
+    };
+
+    /**
+     * Should we display the map?
+     *
+     * @returns {boolean}
+     */
+    $scope.displayMap = function() {
+        return $parent.currentData.displayMap;
+    };
+
+    /**
+     * Should we display the chart?
+     *
+     * @returns {boolean}
+     */
+    $scope.displayChart = function() {
+        return $parent.currentData.displayChart;
+    };
+
+
 });
 
 /**
@@ -464,7 +494,7 @@ var BaseCtrl = function($scope) {
     };
 
     /**
-     * Should we display the narrative?
+     * Should we display the network chart?
      *
      * @returns {boolean}
      */
@@ -473,7 +503,7 @@ var BaseCtrl = function($scope) {
     };
 
     /**
-     * Should we display the narrative?
+     * Should we display the map?
      *
      * @returns {boolean}
      */
@@ -482,7 +512,7 @@ var BaseCtrl = function($scope) {
     };
 
     /**
-     * Should we display the narrative?
+     * Should we display the chart?
      *
      * @returns {boolean}
      */

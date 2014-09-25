@@ -143,7 +143,7 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                     }
                 });
 
-                var nodesLayer = L.layerGroup([geoJsonLayerLinks, geoJsonLayerNodes]).addTo($scope.map);
+                var nodesLayer = L.layerGroup([geoJsonLayerNodes, geoJsonLayerLinks]).addTo($scope.map);
 
                 // Add layer controls
                 overlayLayers[primaryLayer.title] = nodesLayer;
@@ -155,9 +155,10 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
     };
 
 
-
     // Start loading the data into the page
     $scope.$parent.loadData(scenario, variant, stage, function($data) {
-        $scope.loadCharts($data);
+        if ($scope.displayMap()) {
+            $scope.loadCharts($data);
+        }
     });
 });

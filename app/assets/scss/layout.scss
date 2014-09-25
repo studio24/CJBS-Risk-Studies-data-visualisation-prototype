@@ -31,7 +31,7 @@ nav#side-navigation {
     margin-bottom: 15px;
     font-size: 14px;
   }
-  a {
+  a, div.inactive {
     display: block;
     color: $primary-colour;
     text-decoration: none;
@@ -39,15 +39,20 @@ nav#side-navigation {
     padding: 25px 0;
     width: 100%;
     font-size: 13px;
-    &:hover, &.active {
-      background-image: url('../img/bg.png');
-    }
     img {
       width: 50%;
       margin: 0 auto;
       display: block;
       margin-bottom: 10px;
     }
+  }
+  a {
+    &:hover, &.active {
+      background-image: url('../img/bg.png');
+    }
+  }
+  div.inactive {
+    opacity: 0.4;
   }
 }
 

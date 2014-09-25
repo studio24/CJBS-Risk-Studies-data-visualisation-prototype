@@ -8,7 +8,7 @@
 
     <!-- Web design & development by Studio 24 - www.studio24.net -->
     <link rel="shortcut icon" href="assets/img/favicon.ico" />
-    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="assets/imgq/apple-touch-icon.png" />
 
     <!-- META -->
     <meta name="author" content="Studio 24">
@@ -34,16 +34,24 @@
 <body>
     <div id="full-wrapper">
         <nav id="side-navigation">
-            <a href="#/sybil-logic-bomb/network" class="{{getSelectedNav('network')}}">
+            <a href="#/sybil-logic-bomb/network" class="{{getSelectedNav('network')}}" ng-if="displayNetwork()">
                 <img src="assets/img/network.svg">Network
             </a>
-            <a href="#/sybil-logic-bomb/map" class="{{getSelectedNav('map')}}">
+            <div class="inactive" ng-hide="displayNetwork()">
+                <img src="assets/img/network.svg">Network
+            </div>
+            <a href="#/sybil-logic-bomb/map" class="{{getSelectedNav('map')}}" ng-if="displayMap()">
                 <img src="assets/img/map.svg">World Map
             </a>
-            <a href="#/sybil-logic-bomb/charts" class="{{getSelectedNav('charts')}}">
-                <img src="assets/img/chart.svg">
-                Charts
+            <div class="inactive" ng-hide="displayMap()">
+                <img src="assets/img/map.svg">World Map
+            </div>
+            <a href="#/sybil-logic-bomb/charts" class="{{getSelectedNav('charts')}}" ng-if="displayChart()">
+                <img src="assets/img/chart.svg">Charts
             </a>
+            <div class="inactive" ng-hide="displayChart()">
+                <img src="assets/img/chart.svg">Charts
+            </div>
         </nav>
 
         <section id="main-content">
