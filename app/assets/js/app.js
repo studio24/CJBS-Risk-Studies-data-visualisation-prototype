@@ -154,7 +154,7 @@ app.controller('MainCtrl', function($scope, $http) {
                         value.source.guid = 'guid' + value.source.guid;
                     });
                 } else {
-                    $scope.currentData.displayNetwork = true;
+                    $scope.currentData.displayNetwork = false;
                 }
 
                 // Map
@@ -177,7 +177,7 @@ app.controller('MainCtrl', function($scope, $http) {
                     $scope.currentData.map.zoom = data.modules.maps.map1.zoom;
                     $scope.currentData.map.center = data.modules.maps.map1.center;
                 } else {
-                    $scope.currentData.displayMap = true;
+                    $scope.currentData.displayMap = false;
                 }
 
                 // Charts
