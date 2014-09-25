@@ -18,6 +18,11 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
 
         // Base background layers
         var baseLayers = {};
+        if (mapData.backgroundLayers.defaultbackgroundlayer != undefined) {
+            var defaultBaseLayer = mapData.backgroundLayers.defaultbackgroundlayer;
+        } else {
+            var defaultBaseLayer = 0;
+        }
         for (var property in mapData.backgroundLayers) {
             if (mapData.backgroundLayers.hasOwnProperty(property)) {
 
@@ -41,21 +46,14 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                 var newTile = L.tileLayer(backgroundLayer.url, options);
                 baseLayers[backgroundLayer.title] = newTile;
 
-                // Set first layer as default
-                // @todo Needs work, since property is reset to zero-indexed key when iterating over object in JS
-                if (property == 0) {
+                // Set default background layer
+                if (property == defaultBaseLayer) {
                     var defaultMap = newTile;
                 }
             }
         }
 
-        // Create the leaflet map
-        $scope.map = L.map('map', {
-            layers: [defaultMap]
-        }).setView(mapData.center, mapData.zoom);
-
-        // Disable zoom on double-click
-        $scope.map.doubleClickZoom.disable();
+        var defaultMapLayers = [defaultMap];
 
         // WMS overlay layers
         var overlayLayers = {};
@@ -88,13 +86,29 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                     if (wmsLayer.transparent != undefined) {
                         options.transparent = wmsLayer.transparent;
                     }
+                    if (wmsLayer.zindex != undefined) {
+                        options.zIndex = wmsLayer.zindex;
+                    }
 
                     // Setup the WMS layer
-                    overlayLayers[wmsLayer.title] = L.tileLayer.wms(wmsLayer.url, options);
+                    var wmsTile = L.tileLayer.wms(wmsLayer.url, options);
+                    overlayLayers[wmsLayer.title] = wmsTile;
+
+                    // Add to map by default?
+                    if (wmsLayer.display == "true") {
+                        defaultMapLayers.push(wmsTile);
+                    }
                 }
             }
         }
 
+        // Create the leaflet map
+        $scope.map = L.map('map', {
+            layers: defaultMapLayers
+        }).setView(mapData.center, mapData.zoom);
+        
+        // Disable zoom on double-click
+        $scope.map.doubleClickZoom.disable();
         var geoJsonLayerLinks = L.geoJson();
         var geoJsonLayerNodes = L.geoJson();
 
