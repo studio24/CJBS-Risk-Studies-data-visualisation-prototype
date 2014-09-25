@@ -84,7 +84,7 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                         options.opacity = wmsLayer.opacity;
                     }
                     if (wmsLayer.transparent != undefined) {
-                        options.transparent = wmsLayer.transparent;
+                        options.transparent = (wmsLayer.transparent === "true");
                     }
                     if (wmsLayer.zindex != undefined) {
                         options.zIndex = wmsLayer.zindex;
@@ -95,9 +95,11 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                     overlayLayers[wmsLayer.title] = wmsTile;
 
                     // Add to map by default?
-                    if (wmsLayer.display == "true") {
+                    /* @todo this doesn't work
+                    if (wmsLayer.display === "true") {
                         defaultMapLayers.push(wmsTile);
                     }
+                    */
                 }
             }
         }
