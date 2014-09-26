@@ -4,8 +4,8 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
     $scope.$parent.currentSection = 'map';
 
     var scenario = $routeParams.scenario;
-    var variant = 0;
-    var stage = 1;
+    var variant = $routeParams.variant;
+    var stage = $routeParams.stage;
 
     // Chart drawing logic goes in here
     $scope.loadCharts = function($data) {

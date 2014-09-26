@@ -23,7 +23,8 @@ app.config(function($routeProvider) {
             controller : 'MainCtrl'
         })
         .when('/:scenario/', {
-            redirectTo: '/'
+            // Default URL for a scenario
+            redirectTo: '/:scenario/network/1/0'
         });
 });
 
@@ -32,7 +33,7 @@ app.config(function($routeProvider) {
  */
 angular.module('DataVisualisationNetwork').config(function($routeProvider) {
     $routeProvider
-        .when('/:scenario/network', {
+        .when('/:scenario/network/:stage/:variant', {
             templateUrl : 'templates/network.html',
             controller : 'NetworkMainCtrl'
         });
@@ -43,7 +44,7 @@ angular.module('DataVisualisationNetwork').config(function($routeProvider) {
  */
 angular.module('DataVisualisationMap').config(function($routeProvider) {
     $routeProvider
-        .when('/:scenario/map', {
+        .when('/:scenario/map/:stage/:variant', {
             templateUrl : 'templates/map.html',
             controller : 'MapMainCtrl'
         });
@@ -54,7 +55,7 @@ angular.module('DataVisualisationMap').config(function($routeProvider) {
  */
 angular.module('DataVisualisationCharts').config(function($routeProvider) {
     $routeProvider
-        .when('/:scenario/charts', {
+        .when('/:scenario/charts/:stage/:variant', {
             templateUrl : 'templates/charts.html',
             controller : 'ChartsMainCtrl'
         });
@@ -63,11 +64,11 @@ angular.module('DataVisualisationCharts').config(function($routeProvider) {
 /**
  * Main wrapping controller
  */
-app.controller('MainCtrl', function($scope, $http) {
+app.controller('MainCtrl', function($scope, $http, $location) {
 
     // Initialise the application variables
     $scope.currentSection = '';
-    $scope.currentStage = 0;
+    $scope.currentStage = 1;
     $scope.currentVariant = 0;
 
     // Create a blank data object
@@ -97,6 +98,8 @@ app.controller('MainCtrl', function($scope, $http) {
 
         // Please note networkId is currently hardcoded, we need to allow this to be modified to support other scenarios
         var networkId = 20;
+        $scope.currentStage = stage;
+        $scope.currentVariant = variant;
 
         // Check whether we are trying to reload the same data
         if (previousLoaded.scenario == scenario && previousLoaded.variant == variant && previousLoaded.stage == stage) {
@@ -113,7 +116,7 @@ app.controller('MainCtrl', function($scope, $http) {
         // where: n = network id (always 20, for the Sybil Cyber Scenario), v = variant id, s = stage id
 
         // Create the JSON URL
-        var jsonUrl = config.serverUrl + networkId + '/' + variant + '/' + stage; // New format (testing)
+        var jsonUrl = config.serverUrl + networkId + '/' + variant + '/' + stage;
         console.log('Getting data from: ' + jsonUrl);
 
         // Load the JSON data in
@@ -130,6 +133,7 @@ app.controller('MainCtrl', function($scope, $http) {
                 $scope.currentData.scenario.narrativesubheading = data.narrativesubheading;
                 $scope.currentData.scenario.iconurl = data.iconurl;
                 $scope.currentData.scenario.stages = data.stages;
+                $scope.currentData.defaultModule = data.defaultmodulevisibility[0];
 
                 if (Object.keys(data.variants).length > 0) {
                     $scope.currentData.displayVariants = true;
@@ -281,13 +285,34 @@ app.controller('MainCtrl', function($scope, $http) {
                         }
                     }
 
-                    if (typeof(callback) !== 'undefined') {
-                        callback($scope.currentData);
-                    }
-
                 } else {
                     $scope.currentData.displayDatalist = false;
                 }
+
+                // Set default module
+                switch ($scope.currentData.defaultModule) {
+                    case 'graphs':
+                        if ($scope.currentSection != 'network') {
+                            $location.path('/' + scenario + '/network/' + stage + '/' + variant);
+                        }
+                        break;
+                    case'maps':
+                        if ($scope.currentSection != 'maps') {
+                            $location.path('/' + scenario + '/map/' + stage + '/' + variant);
+                        }
+                        break;
+                    case 'charts':
+                        if ($scope.currentSection != 'charts') {
+                            $location.path('/' + scenario + '/charts/' + stage + '/' + variant);
+                        }
+                        break;
+                }
+
+                // Run callback function
+                if (typeof(callback) !== 'undefined') {
+                    callback($scope.currentData);
+                }
+
             });
 
         // Set the new loadedDataType
@@ -296,8 +321,6 @@ app.controller('MainCtrl', function($scope, $http) {
             stage: stage,
             variant: variant
         };
-
-        console.log($scope.currentData);
 
         return true;
     };

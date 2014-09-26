@@ -1,17 +1,48 @@
-angular.module('DataVisualisationCharts').controller('ChartsMainCtrl', function($scope, $injector, $routeParams) {
+angular.module('DataVisualisationCharts').controller('ChartsMainCtrl', function($scope, $routeParams, $injector) {
     $injector.invoke(BaseCtrl, this, {$scope: $scope});
 
     $scope.$parent.currentSection = 'charts';
 
     var scenario = $routeParams.scenario;
-    var variant = 0;
-    var stage = 1;
+    var variant = $routeParams.variant;
+    var stage = $routeParams.stage;
 
     // Chart drawing logic goes here
     $scope.loadCharts = function($data) {
-        S24.Charts.createLineChart('.svg', $data.charts.data, {
 
-        });
+        var chartDiv = document.getElementById('chart');
+
+        switch ($data.charts.options.type) {
+            case "BarChart":
+                var chart = new google.visualization.BarChart(chartDiv);
+                break;
+            case "LineChart":
+                var chart = new google.visualization.LineChart(chartDiv);
+                break;
+        }
+        
+        if (chart != undefined) {
+            // @todo fix chart drawing, go through and fix all data from JSON object
+            var chartData = new google.visualization.DataTable(
+                {
+                    cols: $data.charts.data.cols,
+                    rows: $data.charts.data.rows
+                }
+            );
+
+            var chartOptions = {
+                width: $data.charts.options.width,
+                height: $data.charts.options.height,
+                legend: $data.charts.options.legend,
+                title: $data.charts.options.title,
+                series: $data.charts.options.series
+            };
+            if ($data.charts.options.isStacked === "true") {
+                chartOptions.isStacked = true;
+            }
+
+            chart.draw(chartData, chartOptions);
+        }
     };
 
     // Initial data load
