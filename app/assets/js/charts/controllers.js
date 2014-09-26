@@ -20,7 +20,7 @@ angular.module('DataVisualisationCharts').controller('ChartsMainCtrl', function(
                 var chart = new google.visualization.LineChart(chartDiv);
                 break;
         }
-        
+
         if (chart != undefined) {
             // @todo fix chart drawing, go through and fix all data from JSON object
             var chartData = new google.visualization.DataTable(
@@ -37,6 +37,7 @@ angular.module('DataVisualisationCharts').controller('ChartsMainCtrl', function(
                 title: $data.charts.options.title,
                 series: $data.charts.options.series
             };
+
             if ($data.charts.options.isStacked === "true") {
                 chartOptions.isStacked = true;
             }

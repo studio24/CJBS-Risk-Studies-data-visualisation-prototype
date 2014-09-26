@@ -190,9 +190,8 @@ app.controller('MainCtrl', function($scope, $http, $location) {
 
                     // Line chart
                     if (typeof data.modules.charts.linechart1 != 'undefined') {
+                        $scope.currentData.charts.options = data.modules.charts.linechart1.options;
                         $scope.currentData.charts.options.type = data.modules.charts.linechart1.type;
-                        $scope.currentData.charts.options.title = data.modules.charts.linechart1.options.title;
-                        $scope.currentData.charts.options.series = data.modules.charts.linechart1.options.series;
                         $scope.currentData.charts.data = data.modules.charts.linechart1.data;
                     }
                 } else {
