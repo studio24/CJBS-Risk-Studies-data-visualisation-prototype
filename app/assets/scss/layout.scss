@@ -146,6 +146,10 @@ section#main-content {
       margin-top: 2px;
       margin-bottom: 0.5%;
       font-family: 'MuseoSansRegular';
+      a {
+        color: $primary-colour;
+        text-decoration: none;
+      }
     }
     h3 {
       color: $primary-colour;
