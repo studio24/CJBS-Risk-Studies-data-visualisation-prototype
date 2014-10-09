@@ -3,6 +3,39 @@
         <h2>{{getCassandra().heading}}</h2>
         <h3>{{getCassandra().subheading}}</h3>
         <p ng-bind-html="getCassandra().description"></p>
+        <p class="read-more"><a href="" ng-click="showPanel = true">read more...</a></p>
+        <p><img src="/assets/img/cassandra.png" class="cassandra-logo" alt="Cassandra.com"></p>
     </article>
-    <article class="panelhtml" ng-bind-html="getCassandra().panelhtml"></article>
+    <article class="panelhtml"ng-show="showPanel">
+        <div ng-bind-html="getCassandra().panelhtml"></div>
+
+        Efficiently disintermediate proactive web services and interactive functionalities. Intrinsicly deliver quality methodologies without cross functional testing procedures. Dramatically transform cross-platform testing procedures vis-a-vis reliable e-services. Distinctively myocardinate plug-and-play experiences and sustainable collaboration and idea-sharing. Compellingly formulate superior leadership after covalent initiatives.
+
+        Dynamically monetize front-end innovation through equity invested total linkage. Completely myocardinate viral opportunities for magnetic communities. Synergistically iterate global action items after functional internal or "organic" sources. Authoritatively initiate market-driven systems through standardized communities. Interactively e-enable holistic web-readiness and client-focused "outside the box" thinking.
+
+        Phosfluorescently incentivize cutting-edge processes before global potentialities. Conveniently build dynamic opportunities for cost effective catalysts for change. Collaboratively morph competitive paradigms via equity invested niche markets. Enthusiastically evolve client-based schemas with business deliverables. Assertively actualize proactive vortals with superior scenarios.
+
+        Seamlessly leverage existing flexible expertise with seamless applications. Efficiently iterate leading-edge models via error-free e-commerce. Dynamically aggregate emerging internal or "organic" sources after best-of-breed experiences. Objectively cultivate cross functional e-services for cross-platform testing procedures. Professionally cultivate open-source e-markets whereas state of the art intellectual capital.
+
+        Assertively supply long-term high-impact outsourcing whereas strategic convergence. Rapidiously synergize open-source value rather than process-centric human capital. Competently engage technically sound core competencies after seamless ideas. Progressively benchmark long-term high-impact communities through prospective partnerships. Phosfluorescently plagiarize resource-leveling users with clicks-and-mortar alignments.
+
+        Compellingly evolve world-class data through excellent interfaces. Energistically synergize functionalized bandwidth after scalable leadership. Completely integrate cross-platform bandwidth after highly efficient portals. Enthusiastically mesh seamless value through scalable users. Distinctively leverage existing revolutionary solutions with e-business best practices.
+
+        Assertively customize world-class supply chains for distributed products. Professionally engage enabled collaboration and idea-sharing whereas high-payoff interfaces. Energistically optimize impactful best practices via cutting-edge deliverables. Holisticly whiteboard innovative platforms and principle-centered manufactured products. Proactively exploit accurate quality.
+
+        Efficiently disintermediate proactive web services and interactive functionalities. Intrinsicly deliver quality methodologies without cross functional testing procedures. Dramatically transform cross-platform testing procedures vis-a-vis reliable e-services. Distinctively myocardinate plug-and-play experiences and sustainable collaboration and idea-sharing. Compellingly formulate superior leadership after covalent initiatives.
+
+        Dynamically monetize front-end innovation through equity invested total linkage. Completely myocardinate viral opportunities for magnetic communities. Synergistically iterate global action items after functional internal or "organic" sources. Authoritatively initiate market-driven systems through standardized communities. Interactively e-enable holistic web-readiness and client-focused "outside the box" thinking.
+
+        Phosfluorescently incentivize cutting-edge processes before global potentialities. Conveniently build dynamic opportunities for cost effective catalysts for change. Collaboratively morph competitive paradigms via equity invested niche markets. Enthusiastically evolve client-based schemas with business deliverables. Assertively actualize proactive vortals with superior scenarios.
+
+        Seamlessly leverage existing flexible expertise with seamless applications. Efficiently iterate leading-edge models via error-free e-commerce. Dynamically aggregate emerging internal or "organic" sources after best-of-breed experiences. Objectively cultivate cross functional e-services for cross-platform testing procedures. Professionally cultivate open-source e-markets whereas state of the art intellectual capital.
+
+        Assertively supply long-term high-impact outsourcing whereas strategic convergence. Rapidiously synergize open-source value rather than process-centric human capital. Competently engage technically sound core competencies after seamless ideas. Progressively benchmark long-term high-impact communities through prospective partnerships. Phosfluorescently plagiarize resource-leveling users with clicks-and-mortar alignments.
+
+        Compellingly evolve world-class data through excellent interfaces. Energistically synergize functionalized bandwidth after scalable leadership. Completely integrate cross-platform bandwidth after highly efficient portals. Enthusiastically mesh seamless value through scalable users. Distinctively leverage existing revolutionary solutions with e-business best practices.
+
+        Assertively customize world-class supply chains for distributed products. Professionally engage enabled collaboration and idea-sharing whereas high-payoff interfaces. Energistically optimize impactful best practices via cutting-edge deliverables. Holisticly whiteboard innovative platforms and principle-centered manufactured products. Proactively exploit accurate quality.
+        <p class="read-more"><a href="" ng-click="showPanel = false">close</a></p>
+    </article>
 </section>

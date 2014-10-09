@@ -599,4 +599,5 @@ var BaseCtrl = function($scope) {
             }
         }
     };
+
 };
