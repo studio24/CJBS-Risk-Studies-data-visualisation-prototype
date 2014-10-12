@@ -30,9 +30,13 @@ angular.module('DataVisualisationCharts').controller('ChartsMainCtrl', function(
                 }
             );
 
+            // Get size of container
+            var containerWidth = document.getElementById('data-area').offsetWidth;
+            var containerHeight = document.getElementById('data-area').offsetHeight;
+
             var chartOptions = {
-                width: $data.charts.options.width,
-                height: $data.charts.options.height,
+                width: containerWidth,
+                height: containerHeight,
                 legend: $data.charts.options.legend,
                 title: $data.charts.options.title,
                 series: $data.charts.options.series
