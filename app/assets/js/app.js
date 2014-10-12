@@ -138,6 +138,10 @@ app.controller('MainCtrl', function($scope, $http, $location) {
                 if (Object.keys(data.variants).length > 0) {
                     $scope.currentData.displayVariants = true;
                     $scope.currentData.scenario.variants = data.variants;
+                    if (variant == "0") {
+                        variant = 1;
+                        $scope.currentVariant = 1;
+                    }
                 } else {
                     $scope.currentData.displayVariants = false;
                 }
@@ -307,19 +311,19 @@ app.controller('MainCtrl', function($scope, $http, $location) {
                         break;
                 }
 
+                // Set the new loadedDataType
+                $scope.loadedDataType = {
+                    scenario: scenario,
+                    stage: $scope.currentStage,
+                    variant: $scope.currentVariant
+                };
+
                 // Run callback function
                 if (typeof(callback) !== 'undefined') {
                     callback($scope.currentData);
                 }
 
             });
-
-        // Set the new loadedDataType
-        $scope.loadedDataType = {
-            scenario: scenario,
-            stage: stage,
-            variant: variant
-        };
 
         return true;
     };
