@@ -139,7 +139,7 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                                 marker.on('click', function() {
                                     var guid = this.feature.id;
                                     $scope.$apply(function() {
-                                        $scope.toggleCompanyById(guid);
+                                        $scope.toggleCompanyById('guid' + guid);
                                     });
                                 });
 
