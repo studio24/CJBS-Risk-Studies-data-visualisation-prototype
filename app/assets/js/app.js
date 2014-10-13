@@ -298,23 +298,33 @@ app.controller('MainCtrl', function($scope, $http, $location) {
                     $scope.currentData.displayDatalist = false;
                 }
 
-                // Set default module
-                switch ($scope.currentData.defaultModule) {
-                    case 'graphs':
-                        if ($scope.currentSection != 'network') {
-                            $location.path('/' + scenario + '/network/' + stage + '/' + variant);
-                        }
-                        break;
-                    case'maps':
-                        if ($scope.currentSection != 'maps') {
-                            $location.path('/' + scenario + '/map/' + stage + '/' + variant);
-                        }
-                        break;
-                    case 'charts':
-                        if ($scope.currentSection != 'charts') {
-                            $location.path('/' + scenario + '/charts/' + stage + '/' + variant);
-                        }
-                        break;
+                // Set default module if current module not available
+                var displayDefaultModule = false;
+                if (($scope.currentSection == 'network') && ($scope.currentData.displayNetwork === false)) {
+                    displayDefaultModule = true;
+                } else if (($scope.currentSection == 'maps') && ($scope.currentData.displayMap === false)) {
+                    displayDefaultModule = true;
+                } else if (($scope.currentSection == 'charts') && ($scope.currentData.displayChart === false)) {
+                    displayDefaultModule = true;
+                }
+                if (displayDefaultModule) {
+                    switch ($scope.currentData.defaultModule) {
+                        case 'graphs':
+                            if ($scope.currentSection != 'network') {
+                                $location.path('/' + scenario + '/network/' + stage + '/' + variant);
+                            }
+                            break;
+                        case'maps':
+                            if ($scope.currentSection != 'map') {
+                                $location.path('/' + scenario + '/map/' + stage + '/' + variant);
+                            }
+                            break;
+                        case 'charts':
+                            if ($scope.currentSection != 'charts') {
+                                $location.path('/' + scenario + '/charts/' + stage + '/' + variant);
+                            }
+                            break;
+                    }
                 }
 
                 // Set the new loadedDataType
