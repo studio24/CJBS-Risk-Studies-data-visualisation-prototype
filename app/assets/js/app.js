@@ -133,7 +133,11 @@ app.controller('MainCtrl', function($scope, $http, $location) {
                 $scope.currentData.scenario.narrativesubheading = data.narrativesubheading;
                 $scope.currentData.scenario.iconurl = data.iconurl;
                 $scope.currentData.scenario.stages = data.stages;
-                $scope.currentData.defaultModule = data.defaultmodulevisibility[0];
+                if (data.defaultmodulevisibility[0] !== undefined) {
+                    $scope.currentData.defaultModule = data.defaultmodulevisibility[0];
+                } else {
+                    $scope.currentData.defaultModule = "network";
+                }
 
                 if (Object.keys(data.variants).length > 0) {
                     $scope.currentData.displayVariants = true;
