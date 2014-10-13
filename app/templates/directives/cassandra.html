@@ -4,10 +4,10 @@
         <h3>{{getCassandra().subheading}}</h3>
         <p ng-bind-html="getCassandra().description"></p>
         <p class="read-more"><a href="" ng-click="showPanel = true">read more...</a></p>
-        <p><img src="/assets/img/cassandra.png" class="cassandra-logo" alt="Cassandra.com"></p>
     </article>
-    <article class="panelhtml"ng-show="showPanel">
+    <article class="panelhtml" ng-show="showPanel">
+        <p class="close-x"><a href="" ng-click="showPanel = false">x</a></p>
         <div ng-bind-html="getCassandra().panelhtml"></div>
-        <p class="read-more"><a href="" ng-click="showPanel = false">close</a></p>
+        <p class="close"><a href="" ng-click="showPanel = false">close</a></p>
     </article>
 </section>

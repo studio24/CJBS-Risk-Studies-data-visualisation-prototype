@@ -279,37 +279,22 @@ section#narrative {
   width: 22%;
   height: 72%;
   float: left;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  .title {
-    background: #2d2c2c;
-    width: 100%;
-    h3 {
-      color: #eee;
-      font-size: 90%;
-      padding: 4%;
-      display: block;
-    }
-  }
+  overflow: none;
 
   article.cassandra {
     width: 92%;
-    background: #de3838;
+    background-color: #EEE;
+    color: #000;
     padding: 4%;
-    overflow-x: hidden;
-    overflow-y: scroll;
     h2 {
-      color: #fff;
       font-size: 125%;
       margin: 2% 0;
     }
     h3 {
-      color: #fff;
       font-size: 90%;
       margin: 4% 0;
     }
     p {
-      color: #fff;
       font-size: 75%;
       line-height: 1.6;
     }
@@ -317,9 +302,9 @@ section#narrative {
       margin: 2em 0;
       a {
         padding: 0.6em 0.8em;
-        background-color: #FFF;
-        color: #AC0000;
-        opacity: 0.8;
+        background-color: #F00;
+        color: #000;
+        opacity: 0.7;
         font-weight: bold;
         text-decoration: none;
       }
@@ -364,18 +349,35 @@ article.panelhtml {
   p {
     margin-bottom: 1em;
   }
-  .read-more {
+  .close {
     margin: 2em 0 6em 0;
     a {
       padding: 0.6em 0.8em;
       background-color: #F00;
       color: #FFF;
-      opacity: 0.8;
+      opacity: 0.7;
       font-weight: bold;
       text-decoration: none;
     }
     a:hover {
       opacity: 1;
+    }
+  }
+  .close-x {
+    position: absolute;
+    top: 0;
+    right: 4%;
+    a {
+      padding: 0.6em 0.8em;
+      background-color: #F00;
+      color: #FFF;
+      opacity: 0.7;
+      font-weight: bold;
+      font-size: 0.7em;
+      text-decoration: none;
+    }
+    a:hover {
+      opacity: 0.9;
     }
   }
   img {
