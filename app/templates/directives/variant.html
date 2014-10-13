@@ -5,7 +5,7 @@
     </div>
     <div class="input">
         <ul>
-            <li ng-repeat="variant in getVariants()"><a href="" ng-class="{'active': getLoadedDataType().variant == ($index + 1)}" ng-click="loadVariant($index + 1)"> {{variant.title}}</a></li>
+            <li ng-repeat="variant in getVariants()"><a href="#/sybil-logic-bomb/{{currentSection}}/{{currentStage}}/{{$index + 1}}" ng-class="{'active': getLoadedDataType().variant == ($index + 1)}"> {{variant.title}}</a></li>
         </ul>
     </div>
 </div>

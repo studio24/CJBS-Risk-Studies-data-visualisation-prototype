@@ -4,7 +4,7 @@
     </div>
     <div class="input">
         <ul>
-            <li ng-repeat="stage in getStages()"><a href="" ng-class="{'active': getLoadedDataType().stage == ($index + 1)}" ng-click="loadStage($index + 1)">{{stage.title}}</a></li>
+            <li ng-repeat="stage in getStages()"><a href="#/sybil-logic-bomb/{{currentSection}}/{{$index + 1}}/0" ng-class="{'active': getLoadedDataType().stage == ($index + 1)}">{{stage.title}}</a></li>
         </ul>
     </div>
 </div>
