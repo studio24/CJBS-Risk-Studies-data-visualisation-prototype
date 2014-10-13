@@ -302,7 +302,7 @@ app.controller('MainCtrl', function($scope, $http, $location) {
                 var displayDefaultModule = false;
                 if (($scope.currentSection == 'network') && ($scope.currentData.displayNetwork === false)) {
                     displayDefaultModule = true;
-                } else if (($scope.currentSection == 'maps') && ($scope.currentData.displayMap === false)) {
+                } else if (($scope.currentSection == 'map') && ($scope.currentData.displayMap === false)) {
                     displayDefaultModule = true;
                 } else if (($scope.currentSection == 'charts') && ($scope.currentData.displayChart === false)) {
                     displayDefaultModule = true;
