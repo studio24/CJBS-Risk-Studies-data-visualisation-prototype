@@ -53,7 +53,11 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
             }
         }
 
-        var defaultMapLayers = [defaultMap];
+        // Create the leaflet map
+        $scope.map = L.map('map', {
+            layers: [defaultMap]
+        }).setView(mapData.center, mapData.zoom);
+
 
         // WMS overlay layers
         var overlayLayers = {};
@@ -95,20 +99,15 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                     overlayLayers[wmsLayer.title] = wmsTile;
 
                     // Add to map by default?
-                    /* @todo this doesn't work
                     if (wmsLayer.display === "true") {
-                        defaultMapLayers.push(wmsTile);
+                        wmsTile.addTo($scope.map);
                     }
-                    */
+
                 }
             }
         }
 
-        // Create the leaflet map
-        $scope.map = L.map('map', {
-            layers: defaultMapLayers
-        }).setView(mapData.center, mapData.zoom);
-        
+
         // Disable zoom on double-click
         $scope.map.doubleClickZoom.disable();
         var geoJsonLayerLinks = L.geoJson();
