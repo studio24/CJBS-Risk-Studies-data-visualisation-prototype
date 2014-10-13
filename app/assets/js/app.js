@@ -138,6 +138,8 @@ app.controller('MainCtrl', function($scope, $http, $location) {
                 if (Object.keys(data.variants).length > 0) {
                     $scope.currentData.displayVariants = true;
                     $scope.currentData.scenario.variants = data.variants;
+
+                    // Set default variant to 1 if there are multiple variants to ensure correct item is selected in menu
                     if (variant == "0") {
                         variant = 1;
                         $scope.currentVariant = 1;
