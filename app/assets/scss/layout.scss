@@ -388,11 +388,18 @@ article.panelhtml {
 
 footer {
   height: 4%;
+  width: 88%;
+  float: right;
   border-top: 1px solid #000;
   margin: 1% 1% 1% 0;
+  padding: 1%;
   color: #999;
   font-size: 70%;
   text-align: right;
+  line-height: 1.4em;
+  a {
+    color: #CCC;
+  }
 }
 
 footer span {

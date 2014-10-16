@@ -46,6 +46,10 @@ angular.module('DataVisualisationCharts').controller('ChartsMainCtrl', function(
                 chartOptions.isStacked = true;
             }
 
+            if ($data.charts.options.lineWidth != undefined) {
+                chartOptions.lineWidth = $data.charts.options.lineWidth;
+            }
+
             chart.draw(chartData, chartOptions);
         }
     };
