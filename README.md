@@ -11,6 +11,10 @@ Licensed under the MIT License, see LICENSE.md
 * [Bower](http://bower.io/)
 * [Grunt](http://gruntjs.com/)
 
+## URLs
+
+Access the data visualisation tool via the scenario URL, the initial example is: /sybil-logic-bomb
+
 ## Build instructions
 
 ### Grunt
