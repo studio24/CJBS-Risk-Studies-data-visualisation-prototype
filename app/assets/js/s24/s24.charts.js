@@ -1461,7 +1461,7 @@ S24.Charts = function()
      * @param jsonUrl
      * @param options
      */
-    var createForceDirectedGraph = function(container, jsonUrl, options)
+    var createForceDirectedGraph = function(container, jsonUrl, options, $scope)
     {
         options = setDefaults(options, {
             width: '100%',
@@ -1583,19 +1583,9 @@ S24.Charts = function()
                 var guid = d.guid;
                 var element = d3.select('#' + guid);
 
-                // Scroll down the list
-                var e = document.getElementById(guid);
-                var scrollable = document.getElementById('company-scrollable');
-                scrollable.scrollTop = e.offsetTop;
-
-
-                if (element.classed('closed')) {
-                    element.classed('closed', false);
-                    element.classed('open', true);
-                } else {
-                    element.classed('closed', true);
-                    element.classed('open', false);
-                }
+                $scope.$apply(function() {
+                    $scope.toggleCompanyById(guid);
+                })
             });
 
         // Move around the link and nodes on each tick

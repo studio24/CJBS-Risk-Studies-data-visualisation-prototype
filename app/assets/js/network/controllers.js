@@ -16,7 +16,7 @@ angular.module('DataVisualisationNetwork').controller('NetworkMainCtrl', functio
         S24.Charts.createForceDirectedGraph('.svg', $data.network, {
             width: '100%',
             height: 800
-        });
+        }, $scope);
     };
 
     // Initial data loading
