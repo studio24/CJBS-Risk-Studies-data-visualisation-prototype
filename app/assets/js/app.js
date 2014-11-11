@@ -587,7 +587,11 @@ var BaseCtrl = function($scope) {
      *
      * @param index
      */
-    $scope.toggleCompany = function(index) {
+    $scope.toggleCompany = function(index, forceClass) {
+        if (forceClass) {
+            $parent.currentData.companies[index].class = forceClass;
+            return;
+        }
         // Check which class the company already has on it
         if ($parent.currentData.companies[index].class == 'closed') {
             $parent.currentData.companies[index].class = 'open';
@@ -603,6 +607,8 @@ var BaseCtrl = function($scope) {
      * @param id
      */
     $scope.toggleCompanyById = function(id) {
+        var element;
+        var scrollHeight = 0;
         // Loop around all companies
         for (var i = 0; i < $parent.currentData.companies.length; i++) {
             var company = $parent.currentData.companies[i];
@@ -610,14 +616,22 @@ var BaseCtrl = function($scope) {
             // Check the guid against the given id
             if (company.hiddenProperties.guid == id) {
                 // Scroll to selected company
-                var element = document.getElementById(company.hiddenProperties.guid);
-                var scrollable = document.getElementById('company-scrollable');
-                scrollable.scrollTop = element.offsetTop;
-
+                element = document.getElementById(company.hiddenProperties.guid);
                 // Run $scope.toggleCompany
-                $scope.toggleCompany(i);
+                $scope.toggleCompany(i, 'open');
+                var scrollable = document.getElementById('company-scrollable');
+                scrollable.scrollTop = scrollHeight;
+            } else {
+                if ($parent.currentData.companies[i].class == 'open') {
+                    scrollHeight += 38; // magic constant - approx. height of closed item
+                } else {
+                    scrollHeight += document.getElementById(company.hiddenProperties.guid).offsetHeight;
+                }
+                $scope.toggleCompany(i, 'closed');
             }
+
         }
+
     };
 
 };
