@@ -608,6 +608,8 @@ var BaseCtrl = function($scope, $timeout) {
      */
     $scope.toggleCompanyById = function(id) {
         var element;
+        d3.selectAll('.node').classed('active', false);
+
         // Loop around all companies
         for (var i = 0; i < $parent.currentData.companies.length; i++) {
             var company = $parent.currentData.companies[i];
@@ -619,6 +621,7 @@ var BaseCtrl = function($scope, $timeout) {
                 element = document.getElementById(company.hiddenProperties.guid);
                 // Run $scope.toggleCompany
                 $scope.toggleCompany(i);
+                d3.select('#node' + id).classed('active', true);
             } else {
                 $scope.toggleCompany(i, 'closed'); // close all companies that should not be open
             }

@@ -1602,13 +1602,8 @@ S24.Charts = function()
             })
             .attr('r', function (d) { return 3 * d.size; })
             .on('click', function(d, i) {
-                var guid = d.guid;
-                d3.selectAll('.node').classed('active', false);
-                var parentNode = d3.select('#node' + guid);
-                parentNode.classed('active', true);
-                var element = d3.select('#' + guid);
                 $scope.$apply(function() {
-                    $scope.toggleCompanyById(guid);
+                    $scope.toggleCompanyById(d.guid);
                 })
             });
 
