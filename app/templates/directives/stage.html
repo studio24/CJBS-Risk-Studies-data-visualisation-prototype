@@ -1,10 +1,16 @@
 <div id="stage-controls" class="control">
     <div class="title">
-        <span>Explore</span>
+        <span>Explorer</span>
     </div>
     <div class="input">
-        <ul>
-            <li ng-repeat="stage in getStages()"><a href="#/sybil-logic-bomb/{{currentSection}}/{{$index + 1}}/0" ng-class="{'active': getLoadedDataType().stage == ($index + 1)}">{{stage.title}}</a></li>
+        <ul class="testx">
+            <li ng-repeat="stage in getStages()">x<a href="#/sybil-logic-bomb/{{currentSection}}/{{$index + 1}}/0" ng-class="{'active': getLoadedDataType().stage == ($index + 1)}">{{stage.title}}</a></li>
         </ul>
+        <span></span>
+        <ul class="player">
+            <li ng-hide="('1' == getLoadedDataType().stage)"><a href="#/sybil-logic-bomb/{{currentSection}}/{{getLoadedDataType().stage - 1}}/0">Previous</a></li>
+            <li ng-hide="('7' == getLoadedDataType().stage)" id="{{getStages().length}}"><a href="#/sybil-logic-bomb/{{currentSection}}/{{parseInt(getLoadedDataType().stage) + 2}}/0">Next</a></li>
+        </ul>
+        <span></span>
     </div>
 </div>
