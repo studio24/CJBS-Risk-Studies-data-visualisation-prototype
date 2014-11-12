@@ -134,7 +134,14 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                             style: newProperties,
                             pointToLayer: function(feature, latlng) {
                                 var marker = new L.CircleMarker(latlng, {radius: feature.properties.size * 3, fillOpacity: 0.85});
-                                marker.on('click', function() {
+                                marker.on('click', function(e) {
+                                    var markerElement = e.target;
+                                    var allMarkers = d3.selectAll('.leaflet-overlay-pane g path')[0];
+                                    for (key in allMarkers) {
+                                        allMarkers[key].options = allMarkers[key].options || {};
+                                        allMarkers[key].setAttribute('stroke', 'none');
+                                    }
+                                    markerElement._path.setAttribute('stroke', 'white');
                                     var guid = this.feature.id;
                                     $scope.$apply(function() {
                                         $scope.toggleCompanyById('guid' + guid);
