@@ -608,26 +608,21 @@ var BaseCtrl = function($scope) {
      */
     $scope.toggleCompanyById = function(id) {
         var element;
-        var scrollHeight = 0;
         // Loop around all companies
         for (var i = 0; i < $parent.currentData.companies.length; i++) {
             var company = $parent.currentData.companies[i];
 
             // Check the guid against the given id
             if (company.hiddenProperties.guid == id) {
+                $scope.$apply(); // to calculate offsetTop properly
                 // Scroll to selected company
                 element = document.getElementById(company.hiddenProperties.guid);
                 // Run $scope.toggleCompany
                 $scope.toggleCompany(i, 'open');
                 var scrollable = document.getElementById('company-scrollable');
-                scrollable.scrollTop = scrollHeight;
+                scrollable.scrollTop = element.offsetTop;
             } else {
-                if ($parent.currentData.companies[i].class == 'open') {
-                    scrollHeight += 38; // magic constant - approx. height of closed item
-                } else {
-                    scrollHeight += document.getElementById(company.hiddenProperties.guid).offsetHeight;
-                }
-                $scope.toggleCompany(i, 'closed');
+                $scope.toggleCompany(i, 'closed'); // close all companies that should not be open
             }
 
         }
