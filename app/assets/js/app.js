@@ -405,7 +405,7 @@ app.controller('MainCtrl', function($scope, $http, $location) {
  * @param $scope
  * @constructor
  */
-var BaseCtrl = function($scope) {
+var BaseCtrl = function($scope, $timeout) {
     $parent = $scope.$parent;
 
     $scope.formInput = {
@@ -614,19 +614,25 @@ var BaseCtrl = function($scope) {
 
             // Check the guid against the given id
             if (company.hiddenProperties.guid == id) {
-                $scope.$apply(); // to calculate offsetTop properly
+                //$scope.$apply(); // to calculate offsetTop properly
                 // Scroll to selected company
                 element = document.getElementById(company.hiddenProperties.guid);
                 // Run $scope.toggleCompany
-                $scope.toggleCompany(i, 'open');
-                var scrollable = document.getElementById('company-scrollable');
-                scrollable.scrollTop = element.offsetTop;
+                $scope.toggleCompany(i);
             } else {
                 $scope.toggleCompany(i, 'closed'); // close all companies that should not be open
             }
 
         }
+        $timeout(function () {
+            $scope.scrollToCompany(id);
+        });
+    };
 
+    $scope.scrollToCompany = function (id) {
+        var element = document.getElementById(id);
+        var scrollable = document.getElementById('company-scrollable');
+        scrollable.scrollTop = element.offsetTop;
     };
 
 };
