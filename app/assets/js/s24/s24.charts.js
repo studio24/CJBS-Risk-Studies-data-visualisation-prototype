@@ -1564,7 +1564,6 @@ S24.Charts = function()
             .enter().append('path')
             .attr('class', 'link')
             .attr('stroke', function(d) {
-                console.log(d);
                 if (typeof(d[3].style) != 'undefined') {
                     return d[3].style.color;
                 } else {
@@ -1579,7 +1578,10 @@ S24.Charts = function()
         var node = svgContainer.selectAll('.node')
             .data(dataset.nodes)
             .enter().append('g')
-            .attr('class', 'node');
+            .attr('class', 'node')
+            .attr('id', function (d) {
+                return 'node' + d.guid;
+            });
 
         // Add the circle to the node
         /*node.append('circle')
@@ -1599,10 +1601,12 @@ S24.Charts = function()
                 }
             })
             .attr('r', function (d) { return 3 * d.size; })
-            .on('click', function(d) {
+            .on('click', function(d, i) {
                 var guid = d.guid;
+                d3.selectAll('.node').classed('active', false);
+                var parentNode = d3.select('#node' + guid);
+                parentNode.classed('active', true);
                 var element = d3.select('#' + guid);
-
                 $scope.$apply(function() {
                     $scope.toggleCompanyById(guid);
                 })
