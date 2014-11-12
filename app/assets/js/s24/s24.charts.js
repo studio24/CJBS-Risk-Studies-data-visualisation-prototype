@@ -1495,10 +1495,21 @@ S24.Charts = function()
         var nodes = dataset.nodes.slice();
         var bilinks = [];
 
+        var forceScale = d3
+            .scale
+            .linear()
+            .domain([2*d3.min(nodes, function(d) { return d.weight || 1 }), 2*d3.max(nodes, function(d) { return d.weight || 1 })])
+            .range([-30,10]);
+
         // Setup force simulation
         var force = d3.layout.force()
-            .linkDistance(10)
+            .linkDistance(function (d) {
+                return (d.target.size || 1) + (d.source.size || 1);
+            })
             .linkStrength(2)
+            .charge(function(d, i) {
+                return forceScale(d.weight);
+            })
             .size([width, height]);
 
         var svgContainer;
@@ -1553,6 +1564,7 @@ S24.Charts = function()
             .enter().append('path')
             .attr('class', 'link')
             .attr('stroke', function(d) {
+                console.log(d);
                 if (typeof(d[3].style) != 'undefined') {
                     return d[3].style.color;
                 } else {
@@ -1570,6 +1582,14 @@ S24.Charts = function()
             .attr('class', 'node');
 
         // Add the circle to the node
+        /*node.append('circle')
+            .attr('r', function (d) { return (3 * d.size) + 15; })
+            .attr('fill-opacity', '0')
+            .attr('stroke', 'white');*/
+        node.append('span')
+            .text(function (d) {
+                return d.weight;
+            });
         node.append('circle')
             .attr('fill', function(d) {
                 if (typeof(d.style) != 'undefined') {
