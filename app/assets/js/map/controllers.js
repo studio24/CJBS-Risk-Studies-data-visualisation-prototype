@@ -110,12 +110,11 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
 
         // Disable zoom on double-click
         $scope.map.doubleClickZoom.disable();
-        var geoJsonLayerLinks = L.geoJson();
-        var geoJsonLayerNodes = L.geoJson();
 
         // Loop through all layer data from the JSON file
         for (var primaryLayer in mapData.primaryLayers) {
             if (mapData.primaryLayers.hasOwnProperty(primaryLayer)) {
+                var layer = L.geoJson();
 
                 var primaryLayer = mapData.primaryLayers[primaryLayer];
 
@@ -144,24 +143,24 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
 
                                 return marker;
                             }
-                        }).addTo(geoJsonLayerNodes);
+                        }).addTo(layer);
 
                     } else {
                         newProperties = mapData.linkStyles[feature.properties.linkstyle] || {};
                         newProperties.opacity = 0.2;
                         newProperties.weight = 1;
-
                         // Add the feature to the map
                         L.geoJson(feature, {
                             style: newProperties
-                        }).addTo(geoJsonLayerLinks);
+                        }).addTo(layer);
                     }
+                    var nodesLayer = L.layerGroup([layer]).addTo($scope.map);
+
+                    // Add layer controls
+                    overlayLayers[primaryLayer.title] = nodesLayer;
                 });
 
-                var nodesLayer = L.layerGroup([geoJsonLayerNodes, geoJsonLayerLinks]).addTo($scope.map);
 
-                // Add layer controls
-                overlayLayers[primaryLayer.title] = nodesLayer;
             }
         }
 
