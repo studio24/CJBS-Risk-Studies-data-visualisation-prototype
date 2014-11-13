@@ -228,8 +228,8 @@ app.controller('MainCtrl', function($scope, $http, $location) {
                     var companyData = data.layers[Object.keys(data.layers)[0]].nodeattributes.data,
                         c,
                         columnList = [],
+                        companyStyles = data.layers[Object.keys(data.layers)[0]].nodeattributes.styledefinition.nodestyles,
                         dataColumnList = data.layers[Object.keys(data.layers)[0]].nodeattributes.columnlist;
-
                     for (var prop in dataColumnList) {
                         if (dataColumnList.hasOwnProperty(prop)) {
                             // Check if we are showing the column
@@ -287,6 +287,12 @@ app.controller('MainCtrl', function($scope, $http, $location) {
 
                                 // Add the closed class to the companyObject
                                 companyObject.class = 'closed';
+                                if (companyData[company].style) {
+                                    var styleId = companyData[company].style;
+                                    if (companyStyles.hasOwnProperty(styleId)) {
+                                        companyObject.style = companyStyles[styleId];
+                                    }
+                                }
 
                                 // Push a new country object into the countries array
                                 $scope.currentData.companies.push(companyObject);
