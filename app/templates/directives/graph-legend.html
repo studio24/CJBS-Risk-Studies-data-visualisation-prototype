@@ -1,5 +1,10 @@
-<section id="legend" ng-if="1">
+<section id="legend">
     <ul>
-        <li ng-repeat="legend in data"><svg width="10" height="10"><circle r="5" cx="5" cy="5" style="fill:{{ legend.fillColor}}"></circle></svg>{{ legend.legendLabel }}</li>
+        <li ng-repeat="legend in data">
+            <svg width="10" height="10">
+                <circle r="5" cx="5" cy="5" style="fill:{{ legend.fillColor}}"></circle>
+            </svg>
+            {{ legend.legendLabel }}
+        </li>
     </ul>
 </section>
