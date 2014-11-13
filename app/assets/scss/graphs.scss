@@ -3,10 +3,16 @@
   stroke-width: 2px;
 }
 
+.leaflet-overlay-pane path {
+  z-index: 1;
+}
+
 .leaflet-overlay-pane .open {
   stroke: white;
+  z-index: 2;
 }
 
 .leaflet-overlay-pane .closed {
   stroke: none;
+  z-index: 2;
 }

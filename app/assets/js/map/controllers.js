@@ -157,11 +157,12 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                             style: newProperties
                         }).addTo(layer);
                     }
-                    var nodesLayer = L.layerGroup([layer]).addTo($scope.map);
 
-                    // Add layer controls
-                    overlayLayers[primaryLayer.title] = nodesLayer;
                 });
+                var nodesLayer = L.layerGroup([layer]).addTo($scope.map);
+
+                // Add layer controls
+                overlayLayers[primaryLayer.title] = nodesLayer;
 
 
             }
@@ -176,6 +177,7 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
     $scope.$parent.loadData(scenario, variant, stage, function($data) {
         if ($scope.displayMap()) {
             $scope.loadCharts($data);
+            $scope.syncMapNodes();
         }
     });
 });
