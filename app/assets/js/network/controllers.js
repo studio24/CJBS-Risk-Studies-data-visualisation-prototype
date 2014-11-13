@@ -22,5 +22,7 @@ angular.module('DataVisualisationNetwork').controller('NetworkMainCtrl', functio
     // Initial data loading
     $scope.$parent.loadData(scenario, variant, stage, function($data) {
         $scope.loadCharts($data);
+        $scope.nodeLegend = $data.network.nodeStyles;
+        $scope.linkLegend = $data.network.linkStyles;
     });
 });

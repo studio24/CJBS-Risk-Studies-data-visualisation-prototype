@@ -35,3 +35,14 @@ app.directive('cassandra', function() {
         scope: true
     };
 });
+
+app.directive('graphlegend', function() {
+    return {
+        restrict: 'E',
+        scope: {
+            data: '='
+        },
+        replace: true,
+        templateUrl: 'templates/directives/graph-legend.html'
+    };
+});

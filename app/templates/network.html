@@ -13,9 +13,13 @@
     <div class="chart">
         <div class="svg force-directed"></div>
     </div>
+
     <div class="data-list">
         <companies></companies>
     </div>
 </section>
-
 <cassandra></cassandra>
+<section ng-if="nodeLegend" style="position:absolute;background:green;top:0;right:0">
+    <graphlegend data="nodeLegend"></graphlegend>
+</section>
+

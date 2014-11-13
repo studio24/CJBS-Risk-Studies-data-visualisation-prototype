@@ -177,6 +177,8 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
     $scope.$parent.loadData(scenario, variant, stage, function($data) {
         if ($scope.displayMap()) {
             $scope.loadCharts($data);
+            $scope.nodeLegend = $scope.currentData.map.nodeStyles;
+            $scope.lineLegend = $scope.currentData.map.linkStyles;
             $scope.syncMapNodes();
         }
     });
