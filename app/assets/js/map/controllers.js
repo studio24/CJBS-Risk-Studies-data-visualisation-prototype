@@ -130,36 +130,24 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                         newProperties.stroke = 0;
 
                         // Add the feature to the map
+                        var marker;
+                        var guid = feature.id;
                         L.geoJson(feature, {
                             style: newProperties,
                             pointToLayer: function(feature, latlng) {
-                                var marker = new L.CircleMarker(latlng, {radius: feature.properties.size * 3, fillOpacity: 0.85});
+                                marker = new L.CircleMarker(latlng, {radius: feature.properties.size * 3, fillOpacity: 0.85});
+                                marker._id = 'guid' + guid;
                                 marker.on('click', function(e) {
-                                    var markerElement = e.target;
-                                    var previousState = markerElement._path.getAttribute('stroke');
-                                    var allMarkers = d3.selectAll('.leaflet-overlay-pane g path')[0];
-                                    for (key in allMarkers) {
-                                        allMarkers[key].options = allMarkers[key].options || {};
-                                        if (allMarkers[key].getAttribute('stroke') == 'white') {
-                                            allMarkers[key].setAttribute('stroke', 'none');
-                                        }
-                                    }
-
-                                    if (previousState == 'white') {
-                                        markerElement._path.setAttribute('stroke', 'none');
-                                    } else {
-                                        markerElement._path.setAttribute('stroke', 'white');
-                                    }
-                                    var guid = this.feature.id;
+                                    var markerId = e.target._id;
                                     $scope.$apply(function() {
-                                        $scope.toggleCompanyById('guid' + guid);
+                                        $scope.toggleCompanyById(markerId);
                                     });
                                 });
-
+                                $scope.allMapMarkers = $scope.allMapMarkers || [];
+                                $scope.allMapMarkers.push(marker);
                                 return marker;
                             }
                         }).addTo(layer);
-
                     } else {
                         newProperties = mapData.linkStyles[feature.properties.linkstyle] || {};
                         newProperties.opacity = 0.2;

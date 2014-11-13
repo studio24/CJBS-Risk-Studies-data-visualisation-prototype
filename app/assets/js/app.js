@@ -608,7 +608,6 @@ var BaseCtrl = function($scope, $timeout) {
      */
     $scope.toggleCompanyById = function(id) {
         var element;
-        d3.selectAll('.node').classed('active', false);
 
         // Loop around all companies
         for (var i = 0; i < $parent.currentData.companies.length; i++) {
@@ -621,12 +620,14 @@ var BaseCtrl = function($scope, $timeout) {
                 element = document.getElementById(company.hiddenProperties.guid);
                 // Run $scope.toggleCompany
                 $scope.toggleCompany(i);
-                d3.select('#node' + id).classed('active', true);
+
             } else {
                 $scope.toggleCompany(i, 'closed'); // close all companies that should not be open
             }
 
         }
+        $scope.syncMapNodes();
+        $scope.syncNetworkNodes();
         $timeout(function () {
             $scope.scrollToCompany(id);
         });
@@ -638,4 +639,46 @@ var BaseCtrl = function($scope, $timeout) {
         scrollable.scrollTop = element.offsetTop;
     };
 
+    $scope.syncMapNodes = function () {
+        var allMarkers = $scope.allMapMarkers;
+        var map = $scope.getGuidToIdMap();
+        for (var key in allMarkers) {
+            if (allMarkers.hasOwnProperty(key)) {
+                var id = allMarkers[key]._id;
+                var className = $parent.currentData.companies[map[id]].class;
+                allMarkers[key]._path.setAttribute('class', className);
+                allMarkers[key]._path.removeAttribute('stroke');
+            }
+        }
+    };
+
+    $scope.syncNetworkNodes = function () {
+        var nodes = d3.selectAll('.node');
+        nodes.classed('open', false);
+        var companies = $parent.currentData.companies;
+        for (var i in companies) {
+            if (companies.hasOwnProperty([i])) {
+                var company = companies[i];
+                if (company.class == 'open') {
+                    d3.select('#node' + company.hiddenProperties.guid).classed('open', true);
+                }
+            }
+        }
+
+    };
+
+    $scope.getGuidToIdMap = function () {
+        if (!$scope._guidToIdMap) {
+            var companies = $parent.currentData.companies;
+            var result = {};
+            for (var i in companies) {
+                if (companies.hasOwnProperty([i])) {
+                    var company = companies[i];
+                    result[company.hiddenProperties.guid] = i;
+                }
+            }
+            $scope._guidToIdMap = result;
+        }
+        return $scope._guidToIdMap;
+    };
 };

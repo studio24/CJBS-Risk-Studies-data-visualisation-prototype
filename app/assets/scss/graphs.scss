@@ -1,4 +1,12 @@
-.node.active circle{
+.node.open circle {
   stroke: white;
   stroke-width: 2px;
+}
+
+.leaflet-overlay-pane .open {
+  stroke: white;
+}
+
+.leaflet-overlay-pane .closed {
+  stroke: none;
 }
