@@ -254,6 +254,7 @@ app.controller('MainCtrl', function($scope, $http, $location) {
                             if (typeof(c) != 'undefined') {
                                 var companyObject = {
                                     'name': '',
+                                    'class': 'closed',
                                     'properties': [],
                                     'hiddenProperties' : {}
                                 };
@@ -286,8 +287,7 @@ app.controller('MainCtrl', function($scope, $http, $location) {
                                 }
 
                                 // Add the closed class to the companyObject
-                                companyObject.class = 'closed';
-                                if (companyData[company].style) {
+                                if (companyData[company].hasOwnProperty('style')) {
                                     var styleId = companyData[company].style;
                                     if (companyStyles.hasOwnProperty(styleId)) {
                                         companyObject.style = companyStyles[styleId];
