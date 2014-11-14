@@ -652,8 +652,15 @@ var BaseCtrl = function($scope, $timeout) {
             if (allMarkers.hasOwnProperty(key)) {
                 var id = allMarkers[key]._id;
                 var className = $parent.currentData.companies[map[id]].class;
-                allMarkers[key]._path.setAttribute('class', className);
+                allMarkers[key]._container.setAttribute('class', className);
                 allMarkers[key]._path.removeAttribute('stroke');
+                if (className == 'open') {
+                    // remove/add to DOM to repaint on top
+                    var parent = allMarkers[key]._container.parentElement;
+                    var tmpContainer = allMarkers[key]._container;
+                    parent.removeChild(tmpContainer);
+                    parent.appendChild(tmpContainer);
+                }
             }
         }
     };
