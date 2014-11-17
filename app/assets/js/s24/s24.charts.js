@@ -1588,9 +1588,12 @@ S24.Charts = function()
             .attr('r', function (d) { return (3 * d.size) + 15; })
             .attr('fill-opacity', '0')
             .attr('stroke', 'white');*/
-        node.append('span')
+        node.append('text')
             .text(function (d) {
-                return d.weight;
+                return d.title;
+            })
+            .attr('fill', function (d) {
+                return d.style.titleColor;
             });
         node.append('circle')
             .attr('fill', function(d) {
