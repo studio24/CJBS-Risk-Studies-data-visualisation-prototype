@@ -1594,6 +1594,12 @@ S24.Charts = function()
             })
             .attr('fill', function (d) {
                 return d.style.titleColor;
+            })
+            .attr('transform', function (d) {
+               var left = -1 * this.getBoundingClientRect().width / 2;
+                var bottomPaddingFromNode = 3;
+                var top = d.size * 3 + this.getBoundingClientRect().height + bottomPaddingFromNode;
+                return 'translate(' + left + ',' + top + ')';
             });
         node.append('circle')
             .attr('fill', function(d) {
@@ -1603,12 +1609,13 @@ S24.Charts = function()
                     return '#ffffff';
                 }
             })
-            .attr('r', function (d) { return 3 * d.size; })
-            .on('click', function(d, i) {
-                $scope.$apply(function() {
-                    $scope.toggleCompanyById(d.guid);
-                })
-            });
+            .attr('r', function (d) { return 3 * d.size; });
+        node.on('click', function(d, i) {
+            $scope.$apply(function() {
+                $scope.toggleCompanyById(d.guid);
+            })
+        });
+
 
         // Move around the link and nodes on each tick
         force.on('tick', function() {
