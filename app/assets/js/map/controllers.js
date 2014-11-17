@@ -55,7 +55,8 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
 
         // Create the leaflet map
         $scope.map = L.map('map', {
-            layers: [defaultMap]
+            layers: [defaultMap],
+            keyboard: false
         }).setView(mapData.center, mapData.zoom);
 
 
