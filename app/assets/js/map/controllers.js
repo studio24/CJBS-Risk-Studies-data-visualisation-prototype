@@ -145,6 +145,7 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                                 });
                                 $scope.allMapMarkers = $scope.allMapMarkers || [];
                                 $scope.allMapMarkers.push(marker);
+                                marker.bindLabel(feature.properties.title, { noHide: true });
                                 return marker;
                             }
                         }).addTo(layer);
