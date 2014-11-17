@@ -7,6 +7,7 @@
     "topojson": "1.6.15",
     "leaflet-0.7.2": "http://leaflet-cdn.s3.amazonaws.com/build/leaflet-0.7.2.zip",
     "leaflet.markercluster": "~0.4.0",
-    "angular-sanitize": "~1.2.25"
+    "angular-sanitize": "~1.2.25",
+    "Leaflet.label": "~0.2.1"
   }
 }
