@@ -34,19 +34,19 @@
 <body>
     <div id="full-wrapper">
         <nav id="side-navigation">
-            <a href="#/sybil-logic-bomb/network/{{currentStage}}/{{currentVariant}}" class="{{getSelectedNav('network')}}" ng-if="displayNetwork()">
+            <a ng-href="#/{{currentScenario}}/network/{{currentStage}}/{{currentVariant}}" class="{{getSelectedNav('network')}}" ng-if="displayNetwork()">
                 <img src="assets/img/network.svg">Network
             </a>
             <div class="inactive" ng-hide="displayNetwork()">
                 <img src="assets/img/network.svg">Network
             </div>
-            <a href="#/sybil-logic-bomb/map/{{currentStage}}/{{currentVariant}}" class="{{getSelectedNav('map')}}" ng-if="displayMap()">
+            <a ng-href="#/{{currentScenario}}/map/{{currentStage}}/{{currentVariant}}" class="{{getSelectedNav('map')}}" ng-if="displayMap()">
                 <img src="assets/img/map.svg">World Map
             </a>
             <div class="inactive" ng-hide="displayMap()">
                 <img src="assets/img/map.svg">World Map
             </div>
-            <a href="#/sybil-logic-bomb/charts/{{currentStage}}/{{currentVariant}}" class="{{getSelectedNav('charts')}}" ng-if="displayChart()">
+            <a ng-href="#/{{currentScenario}}/charts/{{currentStage}}/{{currentVariant}}" class="{{getSelectedNav('charts')}}" ng-if="displayChart()">
                 <img src="assets/img/chart.svg">Charts
             </a>
             <div class="inactive" ng-hide="displayChart()">

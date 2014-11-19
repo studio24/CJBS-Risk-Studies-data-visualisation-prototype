@@ -4,12 +4,12 @@
     </div>
     <div class="input">
         <ul class="testx">
-            <li ng-repeat="stage in getStages()"><a href="#/sybil-logic-bomb/{{currentSection}}/{{$index + 1}}/0" ng-class="{'active': getLoadedDataType().stage == ($index + 1)}">{{stage.title}}</a></li>
+            <li ng-repeat="stage in getStages()"><a ng-href="#/{{currentScenario}}/{{currentSection}}/{{$index + 1}}/0" ng-class="{'active': getLoadedDataType().stage == ($index + 1)}" ng-bind="stage.title"></a></li>
         </ul>
         <span></span>
-        <ul class="player">
-            <li ng-hide="('1' == getLoadedDataType().stage)"><a ng-href="#/sybil-logic-bomb/{{currentSection}}/{{getLoadedDataType().stage * 1 - 1}}/0">Previous</a></li>
-            <li ng-hide="('7' == getLoadedDataType().stage)"><a ng-href="#/sybil-logic-bomb/{{currentSection}}/{{getLoadedDataType().stage * 1 + 1}}/0">Next</a></li>
+        <ul class="player" ng-show="currentScenario > 0">
+            <li ng-hide="('1' == getLoadedDataType().stage)"><a ng-href="#/{{currentScenario}}/{{currentSection}}/{{getLoadedDataType().stage * 1 - 1}}/0" ng-bind="'Previous'"></a></li>
+            <li ng-hide="('7' == getLoadedDataType().stage)"><a ng-href="#/{{currentScenario}}/{{currentSection}}/{{getLoadedDataType().stage * 1 + 1}}/0" ng-bind="'Next'"></a></li>
         </ul>
         <span></span>
     </div>

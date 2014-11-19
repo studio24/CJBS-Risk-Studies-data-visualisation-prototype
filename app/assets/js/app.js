@@ -97,9 +97,8 @@ app.controller('MainCtrl', function($scope, $http, $location) {
         var previousLoaded = $scope.loadedDataType;
 
         // Please note networkId is currently hardcoded, we need to allow this to be modified to support other scenarios
-        var networkId = 20;
-        $scope.currentStage = stage;
-        $scope.currentVariant = variant;
+        var networkId = scenario;
+
 
         // Check whether we are trying to reload the same data
         if (previousLoaded.scenario == scenario && previousLoaded.variant == variant && previousLoaded.stage == stage) {
@@ -122,6 +121,9 @@ app.controller('MainCtrl', function($scope, $http, $location) {
         // Load the JSON data in
         $http({ url: jsonUrl, method: 'GET' })
             .success(function(data) {
+                $scope.currentStage = stage;
+                $scope.currentVariant = variant;
+                $scope.currentScenario = scenario;
                 // Log data
                 console.log(data);
 

@@ -13,7 +13,7 @@ Licensed under the MIT License, see LICENSE.md
 
 ## URLs
 
-Access the data visualisation tool via the scenario URL, the initial example is: /sybil-logic-bomb
+Access the data visualisation tool via the scenario URL, the initial example is: #/20
 
 ## Build instructions
 
