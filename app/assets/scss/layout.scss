@@ -170,6 +170,7 @@ section#data-area {
   .chart {
     width: 70%;
     float: left;
+    height: 100%;
   }
   .data-list {
     width: 28%;
@@ -185,9 +186,10 @@ section#data-area {
 
 .svg {
   width: 100%;
-  height: 80%;
+  height: 100%;
   svg {
     height: 100% !important;
+    overflow: hidden; // to fix overflowing to <section> on IE11
   }
   .node {
     fill: #fff;
