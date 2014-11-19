@@ -126,6 +126,7 @@ app.controller('MainCtrl', function($scope, $http, $location) {
                 $scope.currentScenario = scenario;
                 // Log data
                 console.log(data);
+                $scope.helplink = data.helplink;
 
                 // Scenario Data
                 $scope.currentData.scenario.title = data.title;
