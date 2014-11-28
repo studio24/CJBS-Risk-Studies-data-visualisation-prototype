@@ -16,13 +16,14 @@
   stroke: none;
 }
 
-#legend {
-  position: absolute;
-  background: #333333;
-  color: white;
-  top:0;
-  right:0;
+
+li.ng-binding.ng-scope {
+display: inline-block;
+width: 47%;
+margin: 0 1.5% 2% 1.4%;
+font-size: 80%;
 }
+
 
 
 /* from leaflet label */

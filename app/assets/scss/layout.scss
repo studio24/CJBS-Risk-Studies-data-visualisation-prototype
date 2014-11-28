@@ -10,13 +10,13 @@ body {
 
 #full-wrapper {
   width: 100%;
-  height: 100%;
+  height: 90%;
   position: relative;
   overflow: hidden;
-}
+} 
 
 nav#side-navigation {
-  width: 8%;
+  width: 6%;
   max-width: 120px;
   height: 100%;
   position: fixed;
@@ -35,10 +35,11 @@ nav#side-navigation {
     display: block;
     color: $primary-colour;
     text-decoration: none;
-    margin-top: 5px;
     padding: 25px 0;
     width: 100%;
     font-size: 13px;
+	font-size: 11px;
+	text-align: center;
     img {
       width: 50%;
       margin: 0 auto;
@@ -56,37 +57,55 @@ nav#side-navigation {
   }
 }
 
+
+
 section#controls {
   clear: both;
-  padding: 1% 0 0 0;
-  height: 15%;
+  padding: 0.3% 0 0 0;
+  min-height: 127px;
   overflow: hidden;
   .control {
     margin-bottom: 0.5%;
     overflow: hidden;
+	position: relative;
     clear: both;
-    height: 40%;
+    min-height: 50px;
     .title {
-      background: $dark-background;
-      padding: 0 2%;
+      background: $dark-background; /* url('../img/info-icon.png') no-repeat 10px 16px;*/
+      padding: 0 1%;
       float: left;
-      width: 10%;
-      height: 100%;
+      width: 7%;
+      min-height: 50px;
       font-family: 'MuseoSansRegular';
       font-size: 80%;
       span {
-        display:inline-block;
-        vertical-align:middle;
-        line-height: 350%;
-        color: $highlight-colour;
-      }
-    }
+		height: 50px;
+		display: inline-block;
+		vertical-align: middle;
+		color: #f26262;
+		position: relative;
+		top: 10px;
+	  }
+}
+
+#stage-controls span {
+line-height: 32px !important;
+}
+
+#variant-controls span {
+line-height: 16px !important;
+}
+
     .input {
-      float: right;
-      width: 82%;
-      padding: 1% 2%;
-      height: 100%;
+      float: left;
+      width: 91%;
+      padding: 0.5% 90px 0.5% 1%;
+      max-height: 50px;
+	  height: 50px;
       background: rgba(0, 0, 0, 0.1);
+	  -webkit-box-sizing: border-box; 
+	  -moz-box-sizing: border-box;  
+	  box-sizing: border-box;  
       ul {
         list-style-type: none;
         margin: 0;
@@ -94,11 +113,14 @@ section#controls {
         li {
           display: block;
           float: left;
-          margin-right: 20px;
+          margin-right: 15px;
           a {
+			line-height: 40px;
             color: $primary-colour;
             text-decoration: none;
-            font-size: 80%;
+            font-size: 58%;
+			letter-spacing: 0.01px;
+			text-transform: uppercase;
             &:hover, &.active {
               color: $highlight-colour;
             }
@@ -110,8 +132,8 @@ section#controls {
 }
 
 section#main-content {
-  margin: 1% 0 0 8%;
-  width: 91%;
+  margin: 1% 0 0 7%;
+  width: 92%;
   height: 96%;
   min-height: 96%;
   h1#logo {
@@ -137,12 +159,12 @@ section#main-content {
     img {
       float: left;
       border: 1px solid #1e1e1e;
-      margin-right: 20px;
-      height: 100%;
+      margin-right: 10px;
+      height: 80%;
     }
     h1 {
       color: $primary-colour;
-      font-size: 150%;
+      font-size: 120%;
       margin-top: 2px;
       margin-bottom: 0.5%;
       font-family: 'MuseoSansRegular';
@@ -154,26 +176,26 @@ section#main-content {
     h3 {
       color: $primary-colour;
       font-family: 'MuseoSansRegular';
-      font-size: 90%;
+      font-size: 80%;
     }
   }
 }
 
 section#data-area {
-  background: #292828;
-  width: 75%;
-  padding: 10px 1%;
+  background: rgba(0, 0, 0, 0.3);
+  width: 67%;
+  /*padding: 10px 1%;*/
   min-height: 300px;
   overflow: hidden;
   height: 65%;
   float: left;
   .chart {
-    width: 70%;
+    width: 60%;
     float: left;
     height: 100%;
   }
   .data-list {
-    width: 28%;
+    width: 40%;
     height: 100%;
     float: right;
   }
@@ -210,20 +232,26 @@ section#data-area {
 }
 
 .companies {
-  height: 90%;
+  height: 100%;
 
 
   input.company-search {
-    width: 91%;
+	border-radius: 0;
+    width: 95.4%;
     height: 10%;
-    margin: 3% 2%;
+    margin: 0 0 3% 0;
     padding: 0 2%;
     background: #1f1e1e;
     color: #f26262;
     border: 1px solid #f26262;
-    font-size: 17px;
+    font-size: 15px;
+	&:focus { 
+    outline: none !important;
+    border-color: red;
+    box-shadow: 0 0 10px red;
+	}
   }
-
+  
   .scrollable {
     overflow-y: scroll;
     overflow-x: hidden;
@@ -232,20 +260,22 @@ section#data-area {
   }
 
   .company {
-    background: #292828;
-    border-bottom: 2px solid #343434;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid #343434;
     width: 100%;
     .title {
-      padding: 10px 0 10px 10px;
+      padding: 10px 0 10px 0px;
       a {
         text-decoration: none;
         color: #fff;
         span {
-          margin-right: 10px;
+		margin-right: 10px;
+		float: left;
+		padding: 0 2px 10px;
         }
         h4 {
           display: inline;
-          font-size: 13px;
+          font-size: 10px;
         }
       }
     }
@@ -258,11 +288,11 @@ section#data-area {
           background: #3c3939;
         }
         td {
-          padding: 10px 5px 10px 10px;
+          padding: 10px 5px;
           color: #eeeeee;
-          font-size: 13px;
+          font-size: 11px;
           &:first-child {
-            font-size: 13px;
+            font-size: 11px;
           }
         }
       }
@@ -278,16 +308,17 @@ section#data-area {
 
 section#narrative {
   margin-left: 1%;
-  width: 22%;
+  width: 32%;
   height: 72%;
-  float: left;
+  float: right;
   overflow: none;
 
+
   article.cassandra {
-    width: 92%;
+    width: 85%;
     background-color: #EEE;
     color: #000;
-    padding: 4%;
+    padding: 7%;
     h2 {
       color: #F00;
       font-size: 125%;
@@ -299,7 +330,7 @@ section#narrative {
     }
     p {
       font-size: 75%;
-      line-height: 1.6;
+      line-height: 1.3;
     }
     .read-more {
       margin: 2em 0;
@@ -416,7 +447,7 @@ footer span {
 }
 
 #data-area .not-available {
-  color: #CCC;
+  color: #ccc;
   margin: 2% 0 0 2%;
 }
 
@@ -425,4 +456,77 @@ footer span {
   font-size: 80%;
   color: white;
   text-decoration: none;
+}
+
+ul.player {
+position: absolute;
+width: 103px;
+top: 0;
+right: 0;
+overflow: hidden;
+
+	li {
+		display:block;
+		width: 50%;
+		float: left;
+		
+	}
+	a {
+		display: block;
+		text-indent: -9999px;
+		height: 50px;
+	}
+		a.prev:link {
+		background:url('../img/prev-black.png') 0 0 no-repeat;
+			&:hover, &:active {
+			background:url('../img/prev-red.png') 0 0 no-repeat;
+			}
+		}
+	
+		a.next {
+		background:url('../img/next-black.png') 0 0 no-repeat;
+			&:hover, &:active {
+			background:url('../img/next-red.png') 0 0 no-repeat;
+			}
+		}
+}
+
+a.helplink {
+	background: url("../img/file.png") 0 0 no-repeat;
+	display: block;
+	padding-left: 20px;
+	line-height: 20px;
+	font-size: 75%;
+	margin: 10px;
+}
+	
+	
+
+#legend {
+	color: white;
+	top:0;
+	right:0;
+	overflow: scroll;
+	height: 20%;
+	padding: 2% 1%;
+	background: rgba(255, 255, 255, 0.08);
+}
+
+
+.legend-button {
+	background: #f26262;
+	border: none;
+	padding: 1%;
+	color: #fff;
+	position: absolute;
+	font-size: 75%;
+}
+
+.legend-button:hover {
+	background: #f26262;
+}
+
+.legend-button:focus {
+	outline: none;
+	background: #CF5050;
 }

@@ -3,14 +3,17 @@
         <span>Explorer</span>
     </div>
     <div class="input">
-        <ul class="testx">
+        <ul>
             <li ng-repeat="stage in getStages()"><a ng-href="#/{{currentScenario}}/{{currentSection}}/{{$index + 1}}/0" ng-class="{'active': getLoadedDataType().stage == ($index + 1)}" ng-bind="stage.title"></a></li>
         </ul>
-        <span></span>
+    </div>
+<span></span>
         <ul class="player" ng-show="currentScenario > 0">
-            <li ng-hide="('1' == getLoadedDataType().stage)"><a ng-href="#/{{currentScenario}}/{{currentSection}}/{{getLoadedDataType().stage * 1 - 1}}/0" ng-bind="'Previous'"></a></li>
-            <li ng-hide="('7' == getLoadedDataType().stage)"><a ng-href="#/{{currentScenario}}/{{currentSection}}/{{getLoadedDataType().stage * 1 + 1}}/0" ng-bind="'Next'"></a></li>
+            <li ng-hide="('1' == getLoadedDataType().stage)"><a class="prev" ng-href="#/{{currentScenario}}/{{currentSection}}/{{getLoadedDataType().stage * 1 - 1}}/0" ng-bind="'Previous'"></a> </li>
+            <li ng-hide="('7' == getLoadedDataType().stage)"><a class="next" ng-href="#/{{currentScenario}}/{{currentSection}}/{{getLoadedDataType().stage * 1 + 1}}/0" ng-bind="'Next'"></a></li>
         </ul>
         <span></span>
-    </div>
+        
+
+
 </div>

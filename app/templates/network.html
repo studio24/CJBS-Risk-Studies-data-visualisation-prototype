@@ -9,9 +9,11 @@
     <variant></variant>
 </section>
 
+<cassandra></cassandra>
+<graphlegend data="nodeLegend" ng-if="nodeLegend" ng-show="showLegend"></graphlegend>
 <section id="data-area">
     <div class="chart">
-        <button ng-click="showLegend = !showLegend">Show legend</button>
+        <button class="legend-button" ng-click="showLegend = !showLegend">Show legend</button>
 
         <div class="svg force-directed"></div>
 
@@ -21,6 +23,6 @@
         <companies></companies>
     </div>
 </section>
-<cassandra></cassandra>
 
-<graphlegend data="nodeLegend" ng-if="nodeLegend" ng-show="showLegend"></graphlegend>
+
+
