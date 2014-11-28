@@ -88,8 +88,8 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                     if (wmsLayer.opacity != undefined) {
                         options.opacity = wmsLayer.opacity;
                     }
-                    if (wmsLayer.style != undefined) {
-                        options.style = wmsLayer.style;
+                    if (wmsLayer.styles != undefined) {
+                        options.styles = wmsLayer.styles;
                     }
                     if (wmsLayer.transparent != undefined) {
                         options.transparent = (wmsLayer.transparent === "true");
