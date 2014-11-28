@@ -228,11 +228,13 @@ app.controller('MainCtrl', function($scope, $http, $location) {
                     $scope.currentData.displayDatalist = true;
 
                     // Comapny data (data list)
-                    var companyData = data.layers[Object.keys(data.layers)[0]].nodeattributes.data,
+                    var nodeattributes = data.layers[Object.keys(data.layers)[0]].nodeattributes;
+                    var companyData = nodeattributes.data,
                         c,
                         columnList = [],
-                        companyStyles = data.layers[Object.keys(data.layers)[0]].nodeattributes.styledefinition.nodestyles,
-                        dataColumnList = data.layers[Object.keys(data.layers)[0]].nodeattributes.columnlist;
+                        companyStyles,
+                        dataColumnList = nodeattributes.columnlist;
+                    companyStyles = (nodeattributes.styledefinition !== undefined) ? nodeattributes.styledefinition.nodestyles : [];
                     for (var prop in dataColumnList) {
                         if (dataColumnList.hasOwnProperty(prop)) {
                             // Check if we are showing the column
