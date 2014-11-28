@@ -375,7 +375,8 @@ app.controller('MainCtrl', function($scope, $http, $location) {
      * @returns {string}
      */
     $scope.getPageTitle = function() {
-        return $scope.currentData.scenario.title;
+        var title = 'Judge Business School';
+        return $scope.currentData.scenario.title ? $scope.currentData.scenario.title + ' - ' + title : title;
     };
 
 
