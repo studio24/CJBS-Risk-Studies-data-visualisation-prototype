@@ -1,7 +1,7 @@
 /**
  * Network Main Controller
  */
-angular.module('DataVisualisationNetwork').controller('NetworkMainCtrl', function($scope, $routeParams, $injector) {
+angular.module('DataVisualisationNetwork').controller('NetworkMainCtrl', function($scope, $rootScope, $routeParams, $injector) {
     $injector.invoke(BaseCtrl, this, {$scope: $scope});
 
     $scope.$parent.currentSection = 'network';
@@ -24,5 +24,6 @@ angular.module('DataVisualisationNetwork').controller('NetworkMainCtrl', functio
         $scope.loadCharts($data);
         $scope.nodeLegend = $data.network.nodeStyles;
         $scope.linkLegend = $data.network.linkStyles;
+        $scope.$parent.bodyClass = '';
     });
 });

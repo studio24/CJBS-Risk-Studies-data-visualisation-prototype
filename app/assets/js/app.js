@@ -64,8 +64,10 @@ angular.module('DataVisualisationCharts').config(function($routeProvider) {
 /**
  * Main wrapping controller
  */
-app.controller('MainCtrl', function($scope, $http, $location) {
-
+app.controller('MainCtrl', function($rootScope, $scope, $http, $location) {
+    $rootScope.$on('$routeChangeStart', function (event, next) {
+        $scope.bodyClass = 'loading';
+    });
     // Initialise the application variables
     $scope.currentSection = '';
     $scope.currentStage = 1;

@@ -188,5 +188,6 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
             $scope.lineLegend = $scope.currentData.map.linkStyles;
             $scope.syncMapNodes();
         }
+        $scope.$parent.bodyClass = '';
     });
 });

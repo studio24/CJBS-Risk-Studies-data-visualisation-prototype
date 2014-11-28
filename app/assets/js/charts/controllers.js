@@ -57,5 +57,6 @@ angular.module('DataVisualisationCharts').controller('ChartsMainCtrl', function(
     // Initial data load
     $scope.$parent.loadData(scenario, variant, stage, function($data) {
         $scope.loadCharts($data);
+        $scope.$parent.bodyClass = '';
     });
 });
