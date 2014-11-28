@@ -149,7 +149,9 @@ angular.module('DataVisualisationMap').controller('MapMainCtrl', function($scope
                                 });
                                 $scope.allMapMarkers = $scope.allMapMarkers || [];
                                 $scope.allMapMarkers.push(marker);
-                                marker.bindLabel('<span style="color:' + newProperties.titleColor + '">' + feature.properties.title + '</span>', { noHide: true });
+                                if (feature.properties.title !== undefined) {
+                                    marker.bindLabel('<span style="color:' + newProperties.titleColor + '">' + feature.properties.title + '</span>', { noHide: true });
+                                }
                                 return marker;
                             }
                         }).addTo(layer);
