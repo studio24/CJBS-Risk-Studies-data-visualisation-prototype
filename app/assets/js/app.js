@@ -661,7 +661,7 @@ var BaseCtrl = function($scope, $timeout) {
                 allMarkers[key]._path.removeAttribute('stroke');
                 if (className == 'open') {
                     // remove/add to DOM to repaint on top
-                    var parent = allMarkers[key]._container.parentElement;
+                    var parent = allMarkers[key]._container.parentNode;
                     var tmpContainer = allMarkers[key]._container;
                     parent.removeChild(tmpContainer);
                     parent.appendChild(tmpContainer);
