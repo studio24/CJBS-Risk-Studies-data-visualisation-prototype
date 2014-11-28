@@ -9,7 +9,7 @@ JBS.Config = function() {
     // var serverUrl = 'http://dev.studio24.net/data-visualisation-data/';
 
     // Live URL
-    var serverUrl = 'http://dev.cambridgeriskframework.com/ijsrequest/';
+    var serverUrl = 'http://sybil-api.cambridgeriskframework.com/ijsrequest/';
 
     /**
      * This is an empty data object, which is used to reset the data for all of the charts

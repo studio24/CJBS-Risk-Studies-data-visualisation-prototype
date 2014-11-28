@@ -111,7 +111,7 @@ app.controller('MainCtrl', function($scope, $http, $location) {
         // Empty the current data
         $scope.currentData = config.emptyDataObject();
 
-        // URL Format: http://dev.cambridgeriskframework.com/ijsrequest/n/v/s
+        // URL Format: http://sybil-api.cambridgeriskframework.com/ijsrequest/n/v/s
         // where: n = network id (always 20, for the Sybil Cyber Scenario), v = variant id, s = stage id
 
         // Create the JSON URL
