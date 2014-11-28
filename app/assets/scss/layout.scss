@@ -17,7 +17,7 @@ body {
 } 
 
 nav#side-navigation {
-  width: 6%;
+  width: 7%;
   max-width: 120px;
   height: 100%;
   position: fixed;
@@ -62,8 +62,9 @@ nav#side-navigation {
 
 section#controls {
   clear: both;
-  padding: 0.3% 0 0 0;
-  min-height: 127px;
+  padding: 1% 0 0 0;
+  margin: 0 0.4% 0.3% 0;
+
   overflow: hidden;
   .control {
     margin-bottom: 0.5%;
@@ -75,17 +76,15 @@ section#controls {
       background: $dark-background; /* url('../img/info-icon.png') no-repeat 10px 16px;*/
       padding: 0 1%;
       float: left;
-      width: 7%;
+      width: 10%;
       min-height: 50px;
       font-family: 'MuseoSansRegular';
       font-size: 80%;
       span {
-		height: 50px;
 		display: inline-block;
 		vertical-align: middle;
+        line-height: 350%;
 		color: #f26262;
-		position: relative;
-		top: 10px;
 	  }
 }
 
@@ -99,7 +98,7 @@ line-height: 16px !important;
 
     .input {
       float: left;
-      width: 91%;
+      width: 88%;
       padding: 0.5% 90px 0.5% 1%;
       max-height: 50px;
 	  height: 50px;
@@ -119,9 +118,8 @@ line-height: 16px !important;
 			line-height: 40px;
             color: $primary-colour;
             text-decoration: none;
-            font-size: 58%;
+            font-size: 80%;
 			letter-spacing: 0.01px;
-			text-transform: uppercase;
             &:hover, &.active {
               color: $highlight-colour;
             }
@@ -134,11 +132,12 @@ line-height: 16px !important;
 
 section#main-content {
   margin: 1% 0 0 7%;
-  width: 92%;
+  width: 93%;
   height: 96%;
   min-height: 96%;
   h1#logo {
     height: 6%;
+    padding-left: 10px;
     img {
       height: 100%;
     }
@@ -155,7 +154,7 @@ section#main-content {
   }
 
   header {
-    padding: 10px 0;
+    padding: 10px;
     height: 7%;
     img {
       float: left;
@@ -165,7 +164,7 @@ section#main-content {
     }
     h1 {
       color: $primary-colour;
-      font-size: 120%;
+      font-size: 150%;
       margin-top: 2px;
       margin-bottom: 0.5%;
       font-family: 'MuseoSansRegular';
@@ -177,18 +176,18 @@ section#main-content {
     h3 {
       color: $primary-colour;
       font-family: 'MuseoSansRegular';
-      font-size: 80%;
+      font-size: 90%;
     }
   }
 }
 
 section#data-area {
   background: rgba(0, 0, 0, 0.3);
-  width: 67%;
-  /*padding: 10px 1%;*/
+  width: 76%;
+  padding: 10px 1%;
   min-height: 300px;
   overflow: hidden;
-  height: 65%;
+  height: 74%;
   float: left;
   .chart {
     width: 60%;
@@ -196,7 +195,7 @@ section#data-area {
     height: 100%;
   }
   .data-list {
-    width: 40%;
+    width: 28%;
     height: 100%;
     float: right;
   }
@@ -308,8 +307,8 @@ section#data-area {
 }
 
 section#narrative {
-  margin-left: 1%;
-  width: 32%;
+  margin-left: 1%;;
+  width: 21%;
   height: 72%;
   float: right;
   overflow: none;
@@ -319,7 +318,7 @@ section#narrative {
     width: 85%;
     background-color: #EEE;
     color: #000;
-    padding: 7%;
+    padding: 6%;
     h2 {
       color: #F00;
       font-size: 125%;
@@ -428,7 +427,7 @@ footer {
   margin: 1% 1% 1% 0;
   padding: 1%;
   color: #999;
-  font-size: 70%;
+  font-size: 65%;
   text-align: right;
   line-height: 1.4em;
   a {
