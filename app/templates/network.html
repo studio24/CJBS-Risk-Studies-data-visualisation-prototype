@@ -10,11 +10,12 @@
 </section>
 
 <cassandra></cassandra>
-<graphlegend data="nodeLegend" ng-if="nodeLegend" ng-show="showLegend"></graphlegend>
 <section id="data-area">
     <div class="chart">
-        <button class="legend-button" ng-click="showLegend = !showLegend">Show legend</button>
-
+        <div class="legend-wrapper">
+            <button class="legend-button" ng-click="showLegend = !showLegend">Show legend</button>
+            <graphlegend data="nodeLegend" ng-if="nodeLegend" ng-show="showLegend"></graphlegend>
+        </div>
         <div class="svg force-directed"></div>
 
     </div>
