@@ -2,7 +2,7 @@
     <ul>
         <li ng-repeat="legend in data">
             <svg width="10" height="10">
-                <circle r="5" cx="5" cy="5" style="fill:{{ legend.fillColor}}"></circle>
+                <circle r="5" cx="5" cy="5" fill="{{ legend.fillColor}}"></circle>
             </svg>
             {{ legend.legendLabel }}
         </li>
