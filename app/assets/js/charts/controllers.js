@@ -39,7 +39,10 @@ angular.module('DataVisualisationCharts').controller('ChartsMainCtrl', function(
                 height: containerHeight,
                 legend: $data.charts.options.legend,
                 title: $data.charts.options.title,
-                series: $data.charts.options.series
+                series: $data.charts.options.series,
+                curveType: $data.charts.options.curveType,
+                hAxis: $data.charts.options.hAxis,
+                vAxis: $data.charts.options.vAxis
             };
 
             if ($data.charts.options.isStacked === "true") {
