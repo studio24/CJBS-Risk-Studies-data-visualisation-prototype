@@ -1,3 +1,5 @@
+Prototype of the Cambridge Risk Studies Data Visualisation tool. For the production version of this application please see https://github.com/studio24/CJBS-Cambridge-Risk-Framework
+
 ## Open Source license
 
 Copyright (c) 2014 Studio 24 Ltd
@@ -44,12 +46,3 @@ This kit also uses [Grunt](http://gruntjs.com/) to automate tasks. To install Gr
     sudo npm install
 
 This will create a new "node_modules" folder in the source directory.
-
-## Deployment
-
-### Publishing to staging
-
-Publish dist files to staging site via rsync:
-
-    # cd to project root folder
-    rsync -e "ssh" -ptrv dist/ studio24@scaramanga.studio24.net:/var/www/studio24/dev.studio24.net/live/web/data-visualisation
